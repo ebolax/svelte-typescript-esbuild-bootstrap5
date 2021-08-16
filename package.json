@@ -1,0 +1,37 @@
+{
+    "name": "svelte-typescript-esbuild-bootstrap5",
+    "version": "1.0.0",
+    "description": "Svelte + TypeScript + ESBuild + Bootstrap 5 + LiveReload Template",
+    "scripts": {
+        "build": "node esbuild.config.js prod",
+        "watch": "node esbuild.config.js dev",
+        "serve": "serve dist -p 8000",
+        "dev": "concurrently \"npm run watch\" \"npm run serve\" \"npm run livereload\"",
+        "livereload": "livereload dist/"
+    },
+    "keywords": [
+        "esbuild",
+        "svelte",
+        "bootstrap",
+        "bootstrap 5",
+        "livereload",
+        "typescript"
+    ],
+    "author": "ebolax",
+    "license": "ISC",
+    "devDependencies": {
+        "@tsconfig/svelte": "^2.0.1",
+        "@typescript-eslint/eslint-plugin": "^4.29.1",
+        "@typescript-eslint/parser": "^4.29.1",
+        "bootstrap": "^5.1.0",
+        "concurrently": "^6.2.1",
+        "esbuild": "^0.12.20",
+        "esbuild-svelte": "^0.5.4",
+        "eslint-plugin-svelte3": "^3.2.0",
+        "livereload": "^0.9.3",
+        "serve": "^12.0.0",
+        "svelte": "^3.42.1",
+        "svelte-preprocess": "^4.7.4",
+        "typescript": "^4.3.5"
+    }
+}
