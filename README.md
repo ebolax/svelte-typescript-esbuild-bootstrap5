@@ -41,3 +41,7 @@ Builds the application and minify to `dist/index.js`. You must do it before you 
     npm run serve
 
 It's just serve `./dist` folder to test your web application.
+
+    npm run validate
+
+Validate your svelte files (using svelte-check)
