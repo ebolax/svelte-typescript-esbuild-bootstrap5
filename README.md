@@ -1,6 +1,6 @@
-# Vue 3 + TypeScript + ESBuild + Bootstrap 5 + LiveReload Template
+# Svelte 3 + TypeScript + ESBuild + Bootstrap 5 + LiveReload Template
 
-This repo contains a template to create a front-end application using Vue 3 + TypeScript with ESBuild bundler and Bootstrap 5 Framework. Also have Livereaload feature!
+This repo contains a template to create a front-end application using Svelte 3 + TypeScript with ESBuild bundler and Bootstrap 5 Framework. Also have Livereaload feature!
 
 ## Before you need
 
@@ -14,12 +14,12 @@ A good code editor is also recommended and this repo is designed around [Visual 
 Note that if you have cloned this template repo via GitHub, then you'll need to change the URLs below to match _your_ repo's name:
 
 ```bash
-git clone https://github.com/ebolax/vue3-typescript-esbuild-bootstrap5
-cd vue3-typescript-esbuild-bootstrap5
+git clone https://github.com/ebolax/svelte3-typescript-esbuild-bootstrap5
+cd svelte3-typescript-esbuild-bootstrap5
 npm install
 
 # or
-npx degit "ebolax/vue3-typescript-esbuild-bootstrap5" myapp
+npx degit "ebolax/svelte3-typescript-esbuild-bootstrap5" myapp
 cd myapp
 npm install
 ```
