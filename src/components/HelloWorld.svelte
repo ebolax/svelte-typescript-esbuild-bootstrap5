@@ -1,11 +1,14 @@
 <script lang="ts">
-    export let msg:string;
+
+    export let msg: string;
+
     let count = 0;
 
     let increase = () =>
     {
         count++;
-    }
+    };
+
 </script>
 
 <h1>{ msg }</h1>

@@ -1,6 +1,6 @@
-const esbuild = require("esbuild");
-const esbuildSvelte = require("esbuild-svelte");
-const sveltePreprocess = require("svelte-preprocess");
+import esbuild from "esbuild";
+import esbuildSvelte from "esbuild-svelte";
+import sveltePreprocess from "svelte-preprocess";
 
 const args = process.argv.slice(2);
 

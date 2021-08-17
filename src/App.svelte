@@ -2,14 +2,14 @@
 
     import HelloWorld from "./components/HelloWorld.svelte";
 
-    export let answer: number; // props'tan aldigi deger
+    export let answer: number; // variable from props
 
     let message = "test message";
 
     const changeMessage = () =>
     {
         message = "message changed";
-    }
+    };
 
 </script>
 
@@ -26,6 +26,7 @@
             <p class="mt-2">Message: { message }</p>
 
             <button class="btn btn-danger" on:click={changeMessage}>Change Message</button>
+
         </div>
     </div>
 </div>

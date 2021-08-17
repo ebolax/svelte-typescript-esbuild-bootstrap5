@@ -3,7 +3,7 @@
 
     "compilerOptions": {
         "types": [
-            "svelte"
+            "@pyoner/svelte-types"
         ]
     },
 
