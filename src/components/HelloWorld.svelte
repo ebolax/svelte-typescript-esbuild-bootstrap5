@@ -4,7 +4,7 @@
 
     let count = 0;
 
-    let increase = () =>
+    const increase = () =>
     {
         count++;
     };

@@ -7,6 +7,9 @@ Thumbs.db
 *.suo
 *.sublime-project
 *.sublime-workspace
+.eslintrc.json
+.gitignore
+package-lock.json
 
 # Logs
 logs
