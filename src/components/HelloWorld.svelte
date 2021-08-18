@@ -12,4 +12,4 @@
 </script>
 
 <h1>{ msg }</h1>
-<button class="btn btn-primary" on:click={increase}>Counter: {count}</button>
+<button class="btn btn-primary" on:click={increase}>Count: {count}</button>
