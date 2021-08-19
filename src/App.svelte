@@ -1,5 +1,4 @@
 <script lang="ts">
-
     import HelloWorld from "./components/HelloWorld.svelte";
 
     export let answer: number; // variable from props
@@ -10,7 +9,6 @@
     {
         message = "message changed";
     };
-
 </script>
 
 <div class="container mt-5">
