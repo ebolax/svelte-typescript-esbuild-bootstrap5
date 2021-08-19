@@ -9,6 +9,16 @@ This repo contains a template to create a front-end application using Svelte 3 +
 
 A good code editor is also recommended and this repo is designed around [Visual Studio Code](https://code.visualstudio.com/)
 
+I'm using ESLint for VS Code. If you don't want use ESLint rules, just delete `.eslintrc.json`. You can change rules whatever you want. If you want use, you must add lines below to VS Code `settings.json`
+
+```
+"eslint.validate": [
+    "javascript",
+    "typescript",
+    "svelte"
+]
+```
+
 ## **Installation**
 
 Note that if you have cloned this template repo via GitHub, then you'll need to change the URLs below to match _your_ repo's name:
