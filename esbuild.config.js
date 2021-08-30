@@ -4,8 +4,8 @@ import sveltePreprocess from "svelte-preprocess";
 
 const args = process.argv.slice(2);
 
-let watch = args[0] === "dev";
-let minify = args[0] === "prod";
+const watch = args[0] === "dev";
+const minify = args[0] === "prod";
 
 esbuild.build({
     entryPoints: ["src/main.ts"],
@@ -14,7 +14,7 @@ esbuild.build({
     minify,
     outfile: "dist/index.js",
     plugins: [esbuildSvelte( {
-        compileOptions: {css: true},
-        preprocess: sveltePreprocess(),
+        compileOptions: { css: true },
+        preprocess: sveltePreprocess()
     })]
 });

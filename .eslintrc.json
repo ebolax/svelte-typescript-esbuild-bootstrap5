@@ -3,9 +3,7 @@
     "parserOptions": {
         "ecmaVersion": 2019,
         "parser": "@typescript-eslint/parser",
-        "project": "tsconfig.json",
         "sourceType": "module",
-        "tsconfigRootDir": "./",
         "extraFileExtensions": [ ".svelte" ]
     },
     "plugins": [
@@ -33,8 +31,7 @@
         "dist",
         "node_modules",
         ".vscode",
-        ".git",
-        "esbuild.config.js"
+        ".git"
     ],
     "rules": {
         "semi": [2, "always"],
