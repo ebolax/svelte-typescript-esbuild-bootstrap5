@@ -1,6 +1,2547 @@
-(()=>{var ss=Object.create;var Vt=Object.defineProperty;var os=Object.getOwnPropertyDescriptor;var rs=Object.getOwnPropertyNames;var as=Object.getPrototypeOf,ls=Object.prototype.hasOwnProperty;var cs=r=>Vt(r,"__esModule",{value:!0});var Ss=typeof require!="undefined"?require:r=>{throw new Error('Dynamic require of "'+r+'" is not supported')};var us=(r,l)=>()=>(l||r((l={exports:{}}).exports,l),l.exports);var ds=(r,l,m)=>{if(l&&typeof l=="object"||typeof l=="function")for(let _ of rs(l))!ls.call(r,_)&&_!=="default"&&Vt(r,_,{get:()=>l[_],enumerable:!(m=os(l,_))||m.enumerable});return r},hs=r=>ds(cs(Vt(r!=null?ss(as(r)):{},"default",r&&r.__esModule&&"default"in r?{get:()=>r.default,enumerable:!0}:{value:r,enumerable:!0})),r);var ui=us((en,tn)=>{(function(r,l){typeof en=="object"&&typeof tn!="undefined"?tn.exports=l():typeof define=="function"&&define.amd?define(l):(r=typeof globalThis!="undefined"?globalThis:r||self).bootstrap=l()})(en,function(){"use strict";let r=n=>{let e=n.getAttribute("data-bs-target");if(!e||e==="#"){let t=n.getAttribute("href");if(!t||!t.includes("#")&&!t.startsWith("."))return null;t.includes("#")&&!t.startsWith("#")&&(t="#"+t.split("#")[1]),e=t&&t!=="#"?t.trim():null}return e},l=n=>{let e=r(n);return e&&document.querySelector(e)?e:null},m=n=>{let e=r(n);return e?document.querySelector(e):null},_=n=>{n.dispatchEvent(new Event("transitionend"))},A=n=>!(!n||typeof n!="object")&&(n.jquery!==void 0&&(n=n[0]),n.nodeType!==void 0),M=n=>A(n)?n.jquery?n[0]:n:typeof n=="string"&&n.length>0?document.querySelector(n):null,F=(n,e,t)=>{Object.keys(t).forEach(i=>{let s=t[i],o=e[i],a=o&&A(o)?"element":(c=o)==null?""+c:{}.toString.call(c).match(/\s([a-z]+)/i)[1].toLowerCase();var c;if(!new RegExp(s).test(a))throw new TypeError(`${n.toUpperCase()}: Option "${i}" provided type "${a}" but expected type "${s}".`)})},B=n=>!(!A(n)||n.getClientRects().length===0)&&getComputedStyle(n).getPropertyValue("visibility")==="visible",P=n=>!n||n.nodeType!==Node.ELEMENT_NODE||!!n.classList.contains("disabled")||(n.disabled!==void 0?n.disabled:n.hasAttribute("disabled")&&n.getAttribute("disabled")!=="false"),x=n=>{if(!document.documentElement.attachShadow)return null;if(typeof n.getRootNode=="function"){let e=n.getRootNode();return e instanceof ShadowRoot?e:null}return n instanceof ShadowRoot?n:n.parentNode?x(n.parentNode):null},U=()=>{},q=n=>{n.offsetHeight},we=()=>{let{jQuery:n}=window;return n&&!document.body.hasAttribute("data-bs-no-jquery")?n:null},se=[],R=()=>document.documentElement.dir==="rtl",K=n=>{var e;e=()=>{let t=we();if(t){let i=n.NAME,s=t.fn[i];t.fn[i]=n.jQueryInterface,t.fn[i].Constructor=n,t.fn[i].noConflict=()=>(t.fn[i]=s,n.jQueryInterface)}},document.readyState==="loading"?(se.length||document.addEventListener("DOMContentLoaded",()=>{se.forEach(t=>t())}),se.push(e)):e()},he=n=>{typeof n=="function"&&n()},Ee=(n,e,t=!0)=>{if(!t)return void he(n);let i=(a=>{if(!a)return 0;let{transitionDuration:c,transitionDelay:d}=window.getComputedStyle(a),f=Number.parseFloat(c),p=Number.parseFloat(d);return f||p?(c=c.split(",")[0],d=d.split(",")[0],1e3*(Number.parseFloat(c)+Number.parseFloat(d))):0})(e)+5,s=!1,o=({target:a})=>{a===e&&(s=!0,e.removeEventListener("transitionend",o),he(n))};e.addEventListener("transitionend",o),setTimeout(()=>{s||_(e)},i)},be=(n,e,t,i)=>{let s=n.indexOf(e);if(s===-1)return n[!t&&i?n.length-1:0];let o=n.length;return s+=t?1:-1,i&&(s=(s+o)%o),n[Math.max(0,Math.min(s,o-1))]},Ke=/[^.]*(?=\..*)\.|.*/,ct=/\..*/,oe=/::\d+$/,Ae={},nn=1,di={mouseenter:"mouseover",mouseleave:"mouseout"},hi=/^(mouseenter|mouseleave)/i,sn=new Set(["click","dblclick","mouseup","mousedown","contextmenu","mousewheel","DOMMouseScroll","mouseover","mouseout","mousemove","selectstart","selectend","keydown","keypress","keyup","orientationchange","touchstart","touchmove","touchend","touchcancel","pointerdown","pointermove","pointerup","pointerleave","pointercancel","gesturestart","gesturechange","gestureend","focus","blur","change","reset","select","submit","focusin","focusout","load","unload","beforeunload","resize","move","DOMContentLoaded","readystatechange","error","abort","scroll"]);function on(n,e){return e&&`${e}::${nn++}`||n.uidEvent||nn++}function rn(n){let e=on(n);return n.uidEvent=e,Ae[e]=Ae[e]||{},Ae[e]}function an(n,e,t=null){let i=Object.keys(n);for(let s=0,o=i.length;s<o;s++){let a=n[i[s]];if(a.originalHandler===e&&a.delegationSelector===t)return a}return null}function ln(n,e,t){let i=typeof e=="string",s=i?t:e,o=un(n);return sn.has(o)||(o=n),[i,s,o]}function cn(n,e,t,i,s){if(typeof e!="string"||!n)return;if(t||(t=i,i=null),hi.test(e)){let g=b=>function(E){if(!E.relatedTarget||E.relatedTarget!==E.delegateTarget&&!E.delegateTarget.contains(E.relatedTarget))return b.call(this,E)};i?i=g(i):t=g(t)}let[o,a,c]=ln(e,t,i),d=rn(n),f=d[c]||(d[c]={}),p=an(f,a,o?t:null);if(p)return void(p.oneOff=p.oneOff&&s);let h=on(a,e.replace(Ke,"")),y=o?function(g,b,E){return function w($){let C=g.querySelectorAll(b);for(let{target:k}=$;k&&k!==this;k=k.parentNode)for(let S=C.length;S--;)if(C[S]===k)return $.delegateTarget=k,w.oneOff&&u.off(g,$.type,b,E),E.apply(k,[$]);return null}}(n,t,i):function(g,b){return function E(w){return w.delegateTarget=g,E.oneOff&&u.off(g,w.type,b),b.apply(g,[w])}}(n,t);y.delegationSelector=o?t:null,y.originalHandler=a,y.oneOff=s,y.uidEvent=h,f[h]=y,n.addEventListener(c,y,o)}function Ct(n,e,t,i,s){let o=an(e[t],i,s);o&&(n.removeEventListener(t,o,Boolean(s)),delete e[t][o.uidEvent])}function un(n){return n=n.replace(ct,""),di[n]||n}let u={on(n,e,t,i){cn(n,e,t,i,!1)},one(n,e,t,i){cn(n,e,t,i,!0)},off(n,e,t,i){if(typeof e!="string"||!n)return;let[s,o,a]=ln(e,t,i),c=a!==e,d=rn(n),f=e.startsWith(".");if(o!==void 0)return!d||!d[a]?void 0:void Ct(n,d,a,o,s?t:null);f&&Object.keys(d).forEach(h=>{(function(y,g,b,E){let w=g[b]||{};Object.keys(w).forEach($=>{if($.includes(E)){let C=w[$];Ct(y,g,b,C.originalHandler,C.delegationSelector)}})})(n,d,h,e.slice(1))});let p=d[a]||{};Object.keys(p).forEach(h=>{let y=h.replace(oe,"");if(!c||e.includes(y)){let g=p[h];Ct(n,d,a,g.originalHandler,g.delegationSelector)}})},trigger(n,e,t){if(typeof e!="string"||!n)return null;let i=we(),s=un(e),o=e!==s,a=sn.has(s),c,d=!0,f=!0,p=!1,h=null;return o&&i&&(c=i.Event(e,t),i(n).trigger(c),d=!c.isPropagationStopped(),f=!c.isImmediatePropagationStopped(),p=c.isDefaultPrevented()),a?(h=document.createEvent("HTMLEvents"),h.initEvent(s,d,!0)):h=new CustomEvent(e,{bubbles:d,cancelable:!0}),t!==void 0&&Object.keys(t).forEach(y=>{Object.defineProperty(h,y,{get:()=>t[y]})}),p&&h.preventDefault(),f&&n.dispatchEvent(h),h.defaultPrevented&&c!==void 0&&c.preventDefault(),h}},ke=new Map;var Ye={set(n,e,t){ke.has(n)||ke.set(n,new Map);let i=ke.get(n);i.has(e)||i.size===0?i.set(e,t):console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(i.keys())[0]}.`)},get:(n,e)=>ke.has(n)&&ke.get(n).get(e)||null,remove(n,e){if(!ke.has(n))return;let t=ke.get(n);t.delete(e),t.size===0&&ke.delete(n)}};class ue{constructor(e){(e=M(e))&&(this._element=e,Ye.set(this._element,this.constructor.DATA_KEY,this))}dispose(){Ye.remove(this._element,this.constructor.DATA_KEY),u.off(this._element,this.constructor.EVENT_KEY),Object.getOwnPropertyNames(this).forEach(e=>{this[e]=null})}_queueCallback(e,t,i=!0){Ee(e,t,i)}static getInstance(e){return Ye.get(M(e),this.DATA_KEY)}static getOrCreateInstance(e,t={}){return this.getInstance(e)||new this(e,typeof t=="object"?t:null)}static get VERSION(){return"5.1.1"}static get NAME(){throw new Error('You have to implement the static method "NAME", for each component!')}static get DATA_KEY(){return"bs."+this.NAME}static get EVENT_KEY(){return"."+this.DATA_KEY}}let ut=(n,e="hide")=>{let t="click.dismiss"+n.EVENT_KEY,i=n.NAME;u.on(document,t,`[data-bs-dismiss="${i}"]`,function(s){if(["A","AREA"].includes(this.tagName)&&s.preventDefault(),P(this))return;let o=m(this)||this.closest("."+i);n.getOrCreateInstance(o)[e]()})};class Xe extends ue{static get NAME(){return"alert"}close(){if(u.trigger(this._element,"close.bs.alert").defaultPrevented)return;this._element.classList.remove("show");let e=this._element.classList.contains("fade");this._queueCallback(()=>this._destroyElement(),this._element,e)}_destroyElement(){this._element.remove(),u.trigger(this._element,"closed.bs.alert"),this.dispose()}static jQueryInterface(e){return this.each(function(){let t=Xe.getOrCreateInstance(this);if(typeof e=="string"){if(t[e]===void 0||e.startsWith("_")||e==="constructor")throw new TypeError(`No method named "${e}"`);t[e](this)}})}}ut(Xe,"close"),K(Xe);class Qe extends ue{static get NAME(){return"button"}toggle(){this._element.setAttribute("aria-pressed",this._element.classList.toggle("active"))}static jQueryInterface(e){return this.each(function(){let t=Qe.getOrCreateInstance(this);e==="toggle"&&t[e]()})}}function dn(n){return n==="true"||n!=="false"&&(n===Number(n).toString()?Number(n):n===""||n==="null"?null:n)}function St(n){return n.replace(/[A-Z]/g,e=>"-"+e.toLowerCase())}u.on(document,"click.bs.button.data-api",'[data-bs-toggle="button"]',n=>{n.preventDefault();let e=n.target.closest('[data-bs-toggle="button"]');Qe.getOrCreateInstance(e).toggle()}),K(Qe);let V={setDataAttribute(n,e,t){n.setAttribute("data-bs-"+St(e),t)},removeDataAttribute(n,e){n.removeAttribute("data-bs-"+St(e))},getDataAttributes(n){if(!n)return{};let e={};return Object.keys(n.dataset).filter(t=>t.startsWith("bs")).forEach(t=>{let i=t.replace(/^bs/,"");i=i.charAt(0).toLowerCase()+i.slice(1,i.length),e[i]=dn(n.dataset[t])}),e},getDataAttribute:(n,e)=>dn(n.getAttribute("data-bs-"+St(e))),offset(n){let e=n.getBoundingClientRect();return{top:e.top+window.pageYOffset,left:e.left+window.pageXOffset}},position:n=>({top:n.offsetTop,left:n.offsetLeft})},v={find:(n,e=document.documentElement)=>[].concat(...Element.prototype.querySelectorAll.call(e,n)),findOne:(n,e=document.documentElement)=>Element.prototype.querySelector.call(e,n),children:(n,e)=>[].concat(...n.children).filter(t=>t.matches(e)),parents(n,e){let t=[],i=n.parentNode;for(;i&&i.nodeType===Node.ELEMENT_NODE&&i.nodeType!==3;)i.matches(e)&&t.push(i),i=i.parentNode;return t},prev(n,e){let t=n.previousElementSibling;for(;t;){if(t.matches(e))return[t];t=t.previousElementSibling}return[]},next(n,e){let t=n.nextElementSibling;for(;t;){if(t.matches(e))return[t];t=t.nextElementSibling}return[]},focusableChildren(n){let e=["a","button","input","textarea","select","details","[tabindex]",'[contenteditable="true"]'].map(t=>t+':not([tabindex^="-"])').join(", ");return this.find(e,n).filter(t=>!P(t)&&B(t))}},hn={interval:5e3,keyboard:!0,slide:!1,pause:"hover",wrap:!0,touch:!0},fi={interval:"(number|boolean)",keyboard:"boolean",slide:"(boolean|string)",pause:"(string|boolean)",wrap:"boolean",touch:"boolean"},Se="next",De="prev",Le="left",Ge="right",pi={ArrowLeft:Ge,ArrowRight:Le};class fe extends ue{constructor(e,t){super(e),this._items=null,this._interval=null,this._activeElement=null,this._isPaused=!1,this._isSliding=!1,this.touchTimeout=null,this.touchStartX=0,this.touchDeltaX=0,this._config=this._getConfig(t),this._indicatorsElement=v.findOne(".carousel-indicators",this._element),this._touchSupported="ontouchstart"in document.documentElement||navigator.maxTouchPoints>0,this._pointerEvent=Boolean(window.PointerEvent),this._addEventListeners()}static get Default(){return hn}static get NAME(){return"carousel"}next(){this._slide(Se)}nextWhenVisible(){!document.hidden&&B(this._element)&&this.next()}prev(){this._slide(De)}pause(e){e||(this._isPaused=!0),v.findOne(".carousel-item-next, .carousel-item-prev",this._element)&&(_(this._element),this.cycle(!0)),clearInterval(this._interval),this._interval=null}cycle(e){e||(this._isPaused=!1),this._interval&&(clearInterval(this._interval),this._interval=null),this._config&&this._config.interval&&!this._isPaused&&(this._updateInterval(),this._interval=setInterval((document.visibilityState?this.nextWhenVisible:this.next).bind(this),this._config.interval))}to(e){this._activeElement=v.findOne(".active.carousel-item",this._element);let t=this._getItemIndex(this._activeElement);if(e>this._items.length-1||e<0)return;if(this._isSliding)return void u.one(this._element,"slid.bs.carousel",()=>this.to(e));if(t===e)return this.pause(),void this.cycle();let i=e>t?Se:De;this._slide(i,this._items[e])}_getConfig(e){return e={...hn,...V.getDataAttributes(this._element),...typeof e=="object"?e:{}},F("carousel",e,fi),e}_handleSwipe(){let e=Math.abs(this.touchDeltaX);if(e<=40)return;let t=e/this.touchDeltaX;this.touchDeltaX=0,t&&this._slide(t>0?Ge:Le)}_addEventListeners(){this._config.keyboard&&u.on(this._element,"keydown.bs.carousel",e=>this._keydown(e)),this._config.pause==="hover"&&(u.on(this._element,"mouseenter.bs.carousel",e=>this.pause(e)),u.on(this._element,"mouseleave.bs.carousel",e=>this.cycle(e))),this._config.touch&&this._touchSupported&&this._addTouchEventListeners()}_addTouchEventListeners(){let e=o=>this._pointerEvent&&(o.pointerType==="pen"||o.pointerType==="touch"),t=o=>{e(o)?this.touchStartX=o.clientX:this._pointerEvent||(this.touchStartX=o.touches[0].clientX)},i=o=>{this.touchDeltaX=o.touches&&o.touches.length>1?0:o.touches[0].clientX-this.touchStartX},s=o=>{e(o)&&(this.touchDeltaX=o.clientX-this.touchStartX),this._handleSwipe(),this._config.pause==="hover"&&(this.pause(),this.touchTimeout&&clearTimeout(this.touchTimeout),this.touchTimeout=setTimeout(a=>this.cycle(a),500+this._config.interval))};v.find(".carousel-item img",this._element).forEach(o=>{u.on(o,"dragstart.bs.carousel",a=>a.preventDefault())}),this._pointerEvent?(u.on(this._element,"pointerdown.bs.carousel",o=>t(o)),u.on(this._element,"pointerup.bs.carousel",o=>s(o)),this._element.classList.add("pointer-event")):(u.on(this._element,"touchstart.bs.carousel",o=>t(o)),u.on(this._element,"touchmove.bs.carousel",o=>i(o)),u.on(this._element,"touchend.bs.carousel",o=>s(o)))}_keydown(e){if(/input|textarea/i.test(e.target.tagName))return;let t=pi[e.key];t&&(e.preventDefault(),this._slide(t))}_getItemIndex(e){return this._items=e&&e.parentNode?v.find(".carousel-item",e.parentNode):[],this._items.indexOf(e)}_getItemByOrder(e,t){let i=e===Se;return be(this._items,t,i,this._config.wrap)}_triggerSlideEvent(e,t){let i=this._getItemIndex(e),s=this._getItemIndex(v.findOne(".active.carousel-item",this._element));return u.trigger(this._element,"slide.bs.carousel",{relatedTarget:e,direction:t,from:s,to:i})}_setActiveIndicatorElement(e){if(this._indicatorsElement){let t=v.findOne(".active",this._indicatorsElement);t.classList.remove("active"),t.removeAttribute("aria-current");let i=v.find("[data-bs-target]",this._indicatorsElement);for(let s=0;s<i.length;s++)if(Number.parseInt(i[s].getAttribute("data-bs-slide-to"),10)===this._getItemIndex(e)){i[s].classList.add("active"),i[s].setAttribute("aria-current","true");break}}}_updateInterval(){let e=this._activeElement||v.findOne(".active.carousel-item",this._element);if(!e)return;let t=Number.parseInt(e.getAttribute("data-bs-interval"),10);t?(this._config.defaultInterval=this._config.defaultInterval||this._config.interval,this._config.interval=t):this._config.interval=this._config.defaultInterval||this._config.interval}_slide(e,t){let i=this._directionToOrder(e),s=v.findOne(".active.carousel-item",this._element),o=this._getItemIndex(s),a=t||this._getItemByOrder(i,s),c=this._getItemIndex(a),d=Boolean(this._interval),f=i===Se,p=f?"carousel-item-start":"carousel-item-end",h=f?"carousel-item-next":"carousel-item-prev",y=this._orderToDirection(i);if(a&&a.classList.contains("active"))return void(this._isSliding=!1);if(this._isSliding||this._triggerSlideEvent(a,y).defaultPrevented||!s||!a)return;this._isSliding=!0,d&&this.pause(),this._setActiveIndicatorElement(a),this._activeElement=a;let g=()=>{u.trigger(this._element,"slid.bs.carousel",{relatedTarget:a,direction:y,from:o,to:c})};if(this._element.classList.contains("slide")){a.classList.add(h),q(a),s.classList.add(p),a.classList.add(p);let b=()=>{a.classList.remove(p,h),a.classList.add("active"),s.classList.remove("active",h,p),this._isSliding=!1,setTimeout(g,0)};this._queueCallback(b,s,!0)}else s.classList.remove("active"),a.classList.add("active"),this._isSliding=!1,g();d&&this.cycle()}_directionToOrder(e){return[Ge,Le].includes(e)?R()?e===Le?De:Se:e===Le?Se:De:e}_orderToDirection(e){return[Se,De].includes(e)?R()?e===De?Le:Ge:e===De?Ge:Le:e}static carouselInterface(e,t){let i=fe.getOrCreateInstance(e,t),{_config:s}=i;typeof t=="object"&&(s={...s,...t});let o=typeof t=="string"?t:s.slide;if(typeof t=="number")i.to(t);else if(typeof o=="string"){if(i[o]===void 0)throw new TypeError(`No method named "${o}"`);i[o]()}else s.interval&&s.ride&&(i.pause(),i.cycle())}static jQueryInterface(e){return this.each(function(){fe.carouselInterface(this,e)})}static dataApiClickHandler(e){let t=m(this);if(!t||!t.classList.contains("carousel"))return;let i={...V.getDataAttributes(t),...V.getDataAttributes(this)},s=this.getAttribute("data-bs-slide-to");s&&(i.interval=!1),fe.carouselInterface(t,i),s&&fe.getInstance(t).to(s),e.preventDefault()}}u.on(document,"click.bs.carousel.data-api","[data-bs-slide], [data-bs-slide-to]",fe.dataApiClickHandler),u.on(window,"load.bs.carousel.data-api",()=>{let n=v.find('[data-bs-ride="carousel"]');for(let e=0,t=n.length;e<t;e++)fe.carouselInterface(n[e],fe.getInstance(n[e]))}),K(fe);let fn={toggle:!0,parent:null},mi={toggle:"boolean",parent:"(null|element)"};class Fe extends ue{constructor(e,t){super(e),this._isTransitioning=!1,this._config=this._getConfig(t),this._triggerArray=[];let i=v.find('[data-bs-toggle="collapse"]');for(let s=0,o=i.length;s<o;s++){let a=i[s],c=l(a),d=v.find(c).filter(f=>f===this._element);c!==null&&d.length&&(this._selector=c,this._triggerArray.push(a))}this._initializeChildren(),this._config.parent||this._addAriaAndCollapsedClass(this._triggerArray,this._isShown()),this._config.toggle&&this.toggle()}static get Default(){return fn}static get NAME(){return"collapse"}toggle(){this._isShown()?this.hide():this.show()}show(){if(this._isTransitioning||this._isShown())return;let e,t=[];if(this._config.parent){let a=v.find(".collapse .collapse",this._config.parent);t=v.find(".collapse.show, .collapse.collapsing",this._config.parent).filter(c=>!a.includes(c))}let i=v.findOne(this._selector);if(t.length){let a=t.find(c=>i!==c);if(e=a?Fe.getInstance(a):null,e&&e._isTransitioning)return}if(u.trigger(this._element,"show.bs.collapse").defaultPrevented)return;t.forEach(a=>{i!==a&&Fe.getOrCreateInstance(a,{toggle:!1}).hide(),e||Ye.set(a,"bs.collapse",null)});let s=this._getDimension();this._element.classList.remove("collapse"),this._element.classList.add("collapsing"),this._element.style[s]=0,this._addAriaAndCollapsedClass(this._triggerArray,!0),this._isTransitioning=!0;let o="scroll"+(s[0].toUpperCase()+s.slice(1));this._queueCallback(()=>{this._isTransitioning=!1,this._element.classList.remove("collapsing"),this._element.classList.add("collapse","show"),this._element.style[s]="",u.trigger(this._element,"shown.bs.collapse")},this._element,!0),this._element.style[s]=this._element[o]+"px"}hide(){if(this._isTransitioning||!this._isShown()||u.trigger(this._element,"hide.bs.collapse").defaultPrevented)return;let e=this._getDimension();this._element.style[e]=this._element.getBoundingClientRect()[e]+"px",q(this._element),this._element.classList.add("collapsing"),this._element.classList.remove("collapse","show");let t=this._triggerArray.length;for(let i=0;i<t;i++){let s=this._triggerArray[i],o=m(s);o&&!this._isShown(o)&&this._addAriaAndCollapsedClass([s],!1)}this._isTransitioning=!0,this._element.style[e]="",this._queueCallback(()=>{this._isTransitioning=!1,this._element.classList.remove("collapsing"),this._element.classList.add("collapse"),u.trigger(this._element,"hidden.bs.collapse")},this._element,!0)}_isShown(e=this._element){return e.classList.contains("show")}_getConfig(e){return(e={...fn,...V.getDataAttributes(this._element),...e}).toggle=Boolean(e.toggle),e.parent=M(e.parent),F("collapse",e,mi),e}_getDimension(){return this._element.classList.contains("collapse-horizontal")?"width":"height"}_initializeChildren(){if(!this._config.parent)return;let e=v.find(".collapse .collapse",this._config.parent);v.find('[data-bs-toggle="collapse"]',this._config.parent).filter(t=>!e.includes(t)).forEach(t=>{let i=m(t);i&&this._addAriaAndCollapsedClass([t],this._isShown(i))})}_addAriaAndCollapsedClass(e,t){e.length&&e.forEach(i=>{t?i.classList.remove("collapsed"):i.classList.add("collapsed"),i.setAttribute("aria-expanded",t)})}static jQueryInterface(e){return this.each(function(){let t={};typeof e=="string"&&/show|hide/.test(e)&&(t.toggle=!1);let i=Fe.getOrCreateInstance(this,t);if(typeof e=="string"){if(i[e]===void 0)throw new TypeError(`No method named "${e}"`);i[e]()}})}}u.on(document,"click.bs.collapse.data-api",'[data-bs-toggle="collapse"]',function(n){(n.target.tagName==="A"||n.delegateTarget&&n.delegateTarget.tagName==="A")&&n.preventDefault();let e=l(this);v.find(e).forEach(t=>{Fe.getOrCreateInstance(t,{toggle:!1}).toggle()})}),K(Fe);var Q="top",ee="bottom",te="right",G="left",Pe=[Q,ee,te,G],He="end",Dt=Pe.reduce(function(n,e){return n.concat([e+"-start",e+"-"+He])},[]),Lt=[].concat(Pe,["auto"]).reduce(function(n,e){return n.concat([e,e+"-start",e+"-"+He])},[]),pn=["beforeRead","read","afterRead","beforeMain","main","afterMain","beforeWrite","write","afterWrite"];function pe(n){return n?(n.nodeName||"").toLowerCase():null}function de(n){if(n==null)return window;if(n.toString()!=="[object Window]"){var e=n.ownerDocument;return e&&e.defaultView||window}return n}function Je(n){return n instanceof de(n).Element||n instanceof Element}function ne(n){return n instanceof de(n).HTMLElement||n instanceof HTMLElement}function mn(n){return typeof ShadowRoot!="undefined"&&(n instanceof de(n).ShadowRoot||n instanceof ShadowRoot)}var Ft={name:"applyStyles",enabled:!0,phase:"write",fn:function(n){var e=n.state;Object.keys(e.elements).forEach(function(t){var i=e.styles[t]||{},s=e.attributes[t]||{},o=e.elements[t];ne(o)&&pe(o)&&(Object.assign(o.style,i),Object.keys(s).forEach(function(a){var c=s[a];c===!1?o.removeAttribute(a):o.setAttribute(a,c===!0?"":c)}))})},effect:function(n){var e=n.state,t={popper:{position:e.options.strategy,left:"0",top:"0",margin:"0"},arrow:{position:"absolute"},reference:{}};return Object.assign(e.elements.popper.style,t.popper),e.styles=t,e.elements.arrow&&Object.assign(e.elements.arrow.style,t.arrow),function(){Object.keys(e.elements).forEach(function(i){var s=e.elements[i],o=e.attributes[i]||{},a=Object.keys(e.styles.hasOwnProperty(i)?e.styles[i]:t[i]).reduce(function(c,d){return c[d]="",c},{});ne(s)&&pe(s)&&(Object.assign(s.style,a),Object.keys(o).forEach(function(c){s.removeAttribute(c)}))})}},requires:["computeStyles"]};function me(n){return n.split("-")[0]}var xe=Math.round;function Be(n,e){e===void 0&&(e=!1);var t=n.getBoundingClientRect(),i=1,s=1;if(ne(n)&&e){var o=n.offsetHeight,a=n.offsetWidth;a>0&&(i=t.width/a||1),o>0&&(s=t.height/o||1)}return{width:xe(t.width/i),height:xe(t.height/s),top:xe(t.top/s),right:xe(t.right/i),bottom:xe(t.bottom/s),left:xe(t.left/i),x:xe(t.left/i),y:xe(t.top/s)}}function Nt(n){var e=Be(n),t=n.offsetWidth,i=n.offsetHeight;return Math.abs(e.width-t)<=1&&(t=e.width),Math.abs(e.height-i)<=1&&(i=e.height),{x:n.offsetLeft,y:n.offsetTop,width:t,height:i}}function _n(n,e){var t=e.getRootNode&&e.getRootNode();if(n.contains(e))return!0;if(t&&mn(t)){var i=e;do{if(i&&n.isSameNode(i))return!0;i=i.parentNode||i.host}while(i)}return!1}function ve(n){return de(n).getComputedStyle(n)}function _i(n){return["table","td","th"].indexOf(pe(n))>=0}function Te(n){return((Je(n)?n.ownerDocument:n.document)||window.document).documentElement}function dt(n){return pe(n)==="html"?n:n.assignedSlot||n.parentNode||(mn(n)?n.host:null)||Te(n)}function gn(n){return ne(n)&&ve(n).position!=="fixed"?n.offsetParent:null}function Ze(n){for(var e=de(n),t=gn(n);t&&_i(t)&&ve(t).position==="static";)t=gn(t);return t&&(pe(t)==="html"||pe(t)==="body"&&ve(t).position==="static")?e:t||function(i){var s=navigator.userAgent.toLowerCase().indexOf("firefox")!==-1;if(navigator.userAgent.indexOf("Trident")!==-1&&ne(i)&&ve(i).position==="fixed")return null;for(var o=dt(i);ne(o)&&["html","body"].indexOf(pe(o))<0;){var a=ve(o);if(a.transform!=="none"||a.perspective!=="none"||a.contain==="paint"||["transform","perspective"].indexOf(a.willChange)!==-1||s&&a.willChange==="filter"||s&&a.filter&&a.filter!=="none")return o;o=o.parentNode}return null}(n)||e}function $t(n){return["top","bottom"].indexOf(n)>=0?"x":"y"}var Oe=Math.max,et=Math.min,ht=Math.round;function ft(n,e,t){return Oe(n,et(e,t))}function bn(n){return Object.assign({},{top:0,right:0,bottom:0,left:0},n)}function vn(n,e){return e.reduce(function(t,i){return t[i]=n,t},{})}var yn={name:"arrow",enabled:!0,phase:"main",fn:function(n){var e,t=n.state,i=n.name,s=n.options,o=t.elements.arrow,a=t.modifiersData.popperOffsets,c=me(t.placement),d=$t(c),f=[G,te].indexOf(c)>=0?"height":"width";if(o&&a){var p=function(L,N){return bn(typeof(L=typeof L=="function"?L(Object.assign({},N.rects,{placement:N.placement})):L)!="number"?L:vn(L,Pe))}(s.padding,t),h=Nt(o),y=d==="y"?Q:G,g=d==="y"?ee:te,b=t.rects.reference[f]+t.rects.reference[d]-a[d]-t.rects.popper[f],E=a[d]-t.rects.reference[d],w=Ze(o),$=w?d==="y"?w.clientHeight||0:w.clientWidth||0:0,C=b/2-E/2,k=p[y],S=$-h[f]-p[g],T=$/2-h[f]/2+C,O=ft(k,T,S),D=d;t.modifiersData[i]=((e={})[D]=O,e.centerOffset=O-T,e)}},effect:function(n){var e=n.state,t=n.options.element,i=t===void 0?"[data-popper-arrow]":t;i!=null&&(typeof i!="string"||(i=e.elements.popper.querySelector(i)))&&_n(e.elements.popper,i)&&(e.elements.arrow=i)},requires:["popperOffsets"],requiresIfExists:["preventOverflow"]};function Re(n){return n.split("-")[1]}var gi={top:"auto",right:"auto",bottom:"auto",left:"auto"};function wn(n){var e,t=n.popper,i=n.popperRect,s=n.placement,o=n.variation,a=n.offsets,c=n.position,d=n.gpuAcceleration,f=n.adaptive,p=n.roundOffsets,h=p===!0?function(z){var H=z.x,J=z.y,I=window.devicePixelRatio||1;return{x:ht(ht(H*I)/I)||0,y:ht(ht(J*I)/I)||0}}(a):typeof p=="function"?p(a):a,y=h.x,g=y===void 0?0:y,b=h.y,E=b===void 0?0:b,w=a.hasOwnProperty("x"),$=a.hasOwnProperty("y"),C=G,k=Q,S=window;if(f){var T=Ze(t),O="clientHeight",D="clientWidth";T===de(t)&&ve(T=Te(t)).position!=="static"&&c==="absolute"&&(O="scrollHeight",D="scrollWidth"),T=T,s!==Q&&(s!==G&&s!==te||o!==He)||(k=ee,E-=T[O]-i.height,E*=d?1:-1),s!==G&&(s!==Q&&s!==ee||o!==He)||(C=te,g-=T[D]-i.width,g*=d?1:-1)}var L,N=Object.assign({position:c},f&&gi);return d?Object.assign({},N,((L={})[k]=$?"0":"",L[C]=w?"0":"",L.transform=(S.devicePixelRatio||1)<=1?"translate("+g+"px, "+E+"px)":"translate3d("+g+"px, "+E+"px, 0)",L)):Object.assign({},N,((e={})[k]=$?E+"px":"",e[C]=w?g+"px":"",e.transform="",e))}var It={name:"computeStyles",enabled:!0,phase:"beforeWrite",fn:function(n){var e=n.state,t=n.options,i=t.gpuAcceleration,s=i===void 0||i,o=t.adaptive,a=o===void 0||o,c=t.roundOffsets,d=c===void 0||c,f={placement:me(e.placement),variation:Re(e.placement),popper:e.elements.popper,popperRect:e.rects.popper,gpuAcceleration:s};e.modifiersData.popperOffsets!=null&&(e.styles.popper=Object.assign({},e.styles.popper,wn(Object.assign({},f,{offsets:e.modifiersData.popperOffsets,position:e.options.strategy,adaptive:a,roundOffsets:d})))),e.modifiersData.arrow!=null&&(e.styles.arrow=Object.assign({},e.styles.arrow,wn(Object.assign({},f,{offsets:e.modifiersData.arrow,position:"absolute",adaptive:!1,roundOffsets:d})))),e.attributes.popper=Object.assign({},e.attributes.popper,{"data-popper-placement":e.placement})},data:{}},pt={passive:!0},Mt={name:"eventListeners",enabled:!0,phase:"write",fn:function(){},effect:function(n){var e=n.state,t=n.instance,i=n.options,s=i.scroll,o=s===void 0||s,a=i.resize,c=a===void 0||a,d=de(e.elements.popper),f=[].concat(e.scrollParents.reference,e.scrollParents.popper);return o&&f.forEach(function(p){p.addEventListener("scroll",t.update,pt)}),c&&d.addEventListener("resize",t.update,pt),function(){o&&f.forEach(function(p){p.removeEventListener("scroll",t.update,pt)}),c&&d.removeEventListener("resize",t.update,pt)}},data:{}},bi={left:"right",right:"left",bottom:"top",top:"bottom"};function mt(n){return n.replace(/left|right|bottom|top/g,function(e){return bi[e]})}var vi={start:"end",end:"start"};function En(n){return n.replace(/start|end/g,function(e){return vi[e]})}function jt(n){var e=de(n);return{scrollLeft:e.pageXOffset,scrollTop:e.pageYOffset}}function Pt(n){return Be(Te(n)).left+jt(n).scrollLeft}function Ht(n){var e=ve(n),t=e.overflow,i=e.overflowX,s=e.overflowY;return/auto|scroll|overlay|hidden/.test(t+s+i)}function tt(n,e){var t;e===void 0&&(e=[]);var i=function d(f){return["html","body","#document"].indexOf(pe(f))>=0?f.ownerDocument.body:ne(f)&&Ht(f)?f:d(dt(f))}(n),s=i===((t=n.ownerDocument)==null?void 0:t.body),o=de(i),a=s?[o].concat(o.visualViewport||[],Ht(i)?i:[]):i,c=e.concat(a);return s?c:c.concat(tt(dt(a)))}function Bt(n){return Object.assign({},n,{left:n.x,top:n.y,right:n.x+n.width,bottom:n.y+n.height})}function An(n,e){return e==="viewport"?Bt(function(t){var i=de(t),s=Te(t),o=i.visualViewport,a=s.clientWidth,c=s.clientHeight,d=0,f=0;return o&&(a=o.width,c=o.height,/^((?!chrome|android).)*safari/i.test(navigator.userAgent)||(d=o.offsetLeft,f=o.offsetTop)),{width:a,height:c,x:d+Pt(t),y:f}}(n)):ne(e)?function(t){var i=Be(t);return i.top=i.top+t.clientTop,i.left=i.left+t.clientLeft,i.bottom=i.top+t.clientHeight,i.right=i.left+t.clientWidth,i.width=t.clientWidth,i.height=t.clientHeight,i.x=i.left,i.y=i.top,i}(e):Bt(function(t){var i,s=Te(t),o=jt(t),a=(i=t.ownerDocument)==null?void 0:i.body,c=Oe(s.scrollWidth,s.clientWidth,a?a.scrollWidth:0,a?a.clientWidth:0),d=Oe(s.scrollHeight,s.clientHeight,a?a.scrollHeight:0,a?a.clientHeight:0),f=-o.scrollLeft+Pt(t),p=-o.scrollTop;return ve(a||s).direction==="rtl"&&(f+=Oe(s.clientWidth,a?a.clientWidth:0)-c),{width:c,height:d,x:f,y:p}}(Te(n)))}function kn(n){var e,t=n.reference,i=n.element,s=n.placement,o=s?me(s):null,a=s?Re(s):null,c=t.x+t.width/2-i.width/2,d=t.y+t.height/2-i.height/2;switch(o){case Q:e={x:c,y:t.y-i.height};break;case ee:e={x:c,y:t.y+t.height};break;case te:e={x:t.x+t.width,y:d};break;case G:e={x:t.x-i.width,y:d};break;default:e={x:t.x,y:t.y}}var f=o?$t(o):null;if(f!=null){var p=f==="y"?"height":"width";switch(a){case"start":e[f]=e[f]-(t[p]/2-i[p]/2);break;case He:e[f]=e[f]+(t[p]/2-i[p]/2)}}return e}function We(n,e){e===void 0&&(e={});var t=e,i=t.placement,s=i===void 0?n.placement:i,o=t.boundary,a=o===void 0?"clippingParents":o,c=t.rootBoundary,d=c===void 0?"viewport":c,f=t.elementContext,p=f===void 0?"popper":f,h=t.altBoundary,y=h!==void 0&&h,g=t.padding,b=g===void 0?0:g,E=bn(typeof b!="number"?b:vn(b,Pe)),w=p==="popper"?"reference":"popper",$=n.rects.popper,C=n.elements[y?w:p],k=function(H,J,I){var _e=J==="clippingParents"?function(j){var Ie=tt(dt(j)),Z=["absolute","fixed"].indexOf(ve(j).position)>=0&&ne(j)?Ze(j):j;return Je(Z)?Ie.filter(function(X){return Je(X)&&_n(X,Z)&&pe(X)!=="body"}):[]}(H):[].concat(J),re=[].concat(_e,[I]),ye=re[0],Y=re.reduce(function(j,Ie){var Z=An(H,Ie);return j.top=Oe(Z.top,j.top),j.right=et(Z.right,j.right),j.bottom=et(Z.bottom,j.bottom),j.left=Oe(Z.left,j.left),j},An(H,ye));return Y.width=Y.right-Y.left,Y.height=Y.bottom-Y.top,Y.x=Y.left,Y.y=Y.top,Y}(Je(C)?C:C.contextElement||Te(n.elements.popper),a,d),S=Be(n.elements.reference),T=kn({reference:S,element:$,strategy:"absolute",placement:s}),O=Bt(Object.assign({},$,T)),D=p==="popper"?O:S,L={top:k.top-D.top+E.top,bottom:D.bottom-k.bottom+E.bottom,left:k.left-D.left+E.left,right:D.right-k.right+E.right},N=n.modifiersData.offset;if(p==="popper"&&N){var z=N[s];Object.keys(L).forEach(function(H){var J=[te,ee].indexOf(H)>=0?1:-1,I=[Q,ee].indexOf(H)>=0?"y":"x";L[H]+=z[I]*J})}return L}function yi(n,e){e===void 0&&(e={});var t=e,i=t.placement,s=t.boundary,o=t.rootBoundary,a=t.padding,c=t.flipVariations,d=t.allowedAutoPlacements,f=d===void 0?Lt:d,p=Re(i),h=p?c?Dt:Dt.filter(function(b){return Re(b)===p}):Pe,y=h.filter(function(b){return f.indexOf(b)>=0});y.length===0&&(y=h);var g=y.reduce(function(b,E){return b[E]=We(n,{placement:E,boundary:s,rootBoundary:o,padding:a})[me(E)],b},{});return Object.keys(g).sort(function(b,E){return g[b]-g[E]})}var xn={name:"flip",enabled:!0,phase:"main",fn:function(n){var e=n.state,t=n.options,i=n.name;if(!e.modifiersData[i]._skip){for(var s=t.mainAxis,o=s===void 0||s,a=t.altAxis,c=a===void 0||a,d=t.fallbackPlacements,f=t.padding,p=t.boundary,h=t.rootBoundary,y=t.altBoundary,g=t.flipVariations,b=g===void 0||g,E=t.allowedAutoPlacements,w=e.options.placement,$=me(w),C=d||($!==w&&b?function(X){if(me(X)==="auto")return[];var ae=mt(X);return[En(X),ae,En(ae)]}(w):[mt(w)]),k=[w].concat(C).reduce(function(X,ae){return X.concat(me(ae)==="auto"?yi(e,{placement:ae,boundary:p,rootBoundary:h,padding:f,flipVariations:b,allowedAutoPlacements:E}):ae)},[]),S=e.rects.reference,T=e.rects.popper,O=new Map,D=!0,L=k[0],N=0;N<k.length;N++){var z=k[N],H=me(z),J=Re(z)==="start",I=[Q,ee].indexOf(H)>=0,_e=I?"width":"height",re=We(e,{placement:z,boundary:p,rootBoundary:h,altBoundary:y,padding:f}),ye=I?J?te:G:J?ee:Q;S[_e]>T[_e]&&(ye=mt(ye));var Y=mt(ye),j=[];if(o&&j.push(re[H]<=0),c&&j.push(re[ye]<=0,re[Y]<=0),j.every(function(X){return X})){L=z,D=!1;break}O.set(z,j)}if(D)for(var Ie=function(X){var ae=k.find(function(bt){var ot=O.get(bt);if(ot)return ot.slice(0,X).every(function(qe){return qe})});if(ae)return L=ae,"break"},Z=b?3:1;Z>0&&Ie(Z)!=="break";Z--);e.placement!==L&&(e.modifiersData[i]._skip=!0,e.placement=L,e.reset=!0)}},requiresIfExists:["offset"],data:{_skip:!1}};function Tn(n,e,t){return t===void 0&&(t={x:0,y:0}),{top:n.top-e.height-t.y,right:n.right-e.width+t.x,bottom:n.bottom-e.height+t.y,left:n.left-e.width-t.x}}function On(n){return[Q,te,ee,G].some(function(e){return n[e]>=0})}var Cn={name:"hide",enabled:!0,phase:"main",requiresIfExists:["preventOverflow"],fn:function(n){var e=n.state,t=n.name,i=e.rects.reference,s=e.rects.popper,o=e.modifiersData.preventOverflow,a=We(e,{elementContext:"reference"}),c=We(e,{altBoundary:!0}),d=Tn(a,i),f=Tn(c,s,o),p=On(d),h=On(f);e.modifiersData[t]={referenceClippingOffsets:d,popperEscapeOffsets:f,isReferenceHidden:p,hasPopperEscaped:h},e.attributes.popper=Object.assign({},e.attributes.popper,{"data-popper-reference-hidden":p,"data-popper-escaped":h})}},Sn={name:"offset",enabled:!0,phase:"main",requires:["popperOffsets"],fn:function(n){var e=n.state,t=n.options,i=n.name,s=t.offset,o=s===void 0?[0,0]:s,a=Lt.reduce(function(p,h){return p[h]=function(y,g,b){var E=me(y),w=[G,Q].indexOf(E)>=0?-1:1,$=typeof b=="function"?b(Object.assign({},g,{placement:y})):b,C=$[0],k=$[1];return C=C||0,k=(k||0)*w,[G,te].indexOf(E)>=0?{x:k,y:C}:{x:C,y:k}}(h,e.rects,o),p},{}),c=a[e.placement],d=c.x,f=c.y;e.modifiersData.popperOffsets!=null&&(e.modifiersData.popperOffsets.x+=d,e.modifiersData.popperOffsets.y+=f),e.modifiersData[i]=a}},Rt={name:"popperOffsets",enabled:!0,phase:"read",fn:function(n){var e=n.state,t=n.name;e.modifiersData[t]=kn({reference:e.rects.reference,element:e.rects.popper,strategy:"absolute",placement:e.placement})},data:{}},Dn={name:"preventOverflow",enabled:!0,phase:"main",fn:function(n){var e=n.state,t=n.options,i=n.name,s=t.mainAxis,o=s===void 0||s,a=t.altAxis,c=a!==void 0&&a,d=t.boundary,f=t.rootBoundary,p=t.altBoundary,h=t.padding,y=t.tether,g=y===void 0||y,b=t.tetherOffset,E=b===void 0?0:b,w=We(e,{boundary:d,rootBoundary:f,padding:h,altBoundary:p}),$=me(e.placement),C=Re(e.placement),k=!C,S=$t($),T=S==="x"?"y":"x",O=e.modifiersData.popperOffsets,D=e.rects.reference,L=e.rects.popper,N=typeof E=="function"?E(Object.assign({},e.rects,{placement:e.placement})):E,z={x:0,y:0};if(O){if(o||c){var H=S==="y"?Q:G,J=S==="y"?ee:te,I=S==="y"?"height":"width",_e=O[S],re=O[S]+w[H],ye=O[S]-w[J],Y=g?-L[I]/2:0,j=C==="start"?D[I]:L[I],Ie=C==="start"?-L[I]:-D[I],Z=e.elements.arrow,X=g&&Z?Nt(Z):{width:0,height:0},ae=e.modifiersData["arrow#persistent"]?e.modifiersData["arrow#persistent"].padding:{top:0,right:0,bottom:0,left:0},bt=ae[H],ot=ae[J],qe=ft(0,D[I],X[I]),Zi=k?D[I]/2-Y-qe-bt-N:j-qe-bt-N,es=k?-D[I]/2+Y+qe+ot+N:Ie+qe+ot+N,Ut=e.elements.arrow&&Ze(e.elements.arrow),ts=Ut?S==="y"?Ut.clientTop||0:Ut.clientLeft||0:0,Rn=e.modifiersData.offset?e.modifiersData.offset[e.placement][S]:0,Wn=O[S]+Zi-Rn-ts,qn=O[S]+es-Rn;if(o){var zn=ft(g?et(re,Wn):re,_e,g?Oe(ye,qn):ye);O[S]=zn,z[S]=zn-_e}if(c){var ns=S==="x"?Q:G,is=S==="x"?ee:te,vt=O[T],Un=vt+w[ns],Vn=vt-w[is],Kn=ft(g?et(Un,Wn):Un,vt,g?Oe(Vn,qn):Vn);O[T]=Kn,z[T]=Kn-vt}}e.modifiersData[i]=z}},requiresIfExists:["offset"]};function wi(n,e,t){t===void 0&&(t=!1);var i,s,o=ne(e),a=ne(e)&&function(h){var y=h.getBoundingClientRect(),g=y.width/h.offsetWidth||1,b=y.height/h.offsetHeight||1;return g!==1||b!==1}(e),c=Te(e),d=Be(n,a),f={scrollLeft:0,scrollTop:0},p={x:0,y:0};return(o||!o&&!t)&&((pe(e)!=="body"||Ht(c))&&(f=(i=e)!==de(i)&&ne(i)?{scrollLeft:(s=i).scrollLeft,scrollTop:s.scrollTop}:jt(i)),ne(e)?((p=Be(e,!0)).x+=e.clientLeft,p.y+=e.clientTop):c&&(p.x=Pt(c))),{x:d.left+f.scrollLeft-p.x,y:d.top+f.scrollTop-p.y,width:d.width,height:d.height}}var Ln={placement:"bottom",modifiers:[],strategy:"absolute"};function Fn(){for(var n=arguments.length,e=new Array(n),t=0;t<n;t++)e[t]=arguments[t];return!e.some(function(i){return!(i&&typeof i.getBoundingClientRect=="function")})}function _t(n){n===void 0&&(n={});var e=n,t=e.defaultModifiers,i=t===void 0?[]:t,s=e.defaultOptions,o=s===void 0?Ln:s;return function(a,c,d){d===void 0&&(d=o);var f,p,h={placement:"bottom",orderedModifiers:[],options:Object.assign({},Ln,o),modifiersData:{},elements:{reference:a,popper:c},attributes:{},styles:{}},y=[],g=!1,b={state:h,setOptions:function(w){var $=typeof w=="function"?w(h.options):w;E(),h.options=Object.assign({},o,h.options,$),h.scrollParents={reference:Je(a)?tt(a):a.contextElement?tt(a.contextElement):[],popper:tt(c)};var C,k,S=function(T){var O=function(D){var L=new Map,N=new Set,z=[];return D.forEach(function(H){L.set(H.name,H)}),D.forEach(function(H){N.has(H.name)||function J(I){N.add(I.name),[].concat(I.requires||[],I.requiresIfExists||[]).forEach(function(_e){if(!N.has(_e)){var re=L.get(_e);re&&J(re)}}),z.push(I)}(H)}),z}(T);return pn.reduce(function(D,L){return D.concat(O.filter(function(N){return N.phase===L}))},[])}((C=[].concat(i,h.options.modifiers),k=C.reduce(function(T,O){var D=T[O.name];return T[O.name]=D?Object.assign({},D,O,{options:Object.assign({},D.options,O.options),data:Object.assign({},D.data,O.data)}):O,T},{}),Object.keys(k).map(function(T){return k[T]})));return h.orderedModifiers=S.filter(function(T){return T.enabled}),h.orderedModifiers.forEach(function(T){var O=T.name,D=T.options,L=D===void 0?{}:D,N=T.effect;if(typeof N=="function"){var z=N({state:h,name:O,instance:b,options:L});y.push(z||function(){})}}),b.update()},forceUpdate:function(){if(!g){var w=h.elements,$=w.reference,C=w.popper;if(Fn($,C)){h.rects={reference:wi($,Ze(C),h.options.strategy==="fixed"),popper:Nt(C)},h.reset=!1,h.placement=h.options.placement,h.orderedModifiers.forEach(function(N){return h.modifiersData[N.name]=Object.assign({},N.data)});for(var k=0;k<h.orderedModifiers.length;k++)if(h.reset!==!0){var S=h.orderedModifiers[k],T=S.fn,O=S.options,D=O===void 0?{}:O,L=S.name;typeof T=="function"&&(h=T({state:h,options:D,name:L,instance:b})||h)}else h.reset=!1,k=-1}}},update:(f=function(){return new Promise(function(w){b.forceUpdate(),w(h)})},function(){return p||(p=new Promise(function(w){Promise.resolve().then(function(){p=void 0,w(f())})})),p}),destroy:function(){E(),g=!0}};if(!Fn(a,c))return b;function E(){y.forEach(function(w){return w()}),y=[]}return b.setOptions(d).then(function(w){!g&&d.onFirstUpdate&&d.onFirstUpdate(w)}),b}}var Ei=_t(),Ai=_t({defaultModifiers:[Mt,Rt,It,Ft]}),Wt=_t({defaultModifiers:[Mt,Rt,It,Ft,Sn,xn,Dn,yn,Cn]}),Nn=Object.freeze({__proto__:null,popperGenerator:_t,detectOverflow:We,createPopperBase:Ei,createPopper:Wt,createPopperLite:Ai,top:Q,bottom:ee,right:te,left:G,auto:"auto",basePlacements:Pe,start:"start",end:He,clippingParents:"clippingParents",viewport:"viewport",popper:"popper",reference:"reference",variationPlacements:Dt,placements:Lt,beforeRead:"beforeRead",read:"read",afterRead:"afterRead",beforeMain:"beforeMain",main:"main",afterMain:"afterMain",beforeWrite:"beforeWrite",write:"write",afterWrite:"afterWrite",modifierPhases:pn,applyStyles:Ft,arrow:yn,computeStyles:It,eventListeners:Mt,flip:xn,hide:Cn,offset:Sn,popperOffsets:Rt,preventOverflow:Dn});let ki=new RegExp("ArrowUp|ArrowDown|Escape"),xi=R()?"top-end":"top-start",Ti=R()?"top-start":"top-end",Oi=R()?"bottom-end":"bottom-start",Ci=R()?"bottom-start":"bottom-end",Si=R()?"left-start":"right-start",Di=R()?"right-start":"left-start",Li={offset:[0,2],boundary:"clippingParents",reference:"toggle",display:"dynamic",popperConfig:null,autoClose:!0},Fi={offset:"(array|string|function)",boundary:"(string|element)",reference:"(string|element|object)",display:"string",popperConfig:"(null|object|function)",autoClose:"(boolean|string)"};class ie extends ue{constructor(e,t){super(e),this._popper=null,this._config=this._getConfig(t),this._menu=this._getMenuElement(),this._inNavbar=this._detectNavbar()}static get Default(){return Li}static get DefaultType(){return Fi}static get NAME(){return"dropdown"}toggle(){return this._isShown()?this.hide():this.show()}show(){if(P(this._element)||this._isShown(this._menu))return;let e={relatedTarget:this._element};if(u.trigger(this._element,"show.bs.dropdown",e).defaultPrevented)return;let t=ie.getParentFromElement(this._element);this._inNavbar?V.setDataAttribute(this._menu,"popper","none"):this._createPopper(t),"ontouchstart"in document.documentElement&&!t.closest(".navbar-nav")&&[].concat(...document.body.children).forEach(i=>u.on(i,"mouseover",U)),this._element.focus(),this._element.setAttribute("aria-expanded",!0),this._menu.classList.add("show"),this._element.classList.add("show"),u.trigger(this._element,"shown.bs.dropdown",e)}hide(){if(P(this._element)||!this._isShown(this._menu))return;let e={relatedTarget:this._element};this._completeHide(e)}dispose(){this._popper&&this._popper.destroy(),super.dispose()}update(){this._inNavbar=this._detectNavbar(),this._popper&&this._popper.update()}_completeHide(e){u.trigger(this._element,"hide.bs.dropdown",e).defaultPrevented||("ontouchstart"in document.documentElement&&[].concat(...document.body.children).forEach(t=>u.off(t,"mouseover",U)),this._popper&&this._popper.destroy(),this._menu.classList.remove("show"),this._element.classList.remove("show"),this._element.setAttribute("aria-expanded","false"),V.removeDataAttribute(this._menu,"popper"),u.trigger(this._element,"hidden.bs.dropdown",e))}_getConfig(e){if(e={...this.constructor.Default,...V.getDataAttributes(this._element),...e},F("dropdown",e,this.constructor.DefaultType),typeof e.reference=="object"&&!A(e.reference)&&typeof e.reference.getBoundingClientRect!="function")throw new TypeError("dropdown".toUpperCase()+': Option "reference" provided type "object" without a required "getBoundingClientRect" method.');return e}_createPopper(e){if(Nn===void 0)throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org)");let t=this._element;this._config.reference==="parent"?t=e:A(this._config.reference)?t=M(this._config.reference):typeof this._config.reference=="object"&&(t=this._config.reference);let i=this._getPopperConfig(),s=i.modifiers.find(o=>o.name==="applyStyles"&&o.enabled===!1);this._popper=Wt(t,this._menu,i),s&&V.setDataAttribute(this._menu,"popper","static")}_isShown(e=this._element){return e.classList.contains("show")}_getMenuElement(){return v.next(this._element,".dropdown-menu")[0]}_getPlacement(){let e=this._element.parentNode;if(e.classList.contains("dropend"))return Si;if(e.classList.contains("dropstart"))return Di;let t=getComputedStyle(this._menu).getPropertyValue("--bs-position").trim()==="end";return e.classList.contains("dropup")?t?Ti:xi:t?Ci:Oi}_detectNavbar(){return this._element.closest(".navbar")!==null}_getOffset(){let{offset:e}=this._config;return typeof e=="string"?e.split(",").map(t=>Number.parseInt(t,10)):typeof e=="function"?t=>e(t,this._element):e}_getPopperConfig(){let e={placement:this._getPlacement(),modifiers:[{name:"preventOverflow",options:{boundary:this._config.boundary}},{name:"offset",options:{offset:this._getOffset()}}]};return this._config.display==="static"&&(e.modifiers=[{name:"applyStyles",enabled:!1}]),{...e,...typeof this._config.popperConfig=="function"?this._config.popperConfig(e):this._config.popperConfig}}_selectMenuItem({key:e,target:t}){let i=v.find(".dropdown-menu .dropdown-item:not(.disabled):not(:disabled)",this._menu).filter(B);i.length&&be(i,t,e==="ArrowDown",!i.includes(t)).focus()}static jQueryInterface(e){return this.each(function(){let t=ie.getOrCreateInstance(this,e);if(typeof e=="string"){if(t[e]===void 0)throw new TypeError(`No method named "${e}"`);t[e]()}})}static clearMenus(e){if(e&&(e.button===2||e.type==="keyup"&&e.key!=="Tab"))return;let t=v.find('[data-bs-toggle="dropdown"]');for(let i=0,s=t.length;i<s;i++){let o=ie.getInstance(t[i]);if(!o||o._config.autoClose===!1||!o._isShown())continue;let a={relatedTarget:o._element};if(e){let c=e.composedPath(),d=c.includes(o._menu);if(c.includes(o._element)||o._config.autoClose==="inside"&&!d||o._config.autoClose==="outside"&&d||o._menu.contains(e.target)&&(e.type==="keyup"&&e.key==="Tab"||/input|select|option|textarea|form/i.test(e.target.tagName)))continue;e.type==="click"&&(a.clickEvent=e)}o._completeHide(a)}}static getParentFromElement(e){return m(e)||e.parentNode}static dataApiKeydownHandler(e){if(/input|textarea/i.test(e.target.tagName)?e.key==="Space"||e.key!=="Escape"&&(e.key!=="ArrowDown"&&e.key!=="ArrowUp"||e.target.closest(".dropdown-menu")):!ki.test(e.key))return;let t=this.classList.contains("show");if(!t&&e.key==="Escape"||(e.preventDefault(),e.stopPropagation(),P(this)))return;let i=this.matches('[data-bs-toggle="dropdown"]')?this:v.prev(this,'[data-bs-toggle="dropdown"]')[0],s=ie.getOrCreateInstance(i);if(e.key!=="Escape")return e.key==="ArrowUp"||e.key==="ArrowDown"?(t||s.show(),void s._selectMenuItem(e)):void(t&&e.key!=="Space"||ie.clearMenus());s.hide()}}u.on(document,"keydown.bs.dropdown.data-api",'[data-bs-toggle="dropdown"]',ie.dataApiKeydownHandler),u.on(document,"keydown.bs.dropdown.data-api",".dropdown-menu",ie.dataApiKeydownHandler),u.on(document,"click.bs.dropdown.data-api",ie.clearMenus),u.on(document,"keyup.bs.dropdown.data-api",ie.clearMenus),u.on(document,"click.bs.dropdown.data-api",'[data-bs-toggle="dropdown"]',function(n){n.preventDefault(),ie.getOrCreateInstance(this).toggle()}),K(ie);class qt{constructor(){this._element=document.body}getWidth(){let e=document.documentElement.clientWidth;return Math.abs(window.innerWidth-e)}hide(){let e=this.getWidth();this._disableOverFlow(),this._setElementAttributes(this._element,"paddingRight",t=>t+e),this._setElementAttributes(".fixed-top, .fixed-bottom, .is-fixed, .sticky-top","paddingRight",t=>t+e),this._setElementAttributes(".sticky-top","marginRight",t=>t-e)}_disableOverFlow(){this._saveInitialAttribute(this._element,"overflow"),this._element.style.overflow="hidden"}_setElementAttributes(e,t,i){let s=this.getWidth();this._applyManipulationCallback(e,o=>{if(o!==this._element&&window.innerWidth>o.clientWidth+s)return;this._saveInitialAttribute(o,t);let a=window.getComputedStyle(o)[t];o.style[t]=i(Number.parseFloat(a))+"px"})}reset(){this._resetElementAttributes(this._element,"overflow"),this._resetElementAttributes(this._element,"paddingRight"),this._resetElementAttributes(".fixed-top, .fixed-bottom, .is-fixed, .sticky-top","paddingRight"),this._resetElementAttributes(".sticky-top","marginRight")}_saveInitialAttribute(e,t){let i=e.style[t];i&&V.setDataAttribute(e,t,i)}_resetElementAttributes(e,t){this._applyManipulationCallback(e,i=>{let s=V.getDataAttribute(i,t);s===void 0?i.style.removeProperty(t):(V.removeDataAttribute(i,t),i.style[t]=s)})}_applyManipulationCallback(e,t){A(e)?t(e):v.find(e,this._element).forEach(t)}isOverflowing(){return this.getWidth()>0}}let Ni={className:"modal-backdrop",isVisible:!0,isAnimated:!1,rootElement:"body",clickCallback:null},$i={className:"string",isVisible:"boolean",isAnimated:"boolean",rootElement:"(element|string)",clickCallback:"(function|null)"};class $n{constructor(e){this._config=this._getConfig(e),this._isAppended=!1,this._element=null}show(e){this._config.isVisible?(this._append(),this._config.isAnimated&&q(this._getElement()),this._getElement().classList.add("show"),this._emulateAnimation(()=>{he(e)})):he(e)}hide(e){this._config.isVisible?(this._getElement().classList.remove("show"),this._emulateAnimation(()=>{this.dispose(),he(e)})):he(e)}_getElement(){if(!this._element){let e=document.createElement("div");e.className=this._config.className,this._config.isAnimated&&e.classList.add("fade"),this._element=e}return this._element}_getConfig(e){return(e={...Ni,...typeof e=="object"?e:{}}).rootElement=M(e.rootElement),F("backdrop",e,$i),e}_append(){this._isAppended||(this._config.rootElement.append(this._getElement()),u.on(this._getElement(),"mousedown.bs.backdrop",()=>{he(this._config.clickCallback)}),this._isAppended=!0)}dispose(){this._isAppended&&(u.off(this._element,"mousedown.bs.backdrop"),this._element.remove(),this._isAppended=!1)}_emulateAnimation(e){Ee(e,this._getElement(),this._config.isAnimated)}}let Ii={trapElement:null,autofocus:!0},Mi={trapElement:"element",autofocus:"boolean"};class In{constructor(e){this._config=this._getConfig(e),this._isActive=!1,this._lastTabNavDirection=null}activate(){let{trapElement:e,autofocus:t}=this._config;this._isActive||(t&&e.focus(),u.off(document,".bs.focustrap"),u.on(document,"focusin.bs.focustrap",i=>this._handleFocusin(i)),u.on(document,"keydown.tab.bs.focustrap",i=>this._handleKeydown(i)),this._isActive=!0)}deactivate(){this._isActive&&(this._isActive=!1,u.off(document,".bs.focustrap"))}_handleFocusin(e){let{target:t}=e,{trapElement:i}=this._config;if(t===document||t===i||i.contains(t))return;let s=v.focusableChildren(i);s.length===0?i.focus():this._lastTabNavDirection==="backward"?s[s.length-1].focus():s[0].focus()}_handleKeydown(e){e.key==="Tab"&&(this._lastTabNavDirection=e.shiftKey?"backward":"forward")}_getConfig(e){return e={...Ii,...typeof e=="object"?e:{}},F("focustrap",e,Mi),e}}let Mn={backdrop:!0,keyboard:!0,focus:!0},ji={backdrop:"(boolean|string)",keyboard:"boolean",focus:"boolean"};class Ne extends ue{constructor(e,t){super(e),this._config=this._getConfig(t),this._dialog=v.findOne(".modal-dialog",this._element),this._backdrop=this._initializeBackDrop(),this._focustrap=this._initializeFocusTrap(),this._isShown=!1,this._ignoreBackdropClick=!1,this._isTransitioning=!1,this._scrollBar=new qt}static get Default(){return Mn}static get NAME(){return"modal"}toggle(e){return this._isShown?this.hide():this.show(e)}show(e){this._isShown||this._isTransitioning||u.trigger(this._element,"show.bs.modal",{relatedTarget:e}).defaultPrevented||(this._isShown=!0,this._isAnimated()&&(this._isTransitioning=!0),this._scrollBar.hide(),document.body.classList.add("modal-open"),this._adjustDialog(),this._setEscapeEvent(),this._setResizeEvent(),u.on(this._dialog,"mousedown.dismiss.bs.modal",()=>{u.one(this._element,"mouseup.dismiss.bs.modal",t=>{t.target===this._element&&(this._ignoreBackdropClick=!0)})}),this._showBackdrop(()=>this._showElement(e)))}hide(){if(!this._isShown||this._isTransitioning||u.trigger(this._element,"hide.bs.modal").defaultPrevented)return;this._isShown=!1;let e=this._isAnimated();e&&(this._isTransitioning=!0),this._setEscapeEvent(),this._setResizeEvent(),this._focustrap.deactivate(),this._element.classList.remove("show"),u.off(this._element,"click.dismiss.bs.modal"),u.off(this._dialog,"mousedown.dismiss.bs.modal"),this._queueCallback(()=>this._hideModal(),this._element,e)}dispose(){[window,this._dialog].forEach(e=>u.off(e,".bs.modal")),this._backdrop.dispose(),this._focustrap.deactivate(),super.dispose()}handleUpdate(){this._adjustDialog()}_initializeBackDrop(){return new $n({isVisible:Boolean(this._config.backdrop),isAnimated:this._isAnimated()})}_initializeFocusTrap(){return new In({trapElement:this._element})}_getConfig(e){return e={...Mn,...V.getDataAttributes(this._element),...typeof e=="object"?e:{}},F("modal",e,ji),e}_showElement(e){let t=this._isAnimated(),i=v.findOne(".modal-body",this._dialog);this._element.parentNode&&this._element.parentNode.nodeType===Node.ELEMENT_NODE||document.body.append(this._element),this._element.style.display="block",this._element.removeAttribute("aria-hidden"),this._element.setAttribute("aria-modal",!0),this._element.setAttribute("role","dialog"),this._element.scrollTop=0,i&&(i.scrollTop=0),t&&q(this._element),this._element.classList.add("show"),this._queueCallback(()=>{this._config.focus&&this._focustrap.activate(),this._isTransitioning=!1,u.trigger(this._element,"shown.bs.modal",{relatedTarget:e})},this._dialog,t)}_setEscapeEvent(){this._isShown?u.on(this._element,"keydown.dismiss.bs.modal",e=>{this._config.keyboard&&e.key==="Escape"?(e.preventDefault(),this.hide()):this._config.keyboard||e.key!=="Escape"||this._triggerBackdropTransition()}):u.off(this._element,"keydown.dismiss.bs.modal")}_setResizeEvent(){this._isShown?u.on(window,"resize.bs.modal",()=>this._adjustDialog()):u.off(window,"resize.bs.modal")}_hideModal(){this._element.style.display="none",this._element.setAttribute("aria-hidden",!0),this._element.removeAttribute("aria-modal"),this._element.removeAttribute("role"),this._isTransitioning=!1,this._backdrop.hide(()=>{document.body.classList.remove("modal-open"),this._resetAdjustments(),this._scrollBar.reset(),u.trigger(this._element,"hidden.bs.modal")})}_showBackdrop(e){u.on(this._element,"click.dismiss.bs.modal",t=>{this._ignoreBackdropClick?this._ignoreBackdropClick=!1:t.target===t.currentTarget&&(this._config.backdrop===!0?this.hide():this._config.backdrop==="static"&&this._triggerBackdropTransition())}),this._backdrop.show(e)}_isAnimated(){return this._element.classList.contains("fade")}_triggerBackdropTransition(){if(u.trigger(this._element,"hidePrevented.bs.modal").defaultPrevented)return;let{classList:e,scrollHeight:t,style:i}=this._element,s=t>document.documentElement.clientHeight;!s&&i.overflowY==="hidden"||e.contains("modal-static")||(s||(i.overflowY="hidden"),e.add("modal-static"),this._queueCallback(()=>{e.remove("modal-static"),s||this._queueCallback(()=>{i.overflowY=""},this._dialog)},this._dialog),this._element.focus())}_adjustDialog(){let e=this._element.scrollHeight>document.documentElement.clientHeight,t=this._scrollBar.getWidth(),i=t>0;(!i&&e&&!R()||i&&!e&&R())&&(this._element.style.paddingLeft=t+"px"),(i&&!e&&!R()||!i&&e&&R())&&(this._element.style.paddingRight=t+"px")}_resetAdjustments(){this._element.style.paddingLeft="",this._element.style.paddingRight=""}static jQueryInterface(e,t){return this.each(function(){let i=Ne.getOrCreateInstance(this,e);if(typeof e=="string"){if(i[e]===void 0)throw new TypeError(`No method named "${e}"`);i[e](t)}})}}u.on(document,"click.bs.modal.data-api",'[data-bs-toggle="modal"]',function(n){let e=m(this);["A","AREA"].includes(this.tagName)&&n.preventDefault(),u.one(e,"show.bs.modal",i=>{i.defaultPrevented||u.one(e,"hidden.bs.modal",()=>{B(this)&&this.focus()})});let t=v.findOne(".modal.show");t&&Ne.getInstance(t).hide(),Ne.getOrCreateInstance(e).toggle(this)}),ut(Ne),K(Ne);let jn={backdrop:!0,keyboard:!0,scroll:!1},Pi={backdrop:"boolean",keyboard:"boolean",scroll:"boolean"};class Ce extends ue{constructor(e,t){super(e),this._config=this._getConfig(t),this._isShown=!1,this._backdrop=this._initializeBackDrop(),this._focustrap=this._initializeFocusTrap(),this._addEventListeners()}static get NAME(){return"offcanvas"}static get Default(){return jn}toggle(e){return this._isShown?this.hide():this.show(e)}show(e){this._isShown||u.trigger(this._element,"show.bs.offcanvas",{relatedTarget:e}).defaultPrevented||(this._isShown=!0,this._element.style.visibility="visible",this._backdrop.show(),this._config.scroll||new qt().hide(),this._element.removeAttribute("aria-hidden"),this._element.setAttribute("aria-modal",!0),this._element.setAttribute("role","dialog"),this._element.classList.add("show"),this._queueCallback(()=>{this._config.scroll||this._focustrap.activate(),u.trigger(this._element,"shown.bs.offcanvas",{relatedTarget:e})},this._element,!0))}hide(){this._isShown&&(u.trigger(this._element,"hide.bs.offcanvas").defaultPrevented||(this._focustrap.deactivate(),this._element.blur(),this._isShown=!1,this._element.classList.remove("show"),this._backdrop.hide(),this._queueCallback(()=>{this._element.setAttribute("aria-hidden",!0),this._element.removeAttribute("aria-modal"),this._element.removeAttribute("role"),this._element.style.visibility="hidden",this._config.scroll||new qt().reset(),u.trigger(this._element,"hidden.bs.offcanvas")},this._element,!0)))}dispose(){this._backdrop.dispose(),this._focustrap.deactivate(),super.dispose()}_getConfig(e){return e={...jn,...V.getDataAttributes(this._element),...typeof e=="object"?e:{}},F("offcanvas",e,Pi),e}_initializeBackDrop(){return new $n({className:"offcanvas-backdrop",isVisible:this._config.backdrop,isAnimated:!0,rootElement:this._element.parentNode,clickCallback:()=>this.hide()})}_initializeFocusTrap(){return new In({trapElement:this._element})}_addEventListeners(){u.on(this._element,"keydown.dismiss.bs.offcanvas",e=>{this._config.keyboard&&e.key==="Escape"&&this.hide()})}static jQueryInterface(e){return this.each(function(){let t=Ce.getOrCreateInstance(this,e);if(typeof e=="string"){if(t[e]===void 0||e.startsWith("_")||e==="constructor")throw new TypeError(`No method named "${e}"`);t[e](this)}})}}u.on(document,"click.bs.offcanvas.data-api",'[data-bs-toggle="offcanvas"]',function(n){let e=m(this);if(["A","AREA"].includes(this.tagName)&&n.preventDefault(),P(this))return;u.one(e,"hidden.bs.offcanvas",()=>{B(this)&&this.focus()});let t=v.findOne(".offcanvas.show");t&&t!==e&&Ce.getInstance(t).hide(),Ce.getOrCreateInstance(e).toggle(this)}),u.on(window,"load.bs.offcanvas.data-api",()=>v.find(".offcanvas.show").forEach(n=>Ce.getOrCreateInstance(n).show())),ut(Ce),K(Ce);let Hi=new Set(["background","cite","href","itemtype","longdesc","poster","src","xlink:href"]),Bi=/^(?:(?:https?|mailto|ftp|tel|file):|[^#&/:?]*(?:[#/?]|$))/i,Ri=/^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i,Wi=(n,e)=>{let t=n.nodeName.toLowerCase();if(e.includes(t))return!Hi.has(t)||Boolean(Bi.test(n.nodeValue)||Ri.test(n.nodeValue));let i=e.filter(s=>s instanceof RegExp);for(let s=0,o=i.length;s<o;s++)if(i[s].test(t))return!0;return!1};function Pn(n,e,t){if(!n.length)return n;if(t&&typeof t=="function")return t(n);let i=new window.DOMParser().parseFromString(n,"text/html"),s=Object.keys(e),o=[].concat(...i.body.querySelectorAll("*"));for(let a=0,c=o.length;a<c;a++){let d=o[a],f=d.nodeName.toLowerCase();if(!s.includes(f)){d.remove();continue}let p=[].concat(...d.attributes),h=[].concat(e["*"]||[],e[f]||[]);p.forEach(y=>{Wi(y,h)||d.removeAttribute(y.nodeName)})}return i.body.innerHTML}let qi=new Set(["sanitize","allowList","sanitizeFn"]),zi={animation:"boolean",template:"string",title:"(string|element|function)",trigger:"string",delay:"(number|object)",html:"boolean",selector:"(string|boolean)",placement:"(string|function)",offset:"(array|string|function)",container:"(string|element|boolean)",fallbackPlacements:"array",boundary:"(string|element)",customClass:"(string|function)",sanitize:"boolean",sanitizeFn:"(null|function)",allowList:"object",popperConfig:"(null|object|function)"},Ui={AUTO:"auto",TOP:"top",RIGHT:R()?"left":"right",BOTTOM:"bottom",LEFT:R()?"right":"left"},Vi={animation:!0,template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:"hover focus",title:"",delay:0,html:!1,selector:!1,placement:"top",offset:[0,0],container:!1,fallbackPlacements:["top","right","bottom","left"],boundary:"clippingParents",customClass:"",sanitize:!0,sanitizeFn:null,allowList:{"*":["class","dir","id","lang","role",/^aria-[\w-]*$/i],a:["target","href","title","rel"],area:[],b:[],br:[],col:[],code:[],div:[],em:[],hr:[],h1:[],h2:[],h3:[],h4:[],h5:[],h6:[],i:[],img:["src","srcset","alt","title","width","height"],li:[],ol:[],p:[],pre:[],s:[],small:[],span:[],sub:[],sup:[],strong:[],u:[],ul:[]},popperConfig:null},Ki={HIDE:"hide.bs.tooltip",HIDDEN:"hidden.bs.tooltip",SHOW:"show.bs.tooltip",SHOWN:"shown.bs.tooltip",INSERTED:"inserted.bs.tooltip",CLICK:"click.bs.tooltip",FOCUSIN:"focusin.bs.tooltip",FOCUSOUT:"focusout.bs.tooltip",MOUSEENTER:"mouseenter.bs.tooltip",MOUSELEAVE:"mouseleave.bs.tooltip"};class $e extends ue{constructor(e,t){if(Nn===void 0)throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org)");super(e),this._isEnabled=!0,this._timeout=0,this._hoverState="",this._activeTrigger={},this._popper=null,this._config=this._getConfig(t),this.tip=null,this._setListeners()}static get Default(){return Vi}static get NAME(){return"tooltip"}static get Event(){return Ki}static get DefaultType(){return zi}enable(){this._isEnabled=!0}disable(){this._isEnabled=!1}toggleEnabled(){this._isEnabled=!this._isEnabled}toggle(e){if(this._isEnabled)if(e){let t=this._initializeOnDelegatedTarget(e);t._activeTrigger.click=!t._activeTrigger.click,t._isWithActiveTrigger()?t._enter(null,t):t._leave(null,t)}else{if(this.getTipElement().classList.contains("show"))return void this._leave(null,this);this._enter(null,this)}}dispose(){clearTimeout(this._timeout),u.off(this._element.closest(".modal"),"hide.bs.modal",this._hideModalHandler),this.tip&&this.tip.remove(),this._disposePopper(),super.dispose()}show(){if(this._element.style.display==="none")throw new Error("Please use show on visible elements");if(!this.isWithContent()||!this._isEnabled)return;let e=u.trigger(this._element,this.constructor.Event.SHOW),t=x(this._element),i=t===null?this._element.ownerDocument.documentElement.contains(this._element):t.contains(this._element);if(e.defaultPrevented||!i)return;this.constructor.NAME==="tooltip"&&this.tip&&this.getTitle()!==this.tip.querySelector(".tooltip-inner").innerHTML&&(this._disposePopper(),this.tip.remove(),this.tip=null);let s=this.getTipElement(),o=(h=>{do h+=Math.floor(1e6*Math.random());while(document.getElementById(h));return h})(this.constructor.NAME);s.setAttribute("id",o),this._element.setAttribute("aria-describedby",o),this._config.animation&&s.classList.add("fade");let a=typeof this._config.placement=="function"?this._config.placement.call(this,s,this._element):this._config.placement,c=this._getAttachment(a);this._addAttachmentClass(c);let{container:d}=this._config;Ye.set(s,this.constructor.DATA_KEY,this),this._element.ownerDocument.documentElement.contains(this.tip)||(d.append(s),u.trigger(this._element,this.constructor.Event.INSERTED)),this._popper?this._popper.update():this._popper=Wt(this._element,s,this._getPopperConfig(c)),s.classList.add("show");let f=this._resolvePossibleFunction(this._config.customClass);f&&s.classList.add(...f.split(" ")),"ontouchstart"in document.documentElement&&[].concat(...document.body.children).forEach(h=>{u.on(h,"mouseover",U)});let p=this.tip.classList.contains("fade");this._queueCallback(()=>{let h=this._hoverState;this._hoverState=null,u.trigger(this._element,this.constructor.Event.SHOWN),h==="out"&&this._leave(null,this)},this.tip,p)}hide(){if(!this._popper)return;let e=this.getTipElement();if(u.trigger(this._element,this.constructor.Event.HIDE).defaultPrevented)return;e.classList.remove("show"),"ontouchstart"in document.documentElement&&[].concat(...document.body.children).forEach(i=>u.off(i,"mouseover",U)),this._activeTrigger.click=!1,this._activeTrigger.focus=!1,this._activeTrigger.hover=!1;let t=this.tip.classList.contains("fade");this._queueCallback(()=>{this._isWithActiveTrigger()||(this._hoverState!=="show"&&e.remove(),this._cleanTipClass(),this._element.removeAttribute("aria-describedby"),u.trigger(this._element,this.constructor.Event.HIDDEN),this._disposePopper())},this.tip,t),this._hoverState=""}update(){this._popper!==null&&this._popper.update()}isWithContent(){return Boolean(this.getTitle())}getTipElement(){if(this.tip)return this.tip;let e=document.createElement("div");e.innerHTML=this._config.template;let t=e.children[0];return this.setContent(t),t.classList.remove("fade","show"),this.tip=t,this.tip}setContent(e){this._sanitizeAndSetContent(e,this.getTitle(),".tooltip-inner")}_sanitizeAndSetContent(e,t,i){let s=v.findOne(i,e);t||!s?this.setElementContent(s,t):s.remove()}setElementContent(e,t){if(e!==null)return A(t)?(t=M(t),void(this._config.html?t.parentNode!==e&&(e.innerHTML="",e.append(t)):e.textContent=t.textContent)):void(this._config.html?(this._config.sanitize&&(t=Pn(t,this._config.allowList,this._config.sanitizeFn)),e.innerHTML=t):e.textContent=t)}getTitle(){let e=this._element.getAttribute("data-bs-original-title")||this._config.title;return this._resolvePossibleFunction(e)}updateAttachment(e){return e==="right"?"end":e==="left"?"start":e}_initializeOnDelegatedTarget(e,t){return t||this.constructor.getOrCreateInstance(e.delegateTarget,this._getDelegateConfig())}_getOffset(){let{offset:e}=this._config;return typeof e=="string"?e.split(",").map(t=>Number.parseInt(t,10)):typeof e=="function"?t=>e(t,this._element):e}_resolvePossibleFunction(e){return typeof e=="function"?e.call(this._element):e}_getPopperConfig(e){let t={placement:e,modifiers:[{name:"flip",options:{fallbackPlacements:this._config.fallbackPlacements}},{name:"offset",options:{offset:this._getOffset()}},{name:"preventOverflow",options:{boundary:this._config.boundary}},{name:"arrow",options:{element:`.${this.constructor.NAME}-arrow`}},{name:"onChange",enabled:!0,phase:"afterWrite",fn:i=>this._handlePopperPlacementChange(i)}],onFirstUpdate:i=>{i.options.placement!==i.placement&&this._handlePopperPlacementChange(i)}};return{...t,...typeof this._config.popperConfig=="function"?this._config.popperConfig(t):this._config.popperConfig}}_addAttachmentClass(e){this.getTipElement().classList.add(`${this._getBasicClassPrefix()}-${this.updateAttachment(e)}`)}_getAttachment(e){return Ui[e.toUpperCase()]}_setListeners(){this._config.trigger.split(" ").forEach(e=>{if(e==="click")u.on(this._element,this.constructor.Event.CLICK,this._config.selector,t=>this.toggle(t));else if(e!=="manual"){let t=e==="hover"?this.constructor.Event.MOUSEENTER:this.constructor.Event.FOCUSIN,i=e==="hover"?this.constructor.Event.MOUSELEAVE:this.constructor.Event.FOCUSOUT;u.on(this._element,t,this._config.selector,s=>this._enter(s)),u.on(this._element,i,this._config.selector,s=>this._leave(s))}}),this._hideModalHandler=()=>{this._element&&this.hide()},u.on(this._element.closest(".modal"),"hide.bs.modal",this._hideModalHandler),this._config.selector?this._config={...this._config,trigger:"manual",selector:""}:this._fixTitle()}_fixTitle(){let e=this._element.getAttribute("title"),t=typeof this._element.getAttribute("data-bs-original-title");(e||t!=="string")&&(this._element.setAttribute("data-bs-original-title",e||""),!e||this._element.getAttribute("aria-label")||this._element.textContent||this._element.setAttribute("aria-label",e),this._element.setAttribute("title",""))}_enter(e,t){t=this._initializeOnDelegatedTarget(e,t),e&&(t._activeTrigger[e.type==="focusin"?"focus":"hover"]=!0),t.getTipElement().classList.contains("show")||t._hoverState==="show"?t._hoverState="show":(clearTimeout(t._timeout),t._hoverState="show",t._config.delay&&t._config.delay.show?t._timeout=setTimeout(()=>{t._hoverState==="show"&&t.show()},t._config.delay.show):t.show())}_leave(e,t){t=this._initializeOnDelegatedTarget(e,t),e&&(t._activeTrigger[e.type==="focusout"?"focus":"hover"]=t._element.contains(e.relatedTarget)),t._isWithActiveTrigger()||(clearTimeout(t._timeout),t._hoverState="out",t._config.delay&&t._config.delay.hide?t._timeout=setTimeout(()=>{t._hoverState==="out"&&t.hide()},t._config.delay.hide):t.hide())}_isWithActiveTrigger(){for(let e in this._activeTrigger)if(this._activeTrigger[e])return!0;return!1}_getConfig(e){let t=V.getDataAttributes(this._element);return Object.keys(t).forEach(i=>{qi.has(i)&&delete t[i]}),(e={...this.constructor.Default,...t,...typeof e=="object"&&e?e:{}}).container=e.container===!1?document.body:M(e.container),typeof e.delay=="number"&&(e.delay={show:e.delay,hide:e.delay}),typeof e.title=="number"&&(e.title=e.title.toString()),typeof e.content=="number"&&(e.content=e.content.toString()),F("tooltip",e,this.constructor.DefaultType),e.sanitize&&(e.template=Pn(e.template,e.allowList,e.sanitizeFn)),e}_getDelegateConfig(){let e={};for(let t in this._config)this.constructor.Default[t]!==this._config[t]&&(e[t]=this._config[t]);return e}_cleanTipClass(){let e=this.getTipElement(),t=new RegExp(`(^|\\s)${this._getBasicClassPrefix()}\\S+`,"g"),i=e.getAttribute("class").match(t);i!==null&&i.length>0&&i.map(s=>s.trim()).forEach(s=>e.classList.remove(s))}_getBasicClassPrefix(){return"bs-tooltip"}_handlePopperPlacementChange(e){let{state:t}=e;t&&(this.tip=t.elements.popper,this._cleanTipClass(),this._addAttachmentClass(this._getAttachment(t.placement)))}_disposePopper(){this._popper&&(this._popper.destroy(),this._popper=null)}static jQueryInterface(e){return this.each(function(){let t=$e.getOrCreateInstance(this,e);if(typeof e=="string"){if(t[e]===void 0)throw new TypeError(`No method named "${e}"`);t[e]()}})}}K($e);let Yi={...$e.Default,placement:"right",offset:[0,8],trigger:"click",content:"",template:'<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'},Xi={...$e.DefaultType,content:"(string|element|function)"},Qi={HIDE:"hide.bs.popover",HIDDEN:"hidden.bs.popover",SHOW:"show.bs.popover",SHOWN:"shown.bs.popover",INSERTED:"inserted.bs.popover",CLICK:"click.bs.popover",FOCUSIN:"focusin.bs.popover",FOCUSOUT:"focusout.bs.popover",MOUSEENTER:"mouseenter.bs.popover",MOUSELEAVE:"mouseleave.bs.popover"};class gt extends $e{static get Default(){return Yi}static get NAME(){return"popover"}static get Event(){return Qi}static get DefaultType(){return Xi}isWithContent(){return this.getTitle()||this._getContent()}setContent(e){this._sanitizeAndSetContent(e,this.getTitle(),".popover-header"),this._sanitizeAndSetContent(e,this._getContent(),".popover-body")}_getContent(){return this._resolvePossibleFunction(this._config.content)}_getBasicClassPrefix(){return"bs-popover"}static jQueryInterface(e){return this.each(function(){let t=gt.getOrCreateInstance(this,e);if(typeof e=="string"){if(t[e]===void 0)throw new TypeError(`No method named "${e}"`);t[e]()}})}}K(gt);let Hn={offset:10,method:"auto",target:""},Gi={offset:"number",method:"string",target:"(string|element)"},zt=".nav-link, .list-group-item, .dropdown-item";class nt extends ue{constructor(e,t){super(e),this._scrollElement=this._element.tagName==="BODY"?window:this._element,this._config=this._getConfig(t),this._offsets=[],this._targets=[],this._activeTarget=null,this._scrollHeight=0,u.on(this._scrollElement,"scroll.bs.scrollspy",()=>this._process()),this.refresh(),this._process()}static get Default(){return Hn}static get NAME(){return"scrollspy"}refresh(){let e=this._scrollElement===this._scrollElement.window?"offset":"position",t=this._config.method==="auto"?e:this._config.method,i=t==="position"?this._getScrollTop():0;this._offsets=[],this._targets=[],this._scrollHeight=this._getScrollHeight(),v.find(zt,this._config.target).map(s=>{let o=l(s),a=o?v.findOne(o):null;if(a){let c=a.getBoundingClientRect();if(c.width||c.height)return[V[t](a).top+i,o]}return null}).filter(s=>s).sort((s,o)=>s[0]-o[0]).forEach(s=>{this._offsets.push(s[0]),this._targets.push(s[1])})}dispose(){u.off(this._scrollElement,".bs.scrollspy"),super.dispose()}_getConfig(e){return(e={...Hn,...V.getDataAttributes(this._element),...typeof e=="object"&&e?e:{}}).target=M(e.target)||document.documentElement,F("scrollspy",e,Gi),e}_getScrollTop(){return this._scrollElement===window?this._scrollElement.pageYOffset:this._scrollElement.scrollTop}_getScrollHeight(){return this._scrollElement.scrollHeight||Math.max(document.body.scrollHeight,document.documentElement.scrollHeight)}_getOffsetHeight(){return this._scrollElement===window?window.innerHeight:this._scrollElement.getBoundingClientRect().height}_process(){let e=this._getScrollTop()+this._config.offset,t=this._getScrollHeight(),i=this._config.offset+t-this._getOffsetHeight();if(this._scrollHeight!==t&&this.refresh(),e>=i){let s=this._targets[this._targets.length-1];this._activeTarget!==s&&this._activate(s)}else{if(this._activeTarget&&e<this._offsets[0]&&this._offsets[0]>0)return this._activeTarget=null,void this._clear();for(let s=this._offsets.length;s--;)this._activeTarget!==this._targets[s]&&e>=this._offsets[s]&&(this._offsets[s+1]===void 0||e<this._offsets[s+1])&&this._activate(this._targets[s])}}_activate(e){this._activeTarget=e,this._clear();let t=zt.split(",").map(s=>`${s}[data-bs-target="${e}"],${s}[href="${e}"]`),i=v.findOne(t.join(","),this._config.target);i.classList.add("active"),i.classList.contains("dropdown-item")?v.findOne(".dropdown-toggle",i.closest(".dropdown")).classList.add("active"):v.parents(i,".nav, .list-group").forEach(s=>{v.prev(s,".nav-link, .list-group-item").forEach(o=>o.classList.add("active")),v.prev(s,".nav-item").forEach(o=>{v.children(o,".nav-link").forEach(a=>a.classList.add("active"))})}),u.trigger(this._scrollElement,"activate.bs.scrollspy",{relatedTarget:e})}_clear(){v.find(zt,this._config.target).filter(e=>e.classList.contains("active")).forEach(e=>e.classList.remove("active"))}static jQueryInterface(e){return this.each(function(){let t=nt.getOrCreateInstance(this,e);if(typeof e=="string"){if(t[e]===void 0)throw new TypeError(`No method named "${e}"`);t[e]()}})}}u.on(window,"load.bs.scrollspy.data-api",()=>{v.find('[data-bs-spy="scroll"]').forEach(n=>new nt(n))}),K(nt);class it extends ue{static get NAME(){return"tab"}show(){if(this._element.parentNode&&this._element.parentNode.nodeType===Node.ELEMENT_NODE&&this._element.classList.contains("active"))return;let e,t=m(this._element),i=this._element.closest(".nav, .list-group");if(i){let a=i.nodeName==="UL"||i.nodeName==="OL"?":scope > li > .active":".active";e=v.find(a,i),e=e[e.length-1]}let s=e?u.trigger(e,"hide.bs.tab",{relatedTarget:this._element}):null;if(u.trigger(this._element,"show.bs.tab",{relatedTarget:e}).defaultPrevented||s!==null&&s.defaultPrevented)return;this._activate(this._element,i);let o=()=>{u.trigger(e,"hidden.bs.tab",{relatedTarget:this._element}),u.trigger(this._element,"shown.bs.tab",{relatedTarget:e})};t?this._activate(t,t.parentNode,o):o()}_activate(e,t,i){let s=(!t||t.nodeName!=="UL"&&t.nodeName!=="OL"?v.children(t,".active"):v.find(":scope > li > .active",t))[0],o=i&&s&&s.classList.contains("fade"),a=()=>this._transitionComplete(e,s,i);s&&o?(s.classList.remove("show"),this._queueCallback(a,e,!0)):a()}_transitionComplete(e,t,i){if(t){t.classList.remove("active");let o=v.findOne(":scope > .dropdown-menu .active",t.parentNode);o&&o.classList.remove("active"),t.getAttribute("role")==="tab"&&t.setAttribute("aria-selected",!1)}e.classList.add("active"),e.getAttribute("role")==="tab"&&e.setAttribute("aria-selected",!0),q(e),e.classList.contains("fade")&&e.classList.add("show");let s=e.parentNode;if(s&&s.nodeName==="LI"&&(s=s.parentNode),s&&s.classList.contains("dropdown-menu")){let o=e.closest(".dropdown");o&&v.find(".dropdown-toggle",o).forEach(a=>a.classList.add("active")),e.setAttribute("aria-expanded",!0)}i&&i()}static jQueryInterface(e){return this.each(function(){let t=it.getOrCreateInstance(this);if(typeof e=="string"){if(t[e]===void 0)throw new TypeError(`No method named "${e}"`);t[e]()}})}}u.on(document,"click.bs.tab.data-api",'[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]',function(n){["A","AREA"].includes(this.tagName)&&n.preventDefault(),P(this)||it.getOrCreateInstance(this).show()}),K(it);let Ji={animation:"boolean",autohide:"boolean",delay:"number"},Bn={animation:!0,autohide:!0,delay:5e3};class st extends ue{constructor(e,t){super(e),this._config=this._getConfig(t),this._timeout=null,this._hasMouseInteraction=!1,this._hasKeyboardInteraction=!1,this._setListeners()}static get DefaultType(){return Ji}static get Default(){return Bn}static get NAME(){return"toast"}show(){u.trigger(this._element,"show.bs.toast").defaultPrevented||(this._clearTimeout(),this._config.animation&&this._element.classList.add("fade"),this._element.classList.remove("hide"),q(this._element),this._element.classList.add("show"),this._element.classList.add("showing"),this._queueCallback(()=>{this._element.classList.remove("showing"),u.trigger(this._element,"shown.bs.toast"),this._maybeScheduleHide()},this._element,this._config.animation))}hide(){this._element.classList.contains("show")&&(u.trigger(this._element,"hide.bs.toast").defaultPrevented||(this._element.classList.add("showing"),this._queueCallback(()=>{this._element.classList.add("hide"),this._element.classList.remove("showing"),this._element.classList.remove("show"),u.trigger(this._element,"hidden.bs.toast")},this._element,this._config.animation)))}dispose(){this._clearTimeout(),this._element.classList.contains("show")&&this._element.classList.remove("show"),super.dispose()}_getConfig(e){return e={...Bn,...V.getDataAttributes(this._element),...typeof e=="object"&&e?e:{}},F("toast",e,this.constructor.DefaultType),e}_maybeScheduleHide(){this._config.autohide&&(this._hasMouseInteraction||this._hasKeyboardInteraction||(this._timeout=setTimeout(()=>{this.hide()},this._config.delay)))}_onInteraction(e,t){switch(e.type){case"mouseover":case"mouseout":this._hasMouseInteraction=t;break;case"focusin":case"focusout":this._hasKeyboardInteraction=t}if(t)return void this._clearTimeout();let i=e.relatedTarget;this._element===i||this._element.contains(i)||this._maybeScheduleHide()}_setListeners(){u.on(this._element,"mouseover.bs.toast",e=>this._onInteraction(e,!0)),u.on(this._element,"mouseout.bs.toast",e=>this._onInteraction(e,!1)),u.on(this._element,"focusin.bs.toast",e=>this._onInteraction(e,!0)),u.on(this._element,"focusout.bs.toast",e=>this._onInteraction(e,!1))}_clearTimeout(){clearTimeout(this._timeout),this._timeout=null}static jQueryInterface(e){return this.each(function(){let t=st.getOrCreateInstance(this,e);if(typeof e=="string"){if(t[e]===void 0)throw new TypeError(`No method named "${e}"`);t[e](this)}})}}return ut(st),K(st),{Alert:Xe,Button:Qe,Carousel:fe,Collapse:Fe,Dropdown:ie,Modal:Ne,Offcanvas:Ce,Popover:gt,ScrollSpy:nt,Tab:it,Toast:st,Tooltip:$e}})});function ze(){}function Kt(r){return r()}function Yn(){return Object.create(null)}function rt(r){r.forEach(Kt)}function Xn(r){return typeof r=="function"}function yt(r,l){return r!=r?l==l:r!==l||r&&typeof r=="object"||typeof r=="function"}var wt;function Qn(r,l){return wt||(wt=document.createElement("a")),wt.href=l,r===wt.href}function Gn(r){return Object.keys(r).length===0}var Ls=typeof window!="undefined";var Fs=new Set;var Jn=!1;function fs(){Jn=!0}function ps(){Jn=!1}function W(r,l){r.appendChild(l)}function Zn(r,l,m){let _=ms(r);if(!_.getElementById(l)){let A=le("style");A.id=l,A.textContent=m,_s(_,A)}}function ms(r){if(!r)return document;let l=r.getRootNode?r.getRootNode():r.ownerDocument;return l&&l.host?l:r.ownerDocument}function _s(r,l){W(r.head||r,l)}function Ue(r,l,m){r.insertBefore(l,m||null)}function Me(r){r.parentNode.removeChild(r)}function le(r){return document.createElement(r)}function ge(r){return document.createTextNode(r)}function je(){return ge(" ")}function Et(r,l,m,_){return r.addEventListener(l,m,_),()=>r.removeEventListener(l,m,_)}function ce(r,l,m){m==null?r.removeAttribute(l):r.getAttribute(l)!==m&&r.setAttribute(l,m)}function gs(r){return Array.from(r.childNodes)}function Ve(r,l){l=""+l,r.wholeText!==l&&(r.data=l)}var Ns=new Set;var ei;function At(r){ei=r}var at=[];var ti=[],kt=[],ni=[],bs=Promise.resolve(),Yt=!1;function vs(){Yt||(Yt=!0,bs.then(ii))}function Xt(r){kt.push(r)}var Qt=!1,Gt=new Set;function ii(){if(!Qt){Qt=!0;do{for(let r=0;r<at.length;r+=1){let l=at[r];At(l),ys(l.$$)}for(At(null),at.length=0;ti.length;)ti.pop()();for(let r=0;r<kt.length;r+=1){let l=kt[r];Gt.has(l)||(Gt.add(l),l())}kt.length=0}while(at.length);for(;ni.length;)ni.pop()();Yt=!1,Qt=!1,Gt.clear()}}function ys(r){if(r.fragment!==null){r.update(),rt(r.before_update);let l=r.dirty;r.dirty=[-1],r.fragment&&r.fragment.p(r.ctx,l),r.after_update.forEach(Xt)}}var xt=new Set,ws;function Jt(r,l){r&&r.i&&(xt.delete(r),r.i(l))}function si(r,l,m,_){if(r&&r.o){if(xt.has(r))return;xt.add(r),ws.c.push(()=>{xt.delete(r),_&&(m&&r.d(1),_())}),r.o(l)}}var $s=typeof window!="undefined"?window:typeof globalThis!="undefined"?globalThis:global;var Is=new Set(["allowfullscreen","allowpaymentrequest","async","autofocus","autoplay","checked","controls","default","defer","disabled","formnovalidate","hidden","ismap","loop","multiple","muted","nomodule","novalidate","open","playsinline","readonly","required","reversed","selected"]);function oi(r){r&&r.c()}function Zt(r,l,m,_){let{fragment:A,on_mount:M,on_destroy:F,after_update:B}=r.$$;A&&A.m(l,m),_||Xt(()=>{let P=M.map(Kt).filter(Xn);F?F.push(...P):rt(P),r.$$.on_mount=[]}),B.forEach(Xt)}function Tt(r,l){let m=r.$$;m.fragment!==null&&(rt(m.on_destroy),m.fragment&&m.fragment.d(l),m.on_destroy=m.fragment=null,m.ctx=[])}function Es(r,l){r.$$.dirty[0]===-1&&(at.push(r),vs(),r.$$.dirty.fill(0)),r.$$.dirty[l/31|0]|=1<<l%31}function Ot(r,l,m,_,A,M,F,B=[-1]){let P=ei;At(r);let x=r.$$={fragment:null,ctx:null,props:M,update:ze,not_equal:A,bound:Yn(),on_mount:[],on_destroy:[],on_disconnect:[],before_update:[],after_update:[],context:new Map(P?P.$$.context:l.context||[]),callbacks:Yn(),dirty:B,skip_bound:!1,root:l.target||P.$$.root};F&&F(x.root);let U=!1;if(x.ctx=m?m(r,l.props||{},(q,we,...se)=>{let R=se.length?se[0]:we;return x.ctx&&A(x.ctx[q],x.ctx[q]=R)&&(!x.skip_bound&&x.bound[q]&&x.bound[q](R),U&&Es(r,q)),we}):[],x.update(),U=!0,rt(x.before_update),x.fragment=_?_(x.ctx):!1,l.target){if(l.hydrate){fs();let q=gs(l.target);x.fragment&&x.fragment.l(q),q.forEach(Me)}else x.fragment&&x.fragment.c();l.intro&&Jt(r.$$.fragment),Zt(r,l.target,l.anchor,l.customElement),ps(),ii()}At(P)}var As;typeof HTMLElement=="function"&&(As=class extends HTMLElement{constructor(){super();this.attachShadow({mode:"open"})}connectedCallback(){let{on_mount:r}=this.$$;this.$$.on_disconnect=r.map(Kt).filter(Xn);for(let l in this.$$.slotted)this.appendChild(this.$$.slotted[l])}attributeChangedCallback(r,l,m){this[r]=m}disconnectedCallback(){rt(this.$$.on_disconnect)}$destroy(){Tt(this,1),this.$destroy=ze}$on(r,l){let m=this.$$.callbacks[r]||(this.$$.callbacks[r]=[]);return m.push(l),()=>{let _=m.indexOf(l);_!==-1&&m.splice(_,1)}}$set(r){this.$$set&&!Gn(r)&&(this.$$.skip_bound=!0,this.$$set(r),this.$$.skip_bound=!1)}});var lt=class{$destroy(){Tt(this,1),this.$destroy=ze}$on(l,m){let _=this.$$.callbacks[l]||(this.$$.callbacks[l]=[]);return _.push(m),()=>{let A=_.indexOf(m);A!==-1&&_.splice(A,1)}}$set(l){this.$$set&&!Gn(l)&&(this.$$.skip_bound=!0,this.$$set(l),this.$$.skip_bound=!1)}};function ks(r){let l,m,_,A,M,F,B,P;return{c(){l=le("h1"),m=ge(r[0]),_=je(),A=le("button"),M=ge("Count: "),F=ge(r[1]),ce(A,"class","btn btn-primary")},m(x,U){Ue(x,l,U),W(l,m),Ue(x,_,U),Ue(x,A,U),W(A,M),W(A,F),B||(P=Et(A,"click",r[2]),B=!0)},p(x,[U]){U&1&&Ve(m,x[0]),U&2&&Ve(F,x[1])},i:ze,o:ze,d(x){x&&Me(l),x&&Me(_),x&&Me(A),B=!1,P()}}}function xs(r,l,m){let{msg:_}=l,A=0,M=()=>{m(1,A++,A)};return r.$$set=F=>{"msg"in F&&m(0,_=F.msg)},[_,A,M]}var ri=class extends lt{constructor(l){super();Ot(this,l,xs,ks,yt,{msg:0})}},ai=ri;function Ts(r){Zn(r,"svelte-pbbg53",".logo.svelte-pbbg53{max-width:100px}")}function Os(r){let l,m,_,A,M,F,B,P,x,U,q,we,se,R,K,he,Ee,be,Ke,ct;return B=new ai({props:{msg:"Svelte + Esbuild + Bootstrap 5 + Livereload"}}),{c(){l=le("div"),m=le("div"),_=le("div"),A=le("img"),F=je(),oi(B.$$.fragment),P=je(),x=le("p"),U=ge("Answer is: "),q=ge(r[0]),we=je(),se=le("p"),R=ge("Message: "),K=ge(r[1]),he=je(),Ee=le("button"),Ee.textContent="Change Message",Qn(A.src,M="assets/img/svelte-logo.png")||ce(A,"src",M),ce(A,"alt",""),ce(A,"class","logo svelte-pbbg53"),ce(x,"class","mt-2"),ce(se,"class","mt-2"),ce(Ee,"class","btn btn-danger"),ce(_,"class","col text-center"),ce(m,"class","row"),ce(l,"class","container mt-5")},m(oe,Ae){Ue(oe,l,Ae),W(l,m),W(m,_),W(_,A),W(_,F),Zt(B,_,null),W(_,P),W(_,x),W(x,U),W(x,q),W(_,we),W(_,se),W(se,R),W(se,K),W(_,he),W(_,Ee),be=!0,Ke||(ct=Et(Ee,"click",r[2]),Ke=!0)},p(oe,[Ae]){(!be||Ae&1)&&Ve(q,oe[0]),(!be||Ae&2)&&Ve(K,oe[1])},i(oe){be||(Jt(B.$$.fragment,oe),be=!0)},o(oe){si(B.$$.fragment,oe),be=!1},d(oe){oe&&Me(l),Tt(B),Ke=!1,ct()}}}function Cs(r,l,m){let{answer:_}=l,A="test message",M=()=>{m(1,A="message changed")};return r.$$set=F=>{"answer"in F&&m(0,_=F.answer)},[_,A,M]}var li=class extends lt{constructor(l){super();Ot(this,l,Cs,Os,yt,{answer:0},Ts)}},ci=li;var Vs=hs(ui());new ci({target:document.getElementById("app"),props:{answer:42}});})();
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __reExport = (target, module, desc) => {
+    if (module && typeof module === "object" || typeof module === "function") {
+      for (let key of __getOwnPropNames(module))
+        if (!__hasOwnProp.call(target, key) && key !== "default")
+          __defProp(target, key, { get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable });
+    }
+    return target;
+  };
+  var __toModule = (module) => {
+    return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
+  };
+
+  // node_modules/bootstrap/dist/js/bootstrap.bundle.min.js
+  var require_bootstrap_bundle_min = __commonJS({
+    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"(exports, module) {
+      !function(t, e) {
+        typeof exports == "object" && typeof module != "undefined" ? module.exports = e() : typeof define == "function" && define.amd ? define(e) : (t = typeof globalThis != "undefined" ? globalThis : t || self).bootstrap = e();
+      }(exports, function() {
+        "use strict";
+        const t = "transitionend", e = (t2) => {
+          let e2 = t2.getAttribute("data-bs-target");
+          if (!e2 || e2 === "#") {
+            let i2 = t2.getAttribute("href");
+            if (!i2 || !i2.includes("#") && !i2.startsWith("."))
+              return null;
+            i2.includes("#") && !i2.startsWith("#") && (i2 = `#${i2.split("#")[1]}`), e2 = i2 && i2 !== "#" ? i2.trim() : null;
+          }
+          return e2;
+        }, i = (t2) => {
+          const i2 = e(t2);
+          return i2 && document.querySelector(i2) ? i2 : null;
+        }, n = (t2) => {
+          const i2 = e(t2);
+          return i2 ? document.querySelector(i2) : null;
+        }, s = (e2) => {
+          e2.dispatchEvent(new Event(t));
+        }, o = (t2) => !(!t2 || typeof t2 != "object") && (t2.jquery !== void 0 && (t2 = t2[0]), t2.nodeType !== void 0), r = (t2) => o(t2) ? t2.jquery ? t2[0] : t2 : typeof t2 == "string" && t2.length > 0 ? document.querySelector(t2) : null, a = (t2, e2, i2) => {
+          Object.keys(i2).forEach((n2) => {
+            const s2 = i2[n2], r2 = e2[n2], a2 = r2 && o(r2) ? "element" : (l2 = r2) == null ? `${l2}` : {}.toString.call(l2).match(/\s([a-z]+)/i)[1].toLowerCase();
+            var l2;
+            if (!new RegExp(s2).test(a2))
+              throw new TypeError(`${t2.toUpperCase()}: Option "${n2}" provided type "${a2}" but expected type "${s2}".`);
+          });
+        }, l = (t2) => !(!o(t2) || t2.getClientRects().length === 0) && getComputedStyle(t2).getPropertyValue("visibility") === "visible", c = (t2) => !t2 || t2.nodeType !== Node.ELEMENT_NODE || !!t2.classList.contains("disabled") || (t2.disabled !== void 0 ? t2.disabled : t2.hasAttribute("disabled") && t2.getAttribute("disabled") !== "false"), h = (t2) => {
+          if (!document.documentElement.attachShadow)
+            return null;
+          if (typeof t2.getRootNode == "function") {
+            const e2 = t2.getRootNode();
+            return e2 instanceof ShadowRoot ? e2 : null;
+          }
+          return t2 instanceof ShadowRoot ? t2 : t2.parentNode ? h(t2.parentNode) : null;
+        }, d = () => {
+        }, u = (t2) => {
+          t2.offsetHeight;
+        }, f = () => {
+          const { jQuery: t2 } = window;
+          return t2 && !document.body.hasAttribute("data-bs-no-jquery") ? t2 : null;
+        }, p = [], m = () => document.documentElement.dir === "rtl", g = (t2) => {
+          var e2;
+          e2 = () => {
+            const e3 = f();
+            if (e3) {
+              const i2 = t2.NAME, n2 = e3.fn[i2];
+              e3.fn[i2] = t2.jQueryInterface, e3.fn[i2].Constructor = t2, e3.fn[i2].noConflict = () => (e3.fn[i2] = n2, t2.jQueryInterface);
+            }
+          }, document.readyState === "loading" ? (p.length || document.addEventListener("DOMContentLoaded", () => {
+            p.forEach((t3) => t3());
+          }), p.push(e2)) : e2();
+        }, _ = (t2) => {
+          typeof t2 == "function" && t2();
+        }, b = (e2, i2, n2 = true) => {
+          if (!n2)
+            return void _(e2);
+          const o2 = ((t2) => {
+            if (!t2)
+              return 0;
+            let { transitionDuration: e3, transitionDelay: i3 } = window.getComputedStyle(t2);
+            const n3 = Number.parseFloat(e3), s2 = Number.parseFloat(i3);
+            return n3 || s2 ? (e3 = e3.split(",")[0], i3 = i3.split(",")[0], 1e3 * (Number.parseFloat(e3) + Number.parseFloat(i3))) : 0;
+          })(i2) + 5;
+          let r2 = false;
+          const a2 = ({ target: n3 }) => {
+            n3 === i2 && (r2 = true, i2.removeEventListener(t, a2), _(e2));
+          };
+          i2.addEventListener(t, a2), setTimeout(() => {
+            r2 || s(i2);
+          }, o2);
+        }, v = (t2, e2, i2, n2) => {
+          let s2 = t2.indexOf(e2);
+          if (s2 === -1)
+            return t2[!i2 && n2 ? t2.length - 1 : 0];
+          const o2 = t2.length;
+          return s2 += i2 ? 1 : -1, n2 && (s2 = (s2 + o2) % o2), t2[Math.max(0, Math.min(s2, o2 - 1))];
+        }, y = /[^.]*(?=\..*)\.|.*/, w = /\..*/, E = /::\d+$/, A = {};
+        let T = 1;
+        const O = { mouseenter: "mouseover", mouseleave: "mouseout" }, C = /^(mouseenter|mouseleave)/i, k = new Set(["click", "dblclick", "mouseup", "mousedown", "contextmenu", "mousewheel", "DOMMouseScroll", "mouseover", "mouseout", "mousemove", "selectstart", "selectend", "keydown", "keypress", "keyup", "orientationchange", "touchstart", "touchmove", "touchend", "touchcancel", "pointerdown", "pointermove", "pointerup", "pointerleave", "pointercancel", "gesturestart", "gesturechange", "gestureend", "focus", "blur", "change", "reset", "select", "submit", "focusin", "focusout", "load", "unload", "beforeunload", "resize", "move", "DOMContentLoaded", "readystatechange", "error", "abort", "scroll"]);
+        function L(t2, e2) {
+          return e2 && `${e2}::${T++}` || t2.uidEvent || T++;
+        }
+        function x(t2) {
+          const e2 = L(t2);
+          return t2.uidEvent = e2, A[e2] = A[e2] || {}, A[e2];
+        }
+        function D(t2, e2, i2 = null) {
+          const n2 = Object.keys(t2);
+          for (let s2 = 0, o2 = n2.length; s2 < o2; s2++) {
+            const o3 = t2[n2[s2]];
+            if (o3.originalHandler === e2 && o3.delegationSelector === i2)
+              return o3;
+          }
+          return null;
+        }
+        function S(t2, e2, i2) {
+          const n2 = typeof e2 == "string", s2 = n2 ? i2 : e2;
+          let o2 = P(t2);
+          return k.has(o2) || (o2 = t2), [n2, s2, o2];
+        }
+        function N(t2, e2, i2, n2, s2) {
+          if (typeof e2 != "string" || !t2)
+            return;
+          if (i2 || (i2 = n2, n2 = null), C.test(e2)) {
+            const t3 = (t4) => function(e3) {
+              if (!e3.relatedTarget || e3.relatedTarget !== e3.delegateTarget && !e3.delegateTarget.contains(e3.relatedTarget))
+                return t4.call(this, e3);
+            };
+            n2 ? n2 = t3(n2) : i2 = t3(i2);
+          }
+          const [o2, r2, a2] = S(e2, i2, n2), l2 = x(t2), c2 = l2[a2] || (l2[a2] = {}), h2 = D(c2, r2, o2 ? i2 : null);
+          if (h2)
+            return void (h2.oneOff = h2.oneOff && s2);
+          const d2 = L(r2, e2.replace(y, "")), u2 = o2 ? function(t3, e3, i3) {
+            return function n3(s3) {
+              const o3 = t3.querySelectorAll(e3);
+              for (let { target: r3 } = s3; r3 && r3 !== this; r3 = r3.parentNode)
+                for (let a3 = o3.length; a3--; )
+                  if (o3[a3] === r3)
+                    return s3.delegateTarget = r3, n3.oneOff && j.off(t3, s3.type, e3, i3), i3.apply(r3, [s3]);
+              return null;
+            };
+          }(t2, i2, n2) : function(t3, e3) {
+            return function i3(n3) {
+              return n3.delegateTarget = t3, i3.oneOff && j.off(t3, n3.type, e3), e3.apply(t3, [n3]);
+            };
+          }(t2, i2);
+          u2.delegationSelector = o2 ? i2 : null, u2.originalHandler = r2, u2.oneOff = s2, u2.uidEvent = d2, c2[d2] = u2, t2.addEventListener(a2, u2, o2);
+        }
+        function I(t2, e2, i2, n2, s2) {
+          const o2 = D(e2[i2], n2, s2);
+          o2 && (t2.removeEventListener(i2, o2, Boolean(s2)), delete e2[i2][o2.uidEvent]);
+        }
+        function P(t2) {
+          return t2 = t2.replace(w, ""), O[t2] || t2;
+        }
+        const j = { on(t2, e2, i2, n2) {
+          N(t2, e2, i2, n2, false);
+        }, one(t2, e2, i2, n2) {
+          N(t2, e2, i2, n2, true);
+        }, off(t2, e2, i2, n2) {
+          if (typeof e2 != "string" || !t2)
+            return;
+          const [s2, o2, r2] = S(e2, i2, n2), a2 = r2 !== e2, l2 = x(t2), c2 = e2.startsWith(".");
+          if (o2 !== void 0) {
+            if (!l2 || !l2[r2])
+              return;
+            return void I(t2, l2, r2, o2, s2 ? i2 : null);
+          }
+          c2 && Object.keys(l2).forEach((i3) => {
+            !function(t3, e3, i4, n3) {
+              const s3 = e3[i4] || {};
+              Object.keys(s3).forEach((o3) => {
+                if (o3.includes(n3)) {
+                  const n4 = s3[o3];
+                  I(t3, e3, i4, n4.originalHandler, n4.delegationSelector);
+                }
+              });
+            }(t2, l2, i3, e2.slice(1));
+          });
+          const h2 = l2[r2] || {};
+          Object.keys(h2).forEach((i3) => {
+            const n3 = i3.replace(E, "");
+            if (!a2 || e2.includes(n3)) {
+              const e3 = h2[i3];
+              I(t2, l2, r2, e3.originalHandler, e3.delegationSelector);
+            }
+          });
+        }, trigger(t2, e2, i2) {
+          if (typeof e2 != "string" || !t2)
+            return null;
+          const n2 = f(), s2 = P(e2), o2 = e2 !== s2, r2 = k.has(s2);
+          let a2, l2 = true, c2 = true, h2 = false, d2 = null;
+          return o2 && n2 && (a2 = n2.Event(e2, i2), n2(t2).trigger(a2), l2 = !a2.isPropagationStopped(), c2 = !a2.isImmediatePropagationStopped(), h2 = a2.isDefaultPrevented()), r2 ? (d2 = document.createEvent("HTMLEvents"), d2.initEvent(s2, l2, true)) : d2 = new CustomEvent(e2, { bubbles: l2, cancelable: true }), i2 !== void 0 && Object.keys(i2).forEach((t3) => {
+            Object.defineProperty(d2, t3, { get: () => i2[t3] });
+          }), h2 && d2.preventDefault(), c2 && t2.dispatchEvent(d2), d2.defaultPrevented && a2 !== void 0 && a2.preventDefault(), d2;
+        } }, M = new Map(), H = { set(t2, e2, i2) {
+          M.has(t2) || M.set(t2, new Map());
+          const n2 = M.get(t2);
+          n2.has(e2) || n2.size === 0 ? n2.set(e2, i2) : console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(n2.keys())[0]}.`);
+        }, get: (t2, e2) => M.has(t2) && M.get(t2).get(e2) || null, remove(t2, e2) {
+          if (!M.has(t2))
+            return;
+          const i2 = M.get(t2);
+          i2.delete(e2), i2.size === 0 && M.delete(t2);
+        } };
+        class B {
+          constructor(t2) {
+            (t2 = r(t2)) && (this._element = t2, H.set(this._element, this.constructor.DATA_KEY, this));
+          }
+          dispose() {
+            H.remove(this._element, this.constructor.DATA_KEY), j.off(this._element, this.constructor.EVENT_KEY), Object.getOwnPropertyNames(this).forEach((t2) => {
+              this[t2] = null;
+            });
+          }
+          _queueCallback(t2, e2, i2 = true) {
+            b(t2, e2, i2);
+          }
+          static getInstance(t2) {
+            return H.get(r(t2), this.DATA_KEY);
+          }
+          static getOrCreateInstance(t2, e2 = {}) {
+            return this.getInstance(t2) || new this(t2, typeof e2 == "object" ? e2 : null);
+          }
+          static get VERSION() {
+            return "5.1.3";
+          }
+          static get NAME() {
+            throw new Error('You have to implement the static method "NAME", for each component!');
+          }
+          static get DATA_KEY() {
+            return `bs.${this.NAME}`;
+          }
+          static get EVENT_KEY() {
+            return `.${this.DATA_KEY}`;
+          }
+        }
+        const R = (t2, e2 = "hide") => {
+          const i2 = `click.dismiss${t2.EVENT_KEY}`, s2 = t2.NAME;
+          j.on(document, i2, `[data-bs-dismiss="${s2}"]`, function(i3) {
+            if (["A", "AREA"].includes(this.tagName) && i3.preventDefault(), c(this))
+              return;
+            const o2 = n(this) || this.closest(`.${s2}`);
+            t2.getOrCreateInstance(o2)[e2]();
+          });
+        };
+        class W extends B {
+          static get NAME() {
+            return "alert";
+          }
+          close() {
+            if (j.trigger(this._element, "close.bs.alert").defaultPrevented)
+              return;
+            this._element.classList.remove("show");
+            const t2 = this._element.classList.contains("fade");
+            this._queueCallback(() => this._destroyElement(), this._element, t2);
+          }
+          _destroyElement() {
+            this._element.remove(), j.trigger(this._element, "closed.bs.alert"), this.dispose();
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = W.getOrCreateInstance(this);
+              if (typeof t2 == "string") {
+                if (e2[t2] === void 0 || t2.startsWith("_") || t2 === "constructor")
+                  throw new TypeError(`No method named "${t2}"`);
+                e2[t2](this);
+              }
+            });
+          }
+        }
+        R(W, "close"), g(W);
+        const $ = '[data-bs-toggle="button"]';
+        class z extends B {
+          static get NAME() {
+            return "button";
+          }
+          toggle() {
+            this._element.setAttribute("aria-pressed", this._element.classList.toggle("active"));
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = z.getOrCreateInstance(this);
+              t2 === "toggle" && e2[t2]();
+            });
+          }
+        }
+        function q(t2) {
+          return t2 === "true" || t2 !== "false" && (t2 === Number(t2).toString() ? Number(t2) : t2 === "" || t2 === "null" ? null : t2);
+        }
+        function F(t2) {
+          return t2.replace(/[A-Z]/g, (t3) => `-${t3.toLowerCase()}`);
+        }
+        j.on(document, "click.bs.button.data-api", $, (t2) => {
+          t2.preventDefault();
+          const e2 = t2.target.closest($);
+          z.getOrCreateInstance(e2).toggle();
+        }), g(z);
+        const U = { setDataAttribute(t2, e2, i2) {
+          t2.setAttribute(`data-bs-${F(e2)}`, i2);
+        }, removeDataAttribute(t2, e2) {
+          t2.removeAttribute(`data-bs-${F(e2)}`);
+        }, getDataAttributes(t2) {
+          if (!t2)
+            return {};
+          const e2 = {};
+          return Object.keys(t2.dataset).filter((t3) => t3.startsWith("bs")).forEach((i2) => {
+            let n2 = i2.replace(/^bs/, "");
+            n2 = n2.charAt(0).toLowerCase() + n2.slice(1, n2.length), e2[n2] = q(t2.dataset[i2]);
+          }), e2;
+        }, getDataAttribute: (t2, e2) => q(t2.getAttribute(`data-bs-${F(e2)}`)), offset(t2) {
+          const e2 = t2.getBoundingClientRect();
+          return { top: e2.top + window.pageYOffset, left: e2.left + window.pageXOffset };
+        }, position: (t2) => ({ top: t2.offsetTop, left: t2.offsetLeft }) }, V = { find: (t2, e2 = document.documentElement) => [].concat(...Element.prototype.querySelectorAll.call(e2, t2)), findOne: (t2, e2 = document.documentElement) => Element.prototype.querySelector.call(e2, t2), children: (t2, e2) => [].concat(...t2.children).filter((t3) => t3.matches(e2)), parents(t2, e2) {
+          const i2 = [];
+          let n2 = t2.parentNode;
+          for (; n2 && n2.nodeType === Node.ELEMENT_NODE && n2.nodeType !== 3; )
+            n2.matches(e2) && i2.push(n2), n2 = n2.parentNode;
+          return i2;
+        }, prev(t2, e2) {
+          let i2 = t2.previousElementSibling;
+          for (; i2; ) {
+            if (i2.matches(e2))
+              return [i2];
+            i2 = i2.previousElementSibling;
+          }
+          return [];
+        }, next(t2, e2) {
+          let i2 = t2.nextElementSibling;
+          for (; i2; ) {
+            if (i2.matches(e2))
+              return [i2];
+            i2 = i2.nextElementSibling;
+          }
+          return [];
+        }, focusableChildren(t2) {
+          const e2 = ["a", "button", "input", "textarea", "select", "details", "[tabindex]", '[contenteditable="true"]'].map((t3) => `${t3}:not([tabindex^="-"])`).join(", ");
+          return this.find(e2, t2).filter((t3) => !c(t3) && l(t3));
+        } }, K = "carousel", X = { interval: 5e3, keyboard: true, slide: false, pause: "hover", wrap: true, touch: true }, Y = { interval: "(number|boolean)", keyboard: "boolean", slide: "(boolean|string)", pause: "(string|boolean)", wrap: "boolean", touch: "boolean" }, Q = "next", G = "prev", Z = "left", J = "right", tt = { ArrowLeft: J, ArrowRight: Z }, et = "slid.bs.carousel", it = "active", nt = ".active.carousel-item";
+        class st extends B {
+          constructor(t2, e2) {
+            super(t2), this._items = null, this._interval = null, this._activeElement = null, this._isPaused = false, this._isSliding = false, this.touchTimeout = null, this.touchStartX = 0, this.touchDeltaX = 0, this._config = this._getConfig(e2), this._indicatorsElement = V.findOne(".carousel-indicators", this._element), this._touchSupported = "ontouchstart" in document.documentElement || navigator.maxTouchPoints > 0, this._pointerEvent = Boolean(window.PointerEvent), this._addEventListeners();
+          }
+          static get Default() {
+            return X;
+          }
+          static get NAME() {
+            return K;
+          }
+          next() {
+            this._slide(Q);
+          }
+          nextWhenVisible() {
+            !document.hidden && l(this._element) && this.next();
+          }
+          prev() {
+            this._slide(G);
+          }
+          pause(t2) {
+            t2 || (this._isPaused = true), V.findOne(".carousel-item-next, .carousel-item-prev", this._element) && (s(this._element), this.cycle(true)), clearInterval(this._interval), this._interval = null;
+          }
+          cycle(t2) {
+            t2 || (this._isPaused = false), this._interval && (clearInterval(this._interval), this._interval = null), this._config && this._config.interval && !this._isPaused && (this._updateInterval(), this._interval = setInterval((document.visibilityState ? this.nextWhenVisible : this.next).bind(this), this._config.interval));
+          }
+          to(t2) {
+            this._activeElement = V.findOne(nt, this._element);
+            const e2 = this._getItemIndex(this._activeElement);
+            if (t2 > this._items.length - 1 || t2 < 0)
+              return;
+            if (this._isSliding)
+              return void j.one(this._element, et, () => this.to(t2));
+            if (e2 === t2)
+              return this.pause(), void this.cycle();
+            const i2 = t2 > e2 ? Q : G;
+            this._slide(i2, this._items[t2]);
+          }
+          _getConfig(t2) {
+            return t2 = { ...X, ...U.getDataAttributes(this._element), ...typeof t2 == "object" ? t2 : {} }, a(K, t2, Y), t2;
+          }
+          _handleSwipe() {
+            const t2 = Math.abs(this.touchDeltaX);
+            if (t2 <= 40)
+              return;
+            const e2 = t2 / this.touchDeltaX;
+            this.touchDeltaX = 0, e2 && this._slide(e2 > 0 ? J : Z);
+          }
+          _addEventListeners() {
+            this._config.keyboard && j.on(this._element, "keydown.bs.carousel", (t2) => this._keydown(t2)), this._config.pause === "hover" && (j.on(this._element, "mouseenter.bs.carousel", (t2) => this.pause(t2)), j.on(this._element, "mouseleave.bs.carousel", (t2) => this.cycle(t2))), this._config.touch && this._touchSupported && this._addTouchEventListeners();
+          }
+          _addTouchEventListeners() {
+            const t2 = (t3) => this._pointerEvent && (t3.pointerType === "pen" || t3.pointerType === "touch"), e2 = (e3) => {
+              t2(e3) ? this.touchStartX = e3.clientX : this._pointerEvent || (this.touchStartX = e3.touches[0].clientX);
+            }, i2 = (t3) => {
+              this.touchDeltaX = t3.touches && t3.touches.length > 1 ? 0 : t3.touches[0].clientX - this.touchStartX;
+            }, n2 = (e3) => {
+              t2(e3) && (this.touchDeltaX = e3.clientX - this.touchStartX), this._handleSwipe(), this._config.pause === "hover" && (this.pause(), this.touchTimeout && clearTimeout(this.touchTimeout), this.touchTimeout = setTimeout((t3) => this.cycle(t3), 500 + this._config.interval));
+            };
+            V.find(".carousel-item img", this._element).forEach((t3) => {
+              j.on(t3, "dragstart.bs.carousel", (t4) => t4.preventDefault());
+            }), this._pointerEvent ? (j.on(this._element, "pointerdown.bs.carousel", (t3) => e2(t3)), j.on(this._element, "pointerup.bs.carousel", (t3) => n2(t3)), this._element.classList.add("pointer-event")) : (j.on(this._element, "touchstart.bs.carousel", (t3) => e2(t3)), j.on(this._element, "touchmove.bs.carousel", (t3) => i2(t3)), j.on(this._element, "touchend.bs.carousel", (t3) => n2(t3)));
+          }
+          _keydown(t2) {
+            if (/input|textarea/i.test(t2.target.tagName))
+              return;
+            const e2 = tt[t2.key];
+            e2 && (t2.preventDefault(), this._slide(e2));
+          }
+          _getItemIndex(t2) {
+            return this._items = t2 && t2.parentNode ? V.find(".carousel-item", t2.parentNode) : [], this._items.indexOf(t2);
+          }
+          _getItemByOrder(t2, e2) {
+            const i2 = t2 === Q;
+            return v(this._items, e2, i2, this._config.wrap);
+          }
+          _triggerSlideEvent(t2, e2) {
+            const i2 = this._getItemIndex(t2), n2 = this._getItemIndex(V.findOne(nt, this._element));
+            return j.trigger(this._element, "slide.bs.carousel", { relatedTarget: t2, direction: e2, from: n2, to: i2 });
+          }
+          _setActiveIndicatorElement(t2) {
+            if (this._indicatorsElement) {
+              const e2 = V.findOne(".active", this._indicatorsElement);
+              e2.classList.remove(it), e2.removeAttribute("aria-current");
+              const i2 = V.find("[data-bs-target]", this._indicatorsElement);
+              for (let e3 = 0; e3 < i2.length; e3++)
+                if (Number.parseInt(i2[e3].getAttribute("data-bs-slide-to"), 10) === this._getItemIndex(t2)) {
+                  i2[e3].classList.add(it), i2[e3].setAttribute("aria-current", "true");
+                  break;
+                }
+            }
+          }
+          _updateInterval() {
+            const t2 = this._activeElement || V.findOne(nt, this._element);
+            if (!t2)
+              return;
+            const e2 = Number.parseInt(t2.getAttribute("data-bs-interval"), 10);
+            e2 ? (this._config.defaultInterval = this._config.defaultInterval || this._config.interval, this._config.interval = e2) : this._config.interval = this._config.defaultInterval || this._config.interval;
+          }
+          _slide(t2, e2) {
+            const i2 = this._directionToOrder(t2), n2 = V.findOne(nt, this._element), s2 = this._getItemIndex(n2), o2 = e2 || this._getItemByOrder(i2, n2), r2 = this._getItemIndex(o2), a2 = Boolean(this._interval), l2 = i2 === Q, c2 = l2 ? "carousel-item-start" : "carousel-item-end", h2 = l2 ? "carousel-item-next" : "carousel-item-prev", d2 = this._orderToDirection(i2);
+            if (o2 && o2.classList.contains(it))
+              return void (this._isSliding = false);
+            if (this._isSliding)
+              return;
+            if (this._triggerSlideEvent(o2, d2).defaultPrevented)
+              return;
+            if (!n2 || !o2)
+              return;
+            this._isSliding = true, a2 && this.pause(), this._setActiveIndicatorElement(o2), this._activeElement = o2;
+            const f2 = () => {
+              j.trigger(this._element, et, { relatedTarget: o2, direction: d2, from: s2, to: r2 });
+            };
+            if (this._element.classList.contains("slide")) {
+              o2.classList.add(h2), u(o2), n2.classList.add(c2), o2.classList.add(c2);
+              const t3 = () => {
+                o2.classList.remove(c2, h2), o2.classList.add(it), n2.classList.remove(it, h2, c2), this._isSliding = false, setTimeout(f2, 0);
+              };
+              this._queueCallback(t3, n2, true);
+            } else
+              n2.classList.remove(it), o2.classList.add(it), this._isSliding = false, f2();
+            a2 && this.cycle();
+          }
+          _directionToOrder(t2) {
+            return [J, Z].includes(t2) ? m() ? t2 === Z ? G : Q : t2 === Z ? Q : G : t2;
+          }
+          _orderToDirection(t2) {
+            return [Q, G].includes(t2) ? m() ? t2 === G ? Z : J : t2 === G ? J : Z : t2;
+          }
+          static carouselInterface(t2, e2) {
+            const i2 = st.getOrCreateInstance(t2, e2);
+            let { _config: n2 } = i2;
+            typeof e2 == "object" && (n2 = { ...n2, ...e2 });
+            const s2 = typeof e2 == "string" ? e2 : n2.slide;
+            if (typeof e2 == "number")
+              i2.to(e2);
+            else if (typeof s2 == "string") {
+              if (i2[s2] === void 0)
+                throw new TypeError(`No method named "${s2}"`);
+              i2[s2]();
+            } else
+              n2.interval && n2.ride && (i2.pause(), i2.cycle());
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              st.carouselInterface(this, t2);
+            });
+          }
+          static dataApiClickHandler(t2) {
+            const e2 = n(this);
+            if (!e2 || !e2.classList.contains("carousel"))
+              return;
+            const i2 = { ...U.getDataAttributes(e2), ...U.getDataAttributes(this) }, s2 = this.getAttribute("data-bs-slide-to");
+            s2 && (i2.interval = false), st.carouselInterface(e2, i2), s2 && st.getInstance(e2).to(s2), t2.preventDefault();
+          }
+        }
+        j.on(document, "click.bs.carousel.data-api", "[data-bs-slide], [data-bs-slide-to]", st.dataApiClickHandler), j.on(window, "load.bs.carousel.data-api", () => {
+          const t2 = V.find('[data-bs-ride="carousel"]');
+          for (let e2 = 0, i2 = t2.length; e2 < i2; e2++)
+            st.carouselInterface(t2[e2], st.getInstance(t2[e2]));
+        }), g(st);
+        const ot = "collapse", rt = { toggle: true, parent: null }, at = { toggle: "boolean", parent: "(null|element)" }, lt = "show", ct = "collapse", ht = "collapsing", dt = "collapsed", ut = ":scope .collapse .collapse", ft = '[data-bs-toggle="collapse"]';
+        class pt extends B {
+          constructor(t2, e2) {
+            super(t2), this._isTransitioning = false, this._config = this._getConfig(e2), this._triggerArray = [];
+            const n2 = V.find(ft);
+            for (let t3 = 0, e3 = n2.length; t3 < e3; t3++) {
+              const e4 = n2[t3], s2 = i(e4), o2 = V.find(s2).filter((t4) => t4 === this._element);
+              s2 !== null && o2.length && (this._selector = s2, this._triggerArray.push(e4));
+            }
+            this._initializeChildren(), this._config.parent || this._addAriaAndCollapsedClass(this._triggerArray, this._isShown()), this._config.toggle && this.toggle();
+          }
+          static get Default() {
+            return rt;
+          }
+          static get NAME() {
+            return ot;
+          }
+          toggle() {
+            this._isShown() ? this.hide() : this.show();
+          }
+          show() {
+            if (this._isTransitioning || this._isShown())
+              return;
+            let t2, e2 = [];
+            if (this._config.parent) {
+              const t3 = V.find(ut, this._config.parent);
+              e2 = V.find(".collapse.show, .collapse.collapsing", this._config.parent).filter((e3) => !t3.includes(e3));
+            }
+            const i2 = V.findOne(this._selector);
+            if (e2.length) {
+              const n3 = e2.find((t3) => i2 !== t3);
+              if (t2 = n3 ? pt.getInstance(n3) : null, t2 && t2._isTransitioning)
+                return;
+            }
+            if (j.trigger(this._element, "show.bs.collapse").defaultPrevented)
+              return;
+            e2.forEach((e3) => {
+              i2 !== e3 && pt.getOrCreateInstance(e3, { toggle: false }).hide(), t2 || H.set(e3, "bs.collapse", null);
+            });
+            const n2 = this._getDimension();
+            this._element.classList.remove(ct), this._element.classList.add(ht), this._element.style[n2] = 0, this._addAriaAndCollapsedClass(this._triggerArray, true), this._isTransitioning = true;
+            const s2 = `scroll${n2[0].toUpperCase() + n2.slice(1)}`;
+            this._queueCallback(() => {
+              this._isTransitioning = false, this._element.classList.remove(ht), this._element.classList.add(ct, lt), this._element.style[n2] = "", j.trigger(this._element, "shown.bs.collapse");
+            }, this._element, true), this._element.style[n2] = `${this._element[s2]}px`;
+          }
+          hide() {
+            if (this._isTransitioning || !this._isShown())
+              return;
+            if (j.trigger(this._element, "hide.bs.collapse").defaultPrevented)
+              return;
+            const t2 = this._getDimension();
+            this._element.style[t2] = `${this._element.getBoundingClientRect()[t2]}px`, u(this._element), this._element.classList.add(ht), this._element.classList.remove(ct, lt);
+            const e2 = this._triggerArray.length;
+            for (let t3 = 0; t3 < e2; t3++) {
+              const e3 = this._triggerArray[t3], i2 = n(e3);
+              i2 && !this._isShown(i2) && this._addAriaAndCollapsedClass([e3], false);
+            }
+            this._isTransitioning = true, this._element.style[t2] = "", this._queueCallback(() => {
+              this._isTransitioning = false, this._element.classList.remove(ht), this._element.classList.add(ct), j.trigger(this._element, "hidden.bs.collapse");
+            }, this._element, true);
+          }
+          _isShown(t2 = this._element) {
+            return t2.classList.contains(lt);
+          }
+          _getConfig(t2) {
+            return (t2 = { ...rt, ...U.getDataAttributes(this._element), ...t2 }).toggle = Boolean(t2.toggle), t2.parent = r(t2.parent), a(ot, t2, at), t2;
+          }
+          _getDimension() {
+            return this._element.classList.contains("collapse-horizontal") ? "width" : "height";
+          }
+          _initializeChildren() {
+            if (!this._config.parent)
+              return;
+            const t2 = V.find(ut, this._config.parent);
+            V.find(ft, this._config.parent).filter((e2) => !t2.includes(e2)).forEach((t3) => {
+              const e2 = n(t3);
+              e2 && this._addAriaAndCollapsedClass([t3], this._isShown(e2));
+            });
+          }
+          _addAriaAndCollapsedClass(t2, e2) {
+            t2.length && t2.forEach((t3) => {
+              e2 ? t3.classList.remove(dt) : t3.classList.add(dt), t3.setAttribute("aria-expanded", e2);
+            });
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = {};
+              typeof t2 == "string" && /show|hide/.test(t2) && (e2.toggle = false);
+              const i2 = pt.getOrCreateInstance(this, e2);
+              if (typeof t2 == "string") {
+                if (i2[t2] === void 0)
+                  throw new TypeError(`No method named "${t2}"`);
+                i2[t2]();
+              }
+            });
+          }
+        }
+        j.on(document, "click.bs.collapse.data-api", ft, function(t2) {
+          (t2.target.tagName === "A" || t2.delegateTarget && t2.delegateTarget.tagName === "A") && t2.preventDefault();
+          const e2 = i(this);
+          V.find(e2).forEach((t3) => {
+            pt.getOrCreateInstance(t3, { toggle: false }).toggle();
+          });
+        }), g(pt);
+        var mt = "top", gt = "bottom", _t = "right", bt = "left", vt = "auto", yt = [mt, gt, _t, bt], wt = "start", Et = "end", At = "clippingParents", Tt = "viewport", Ot = "popper", Ct = "reference", kt = yt.reduce(function(t2, e2) {
+          return t2.concat([e2 + "-" + wt, e2 + "-" + Et]);
+        }, []), Lt = [].concat(yt, [vt]).reduce(function(t2, e2) {
+          return t2.concat([e2, e2 + "-" + wt, e2 + "-" + Et]);
+        }, []), xt = "beforeRead", Dt = "read", St = "afterRead", Nt = "beforeMain", It = "main", Pt = "afterMain", jt = "beforeWrite", Mt = "write", Ht = "afterWrite", Bt = [xt, Dt, St, Nt, It, Pt, jt, Mt, Ht];
+        function Rt(t2) {
+          return t2 ? (t2.nodeName || "").toLowerCase() : null;
+        }
+        function Wt(t2) {
+          if (t2 == null)
+            return window;
+          if (t2.toString() !== "[object Window]") {
+            var e2 = t2.ownerDocument;
+            return e2 && e2.defaultView || window;
+          }
+          return t2;
+        }
+        function $t(t2) {
+          return t2 instanceof Wt(t2).Element || t2 instanceof Element;
+        }
+        function zt(t2) {
+          return t2 instanceof Wt(t2).HTMLElement || t2 instanceof HTMLElement;
+        }
+        function qt(t2) {
+          return typeof ShadowRoot != "undefined" && (t2 instanceof Wt(t2).ShadowRoot || t2 instanceof ShadowRoot);
+        }
+        const Ft = { name: "applyStyles", enabled: true, phase: "write", fn: function(t2) {
+          var e2 = t2.state;
+          Object.keys(e2.elements).forEach(function(t3) {
+            var i2 = e2.styles[t3] || {}, n2 = e2.attributes[t3] || {}, s2 = e2.elements[t3];
+            zt(s2) && Rt(s2) && (Object.assign(s2.style, i2), Object.keys(n2).forEach(function(t4) {
+              var e3 = n2[t4];
+              e3 === false ? s2.removeAttribute(t4) : s2.setAttribute(t4, e3 === true ? "" : e3);
+            }));
+          });
+        }, effect: function(t2) {
+          var e2 = t2.state, i2 = { popper: { position: e2.options.strategy, left: "0", top: "0", margin: "0" }, arrow: { position: "absolute" }, reference: {} };
+          return Object.assign(e2.elements.popper.style, i2.popper), e2.styles = i2, e2.elements.arrow && Object.assign(e2.elements.arrow.style, i2.arrow), function() {
+            Object.keys(e2.elements).forEach(function(t3) {
+              var n2 = e2.elements[t3], s2 = e2.attributes[t3] || {}, o2 = Object.keys(e2.styles.hasOwnProperty(t3) ? e2.styles[t3] : i2[t3]).reduce(function(t4, e3) {
+                return t4[e3] = "", t4;
+              }, {});
+              zt(n2) && Rt(n2) && (Object.assign(n2.style, o2), Object.keys(s2).forEach(function(t4) {
+                n2.removeAttribute(t4);
+              }));
+            });
+          };
+        }, requires: ["computeStyles"] };
+        function Ut(t2) {
+          return t2.split("-")[0];
+        }
+        function Vt(t2, e2) {
+          var i2 = t2.getBoundingClientRect();
+          return { width: i2.width / 1, height: i2.height / 1, top: i2.top / 1, right: i2.right / 1, bottom: i2.bottom / 1, left: i2.left / 1, x: i2.left / 1, y: i2.top / 1 };
+        }
+        function Kt(t2) {
+          var e2 = Vt(t2), i2 = t2.offsetWidth, n2 = t2.offsetHeight;
+          return Math.abs(e2.width - i2) <= 1 && (i2 = e2.width), Math.abs(e2.height - n2) <= 1 && (n2 = e2.height), { x: t2.offsetLeft, y: t2.offsetTop, width: i2, height: n2 };
+        }
+        function Xt(t2, e2) {
+          var i2 = e2.getRootNode && e2.getRootNode();
+          if (t2.contains(e2))
+            return true;
+          if (i2 && qt(i2)) {
+            var n2 = e2;
+            do {
+              if (n2 && t2.isSameNode(n2))
+                return true;
+              n2 = n2.parentNode || n2.host;
+            } while (n2);
+          }
+          return false;
+        }
+        function Yt(t2) {
+          return Wt(t2).getComputedStyle(t2);
+        }
+        function Qt(t2) {
+          return ["table", "td", "th"].indexOf(Rt(t2)) >= 0;
+        }
+        function Gt(t2) {
+          return (($t(t2) ? t2.ownerDocument : t2.document) || window.document).documentElement;
+        }
+        function Zt(t2) {
+          return Rt(t2) === "html" ? t2 : t2.assignedSlot || t2.parentNode || (qt(t2) ? t2.host : null) || Gt(t2);
+        }
+        function Jt(t2) {
+          return zt(t2) && Yt(t2).position !== "fixed" ? t2.offsetParent : null;
+        }
+        function te(t2) {
+          for (var e2 = Wt(t2), i2 = Jt(t2); i2 && Qt(i2) && Yt(i2).position === "static"; )
+            i2 = Jt(i2);
+          return i2 && (Rt(i2) === "html" || Rt(i2) === "body" && Yt(i2).position === "static") ? e2 : i2 || function(t3) {
+            var e3 = navigator.userAgent.toLowerCase().indexOf("firefox") !== -1;
+            if (navigator.userAgent.indexOf("Trident") !== -1 && zt(t3) && Yt(t3).position === "fixed")
+              return null;
+            for (var i3 = Zt(t3); zt(i3) && ["html", "body"].indexOf(Rt(i3)) < 0; ) {
+              var n2 = Yt(i3);
+              if (n2.transform !== "none" || n2.perspective !== "none" || n2.contain === "paint" || ["transform", "perspective"].indexOf(n2.willChange) !== -1 || e3 && n2.willChange === "filter" || e3 && n2.filter && n2.filter !== "none")
+                return i3;
+              i3 = i3.parentNode;
+            }
+            return null;
+          }(t2) || e2;
+        }
+        function ee(t2) {
+          return ["top", "bottom"].indexOf(t2) >= 0 ? "x" : "y";
+        }
+        var ie = Math.max, ne = Math.min, se = Math.round;
+        function oe(t2, e2, i2) {
+          return ie(t2, ne(e2, i2));
+        }
+        function re(t2) {
+          return Object.assign({}, { top: 0, right: 0, bottom: 0, left: 0 }, t2);
+        }
+        function ae(t2, e2) {
+          return e2.reduce(function(e3, i2) {
+            return e3[i2] = t2, e3;
+          }, {});
+        }
+        const le = { name: "arrow", enabled: true, phase: "main", fn: function(t2) {
+          var e2, i2 = t2.state, n2 = t2.name, s2 = t2.options, o2 = i2.elements.arrow, r2 = i2.modifiersData.popperOffsets, a2 = Ut(i2.placement), l2 = ee(a2), c2 = [bt, _t].indexOf(a2) >= 0 ? "height" : "width";
+          if (o2 && r2) {
+            var h2 = function(t3, e3) {
+              return re(typeof (t3 = typeof t3 == "function" ? t3(Object.assign({}, e3.rects, { placement: e3.placement })) : t3) != "number" ? t3 : ae(t3, yt));
+            }(s2.padding, i2), d2 = Kt(o2), u2 = l2 === "y" ? mt : bt, f2 = l2 === "y" ? gt : _t, p2 = i2.rects.reference[c2] + i2.rects.reference[l2] - r2[l2] - i2.rects.popper[c2], m2 = r2[l2] - i2.rects.reference[l2], g2 = te(o2), _2 = g2 ? l2 === "y" ? g2.clientHeight || 0 : g2.clientWidth || 0 : 0, b2 = p2 / 2 - m2 / 2, v2 = h2[u2], y2 = _2 - d2[c2] - h2[f2], w2 = _2 / 2 - d2[c2] / 2 + b2, E2 = oe(v2, w2, y2), A2 = l2;
+            i2.modifiersData[n2] = ((e2 = {})[A2] = E2, e2.centerOffset = E2 - w2, e2);
+          }
+        }, effect: function(t2) {
+          var e2 = t2.state, i2 = t2.options.element, n2 = i2 === void 0 ? "[data-popper-arrow]" : i2;
+          n2 != null && (typeof n2 != "string" || (n2 = e2.elements.popper.querySelector(n2))) && Xt(e2.elements.popper, n2) && (e2.elements.arrow = n2);
+        }, requires: ["popperOffsets"], requiresIfExists: ["preventOverflow"] };
+        function ce(t2) {
+          return t2.split("-")[1];
+        }
+        var he = { top: "auto", right: "auto", bottom: "auto", left: "auto" };
+        function de(t2) {
+          var e2, i2 = t2.popper, n2 = t2.popperRect, s2 = t2.placement, o2 = t2.variation, r2 = t2.offsets, a2 = t2.position, l2 = t2.gpuAcceleration, c2 = t2.adaptive, h2 = t2.roundOffsets, d2 = h2 === true ? function(t3) {
+            var e3 = t3.x, i3 = t3.y, n3 = window.devicePixelRatio || 1;
+            return { x: se(se(e3 * n3) / n3) || 0, y: se(se(i3 * n3) / n3) || 0 };
+          }(r2) : typeof h2 == "function" ? h2(r2) : r2, u2 = d2.x, f2 = u2 === void 0 ? 0 : u2, p2 = d2.y, m2 = p2 === void 0 ? 0 : p2, g2 = r2.hasOwnProperty("x"), _2 = r2.hasOwnProperty("y"), b2 = bt, v2 = mt, y2 = window;
+          if (c2) {
+            var w2 = te(i2), E2 = "clientHeight", A2 = "clientWidth";
+            w2 === Wt(i2) && Yt(w2 = Gt(i2)).position !== "static" && a2 === "absolute" && (E2 = "scrollHeight", A2 = "scrollWidth"), w2 = w2, s2 !== mt && (s2 !== bt && s2 !== _t || o2 !== Et) || (v2 = gt, m2 -= w2[E2] - n2.height, m2 *= l2 ? 1 : -1), s2 !== bt && (s2 !== mt && s2 !== gt || o2 !== Et) || (b2 = _t, f2 -= w2[A2] - n2.width, f2 *= l2 ? 1 : -1);
+          }
+          var T2, O2 = Object.assign({ position: a2 }, c2 && he);
+          return l2 ? Object.assign({}, O2, ((T2 = {})[v2] = _2 ? "0" : "", T2[b2] = g2 ? "0" : "", T2.transform = (y2.devicePixelRatio || 1) <= 1 ? "translate(" + f2 + "px, " + m2 + "px)" : "translate3d(" + f2 + "px, " + m2 + "px, 0)", T2)) : Object.assign({}, O2, ((e2 = {})[v2] = _2 ? m2 + "px" : "", e2[b2] = g2 ? f2 + "px" : "", e2.transform = "", e2));
+        }
+        const ue = { name: "computeStyles", enabled: true, phase: "beforeWrite", fn: function(t2) {
+          var e2 = t2.state, i2 = t2.options, n2 = i2.gpuAcceleration, s2 = n2 === void 0 || n2, o2 = i2.adaptive, r2 = o2 === void 0 || o2, a2 = i2.roundOffsets, l2 = a2 === void 0 || a2, c2 = { placement: Ut(e2.placement), variation: ce(e2.placement), popper: e2.elements.popper, popperRect: e2.rects.popper, gpuAcceleration: s2 };
+          e2.modifiersData.popperOffsets != null && (e2.styles.popper = Object.assign({}, e2.styles.popper, de(Object.assign({}, c2, { offsets: e2.modifiersData.popperOffsets, position: e2.options.strategy, adaptive: r2, roundOffsets: l2 })))), e2.modifiersData.arrow != null && (e2.styles.arrow = Object.assign({}, e2.styles.arrow, de(Object.assign({}, c2, { offsets: e2.modifiersData.arrow, position: "absolute", adaptive: false, roundOffsets: l2 })))), e2.attributes.popper = Object.assign({}, e2.attributes.popper, { "data-popper-placement": e2.placement });
+        }, data: {} };
+        var fe = { passive: true };
+        const pe = { name: "eventListeners", enabled: true, phase: "write", fn: function() {
+        }, effect: function(t2) {
+          var e2 = t2.state, i2 = t2.instance, n2 = t2.options, s2 = n2.scroll, o2 = s2 === void 0 || s2, r2 = n2.resize, a2 = r2 === void 0 || r2, l2 = Wt(e2.elements.popper), c2 = [].concat(e2.scrollParents.reference, e2.scrollParents.popper);
+          return o2 && c2.forEach(function(t3) {
+            t3.addEventListener("scroll", i2.update, fe);
+          }), a2 && l2.addEventListener("resize", i2.update, fe), function() {
+            o2 && c2.forEach(function(t3) {
+              t3.removeEventListener("scroll", i2.update, fe);
+            }), a2 && l2.removeEventListener("resize", i2.update, fe);
+          };
+        }, data: {} };
+        var me = { left: "right", right: "left", bottom: "top", top: "bottom" };
+        function ge(t2) {
+          return t2.replace(/left|right|bottom|top/g, function(t3) {
+            return me[t3];
+          });
+        }
+        var _e = { start: "end", end: "start" };
+        function be(t2) {
+          return t2.replace(/start|end/g, function(t3) {
+            return _e[t3];
+          });
+        }
+        function ve(t2) {
+          var e2 = Wt(t2);
+          return { scrollLeft: e2.pageXOffset, scrollTop: e2.pageYOffset };
+        }
+        function ye(t2) {
+          return Vt(Gt(t2)).left + ve(t2).scrollLeft;
+        }
+        function we(t2) {
+          var e2 = Yt(t2), i2 = e2.overflow, n2 = e2.overflowX, s2 = e2.overflowY;
+          return /auto|scroll|overlay|hidden/.test(i2 + s2 + n2);
+        }
+        function Ee(t2) {
+          return ["html", "body", "#document"].indexOf(Rt(t2)) >= 0 ? t2.ownerDocument.body : zt(t2) && we(t2) ? t2 : Ee(Zt(t2));
+        }
+        function Ae(t2, e2) {
+          var i2;
+          e2 === void 0 && (e2 = []);
+          var n2 = Ee(t2), s2 = n2 === ((i2 = t2.ownerDocument) == null ? void 0 : i2.body), o2 = Wt(n2), r2 = s2 ? [o2].concat(o2.visualViewport || [], we(n2) ? n2 : []) : n2, a2 = e2.concat(r2);
+          return s2 ? a2 : a2.concat(Ae(Zt(r2)));
+        }
+        function Te(t2) {
+          return Object.assign({}, t2, { left: t2.x, top: t2.y, right: t2.x + t2.width, bottom: t2.y + t2.height });
+        }
+        function Oe(t2, e2) {
+          return e2 === Tt ? Te(function(t3) {
+            var e3 = Wt(t3), i2 = Gt(t3), n2 = e3.visualViewport, s2 = i2.clientWidth, o2 = i2.clientHeight, r2 = 0, a2 = 0;
+            return n2 && (s2 = n2.width, o2 = n2.height, /^((?!chrome|android).)*safari/i.test(navigator.userAgent) || (r2 = n2.offsetLeft, a2 = n2.offsetTop)), { width: s2, height: o2, x: r2 + ye(t3), y: a2 };
+          }(t2)) : zt(e2) ? function(t3) {
+            var e3 = Vt(t3);
+            return e3.top = e3.top + t3.clientTop, e3.left = e3.left + t3.clientLeft, e3.bottom = e3.top + t3.clientHeight, e3.right = e3.left + t3.clientWidth, e3.width = t3.clientWidth, e3.height = t3.clientHeight, e3.x = e3.left, e3.y = e3.top, e3;
+          }(e2) : Te(function(t3) {
+            var e3, i2 = Gt(t3), n2 = ve(t3), s2 = (e3 = t3.ownerDocument) == null ? void 0 : e3.body, o2 = ie(i2.scrollWidth, i2.clientWidth, s2 ? s2.scrollWidth : 0, s2 ? s2.clientWidth : 0), r2 = ie(i2.scrollHeight, i2.clientHeight, s2 ? s2.scrollHeight : 0, s2 ? s2.clientHeight : 0), a2 = -n2.scrollLeft + ye(t3), l2 = -n2.scrollTop;
+            return Yt(s2 || i2).direction === "rtl" && (a2 += ie(i2.clientWidth, s2 ? s2.clientWidth : 0) - o2), { width: o2, height: r2, x: a2, y: l2 };
+          }(Gt(t2)));
+        }
+        function Ce(t2) {
+          var e2, i2 = t2.reference, n2 = t2.element, s2 = t2.placement, o2 = s2 ? Ut(s2) : null, r2 = s2 ? ce(s2) : null, a2 = i2.x + i2.width / 2 - n2.width / 2, l2 = i2.y + i2.height / 2 - n2.height / 2;
+          switch (o2) {
+            case mt:
+              e2 = { x: a2, y: i2.y - n2.height };
+              break;
+            case gt:
+              e2 = { x: a2, y: i2.y + i2.height };
+              break;
+            case _t:
+              e2 = { x: i2.x + i2.width, y: l2 };
+              break;
+            case bt:
+              e2 = { x: i2.x - n2.width, y: l2 };
+              break;
+            default:
+              e2 = { x: i2.x, y: i2.y };
+          }
+          var c2 = o2 ? ee(o2) : null;
+          if (c2 != null) {
+            var h2 = c2 === "y" ? "height" : "width";
+            switch (r2) {
+              case wt:
+                e2[c2] = e2[c2] - (i2[h2] / 2 - n2[h2] / 2);
+                break;
+              case Et:
+                e2[c2] = e2[c2] + (i2[h2] / 2 - n2[h2] / 2);
+            }
+          }
+          return e2;
+        }
+        function ke(t2, e2) {
+          e2 === void 0 && (e2 = {});
+          var i2 = e2, n2 = i2.placement, s2 = n2 === void 0 ? t2.placement : n2, o2 = i2.boundary, r2 = o2 === void 0 ? At : o2, a2 = i2.rootBoundary, l2 = a2 === void 0 ? Tt : a2, c2 = i2.elementContext, h2 = c2 === void 0 ? Ot : c2, d2 = i2.altBoundary, u2 = d2 !== void 0 && d2, f2 = i2.padding, p2 = f2 === void 0 ? 0 : f2, m2 = re(typeof p2 != "number" ? p2 : ae(p2, yt)), g2 = h2 === Ot ? Ct : Ot, _2 = t2.rects.popper, b2 = t2.elements[u2 ? g2 : h2], v2 = function(t3, e3, i3) {
+            var n3 = e3 === "clippingParents" ? function(t4) {
+              var e4 = Ae(Zt(t4)), i4 = ["absolute", "fixed"].indexOf(Yt(t4).position) >= 0 && zt(t4) ? te(t4) : t4;
+              return $t(i4) ? e4.filter(function(t5) {
+                return $t(t5) && Xt(t5, i4) && Rt(t5) !== "body";
+              }) : [];
+            }(t3) : [].concat(e3), s3 = [].concat(n3, [i3]), o3 = s3[0], r3 = s3.reduce(function(e4, i4) {
+              var n4 = Oe(t3, i4);
+              return e4.top = ie(n4.top, e4.top), e4.right = ne(n4.right, e4.right), e4.bottom = ne(n4.bottom, e4.bottom), e4.left = ie(n4.left, e4.left), e4;
+            }, Oe(t3, o3));
+            return r3.width = r3.right - r3.left, r3.height = r3.bottom - r3.top, r3.x = r3.left, r3.y = r3.top, r3;
+          }($t(b2) ? b2 : b2.contextElement || Gt(t2.elements.popper), r2, l2), y2 = Vt(t2.elements.reference), w2 = Ce({ reference: y2, element: _2, strategy: "absolute", placement: s2 }), E2 = Te(Object.assign({}, _2, w2)), A2 = h2 === Ot ? E2 : y2, T2 = { top: v2.top - A2.top + m2.top, bottom: A2.bottom - v2.bottom + m2.bottom, left: v2.left - A2.left + m2.left, right: A2.right - v2.right + m2.right }, O2 = t2.modifiersData.offset;
+          if (h2 === Ot && O2) {
+            var C2 = O2[s2];
+            Object.keys(T2).forEach(function(t3) {
+              var e3 = [_t, gt].indexOf(t3) >= 0 ? 1 : -1, i3 = [mt, gt].indexOf(t3) >= 0 ? "y" : "x";
+              T2[t3] += C2[i3] * e3;
+            });
+          }
+          return T2;
+        }
+        function Le(t2, e2) {
+          e2 === void 0 && (e2 = {});
+          var i2 = e2, n2 = i2.placement, s2 = i2.boundary, o2 = i2.rootBoundary, r2 = i2.padding, a2 = i2.flipVariations, l2 = i2.allowedAutoPlacements, c2 = l2 === void 0 ? Lt : l2, h2 = ce(n2), d2 = h2 ? a2 ? kt : kt.filter(function(t3) {
+            return ce(t3) === h2;
+          }) : yt, u2 = d2.filter(function(t3) {
+            return c2.indexOf(t3) >= 0;
+          });
+          u2.length === 0 && (u2 = d2);
+          var f2 = u2.reduce(function(e3, i3) {
+            return e3[i3] = ke(t2, { placement: i3, boundary: s2, rootBoundary: o2, padding: r2 })[Ut(i3)], e3;
+          }, {});
+          return Object.keys(f2).sort(function(t3, e3) {
+            return f2[t3] - f2[e3];
+          });
+        }
+        const xe = { name: "flip", enabled: true, phase: "main", fn: function(t2) {
+          var e2 = t2.state, i2 = t2.options, n2 = t2.name;
+          if (!e2.modifiersData[n2]._skip) {
+            for (var s2 = i2.mainAxis, o2 = s2 === void 0 || s2, r2 = i2.altAxis, a2 = r2 === void 0 || r2, l2 = i2.fallbackPlacements, c2 = i2.padding, h2 = i2.boundary, d2 = i2.rootBoundary, u2 = i2.altBoundary, f2 = i2.flipVariations, p2 = f2 === void 0 || f2, m2 = i2.allowedAutoPlacements, g2 = e2.options.placement, _2 = Ut(g2), b2 = l2 || (_2 !== g2 && p2 ? function(t3) {
+              if (Ut(t3) === vt)
+                return [];
+              var e3 = ge(t3);
+              return [be(t3), e3, be(e3)];
+            }(g2) : [ge(g2)]), v2 = [g2].concat(b2).reduce(function(t3, i3) {
+              return t3.concat(Ut(i3) === vt ? Le(e2, { placement: i3, boundary: h2, rootBoundary: d2, padding: c2, flipVariations: p2, allowedAutoPlacements: m2 }) : i3);
+            }, []), y2 = e2.rects.reference, w2 = e2.rects.popper, E2 = new Map(), A2 = true, T2 = v2[0], O2 = 0; O2 < v2.length; O2++) {
+              var C2 = v2[O2], k2 = Ut(C2), L2 = ce(C2) === wt, x2 = [mt, gt].indexOf(k2) >= 0, D2 = x2 ? "width" : "height", S2 = ke(e2, { placement: C2, boundary: h2, rootBoundary: d2, altBoundary: u2, padding: c2 }), N2 = x2 ? L2 ? _t : bt : L2 ? gt : mt;
+              y2[D2] > w2[D2] && (N2 = ge(N2));
+              var I2 = ge(N2), P2 = [];
+              if (o2 && P2.push(S2[k2] <= 0), a2 && P2.push(S2[N2] <= 0, S2[I2] <= 0), P2.every(function(t3) {
+                return t3;
+              })) {
+                T2 = C2, A2 = false;
+                break;
+              }
+              E2.set(C2, P2);
+            }
+            if (A2)
+              for (var j2 = function(t3) {
+                var e3 = v2.find(function(e4) {
+                  var i3 = E2.get(e4);
+                  if (i3)
+                    return i3.slice(0, t3).every(function(t4) {
+                      return t4;
+                    });
+                });
+                if (e3)
+                  return T2 = e3, "break";
+              }, M2 = p2 ? 3 : 1; M2 > 0 && j2(M2) !== "break"; M2--)
+                ;
+            e2.placement !== T2 && (e2.modifiersData[n2]._skip = true, e2.placement = T2, e2.reset = true);
+          }
+        }, requiresIfExists: ["offset"], data: { _skip: false } };
+        function De(t2, e2, i2) {
+          return i2 === void 0 && (i2 = { x: 0, y: 0 }), { top: t2.top - e2.height - i2.y, right: t2.right - e2.width + i2.x, bottom: t2.bottom - e2.height + i2.y, left: t2.left - e2.width - i2.x };
+        }
+        function Se(t2) {
+          return [mt, _t, gt, bt].some(function(e2) {
+            return t2[e2] >= 0;
+          });
+        }
+        const Ne = { name: "hide", enabled: true, phase: "main", requiresIfExists: ["preventOverflow"], fn: function(t2) {
+          var e2 = t2.state, i2 = t2.name, n2 = e2.rects.reference, s2 = e2.rects.popper, o2 = e2.modifiersData.preventOverflow, r2 = ke(e2, { elementContext: "reference" }), a2 = ke(e2, { altBoundary: true }), l2 = De(r2, n2), c2 = De(a2, s2, o2), h2 = Se(l2), d2 = Se(c2);
+          e2.modifiersData[i2] = { referenceClippingOffsets: l2, popperEscapeOffsets: c2, isReferenceHidden: h2, hasPopperEscaped: d2 }, e2.attributes.popper = Object.assign({}, e2.attributes.popper, { "data-popper-reference-hidden": h2, "data-popper-escaped": d2 });
+        } }, Ie = { name: "offset", enabled: true, phase: "main", requires: ["popperOffsets"], fn: function(t2) {
+          var e2 = t2.state, i2 = t2.options, n2 = t2.name, s2 = i2.offset, o2 = s2 === void 0 ? [0, 0] : s2, r2 = Lt.reduce(function(t3, i3) {
+            return t3[i3] = function(t4, e3, i4) {
+              var n3 = Ut(t4), s3 = [bt, mt].indexOf(n3) >= 0 ? -1 : 1, o3 = typeof i4 == "function" ? i4(Object.assign({}, e3, { placement: t4 })) : i4, r3 = o3[0], a3 = o3[1];
+              return r3 = r3 || 0, a3 = (a3 || 0) * s3, [bt, _t].indexOf(n3) >= 0 ? { x: a3, y: r3 } : { x: r3, y: a3 };
+            }(i3, e2.rects, o2), t3;
+          }, {}), a2 = r2[e2.placement], l2 = a2.x, c2 = a2.y;
+          e2.modifiersData.popperOffsets != null && (e2.modifiersData.popperOffsets.x += l2, e2.modifiersData.popperOffsets.y += c2), e2.modifiersData[n2] = r2;
+        } }, Pe = { name: "popperOffsets", enabled: true, phase: "read", fn: function(t2) {
+          var e2 = t2.state, i2 = t2.name;
+          e2.modifiersData[i2] = Ce({ reference: e2.rects.reference, element: e2.rects.popper, strategy: "absolute", placement: e2.placement });
+        }, data: {} }, je = { name: "preventOverflow", enabled: true, phase: "main", fn: function(t2) {
+          var e2 = t2.state, i2 = t2.options, n2 = t2.name, s2 = i2.mainAxis, o2 = s2 === void 0 || s2, r2 = i2.altAxis, a2 = r2 !== void 0 && r2, l2 = i2.boundary, c2 = i2.rootBoundary, h2 = i2.altBoundary, d2 = i2.padding, u2 = i2.tether, f2 = u2 === void 0 || u2, p2 = i2.tetherOffset, m2 = p2 === void 0 ? 0 : p2, g2 = ke(e2, { boundary: l2, rootBoundary: c2, padding: d2, altBoundary: h2 }), _2 = Ut(e2.placement), b2 = ce(e2.placement), v2 = !b2, y2 = ee(_2), w2 = y2 === "x" ? "y" : "x", E2 = e2.modifiersData.popperOffsets, A2 = e2.rects.reference, T2 = e2.rects.popper, O2 = typeof m2 == "function" ? m2(Object.assign({}, e2.rects, { placement: e2.placement })) : m2, C2 = { x: 0, y: 0 };
+          if (E2) {
+            if (o2 || a2) {
+              var k2 = y2 === "y" ? mt : bt, L2 = y2 === "y" ? gt : _t, x2 = y2 === "y" ? "height" : "width", D2 = E2[y2], S2 = E2[y2] + g2[k2], N2 = E2[y2] - g2[L2], I2 = f2 ? -T2[x2] / 2 : 0, P2 = b2 === wt ? A2[x2] : T2[x2], j2 = b2 === wt ? -T2[x2] : -A2[x2], M2 = e2.elements.arrow, H2 = f2 && M2 ? Kt(M2) : { width: 0, height: 0 }, B2 = e2.modifiersData["arrow#persistent"] ? e2.modifiersData["arrow#persistent"].padding : { top: 0, right: 0, bottom: 0, left: 0 }, R2 = B2[k2], W2 = B2[L2], $2 = oe(0, A2[x2], H2[x2]), z2 = v2 ? A2[x2] / 2 - I2 - $2 - R2 - O2 : P2 - $2 - R2 - O2, q2 = v2 ? -A2[x2] / 2 + I2 + $2 + W2 + O2 : j2 + $2 + W2 + O2, F2 = e2.elements.arrow && te(e2.elements.arrow), U2 = F2 ? y2 === "y" ? F2.clientTop || 0 : F2.clientLeft || 0 : 0, V2 = e2.modifiersData.offset ? e2.modifiersData.offset[e2.placement][y2] : 0, K2 = E2[y2] + z2 - V2 - U2, X2 = E2[y2] + q2 - V2;
+              if (o2) {
+                var Y2 = oe(f2 ? ne(S2, K2) : S2, D2, f2 ? ie(N2, X2) : N2);
+                E2[y2] = Y2, C2[y2] = Y2 - D2;
+              }
+              if (a2) {
+                var Q2 = y2 === "x" ? mt : bt, G2 = y2 === "x" ? gt : _t, Z2 = E2[w2], J2 = Z2 + g2[Q2], tt2 = Z2 - g2[G2], et2 = oe(f2 ? ne(J2, K2) : J2, Z2, f2 ? ie(tt2, X2) : tt2);
+                E2[w2] = et2, C2[w2] = et2 - Z2;
+              }
+            }
+            e2.modifiersData[n2] = C2;
+          }
+        }, requiresIfExists: ["offset"] };
+        function Me(t2, e2, i2) {
+          i2 === void 0 && (i2 = false);
+          var n2 = zt(e2);
+          zt(e2) && function(t3) {
+            var e3 = t3.getBoundingClientRect();
+            e3.width, t3.offsetWidth, e3.height, t3.offsetHeight;
+          }(e2);
+          var s2, o2, r2 = Gt(e2), a2 = Vt(t2), l2 = { scrollLeft: 0, scrollTop: 0 }, c2 = { x: 0, y: 0 };
+          return (n2 || !n2 && !i2) && ((Rt(e2) !== "body" || we(r2)) && (l2 = (s2 = e2) !== Wt(s2) && zt(s2) ? { scrollLeft: (o2 = s2).scrollLeft, scrollTop: o2.scrollTop } : ve(s2)), zt(e2) ? ((c2 = Vt(e2)).x += e2.clientLeft, c2.y += e2.clientTop) : r2 && (c2.x = ye(r2))), { x: a2.left + l2.scrollLeft - c2.x, y: a2.top + l2.scrollTop - c2.y, width: a2.width, height: a2.height };
+        }
+        function He(t2) {
+          var e2 = new Map(), i2 = new Set(), n2 = [];
+          function s2(t3) {
+            i2.add(t3.name), [].concat(t3.requires || [], t3.requiresIfExists || []).forEach(function(t4) {
+              if (!i2.has(t4)) {
+                var n3 = e2.get(t4);
+                n3 && s2(n3);
+              }
+            }), n2.push(t3);
+          }
+          return t2.forEach(function(t3) {
+            e2.set(t3.name, t3);
+          }), t2.forEach(function(t3) {
+            i2.has(t3.name) || s2(t3);
+          }), n2;
+        }
+        var Be = { placement: "bottom", modifiers: [], strategy: "absolute" };
+        function Re() {
+          for (var t2 = arguments.length, e2 = new Array(t2), i2 = 0; i2 < t2; i2++)
+            e2[i2] = arguments[i2];
+          return !e2.some(function(t3) {
+            return !(t3 && typeof t3.getBoundingClientRect == "function");
+          });
+        }
+        function We(t2) {
+          t2 === void 0 && (t2 = {});
+          var e2 = t2, i2 = e2.defaultModifiers, n2 = i2 === void 0 ? [] : i2, s2 = e2.defaultOptions, o2 = s2 === void 0 ? Be : s2;
+          return function(t3, e3, i3) {
+            i3 === void 0 && (i3 = o2);
+            var s3, r2, a2 = { placement: "bottom", orderedModifiers: [], options: Object.assign({}, Be, o2), modifiersData: {}, elements: { reference: t3, popper: e3 }, attributes: {}, styles: {} }, l2 = [], c2 = false, h2 = { state: a2, setOptions: function(i4) {
+              var s4 = typeof i4 == "function" ? i4(a2.options) : i4;
+              d2(), a2.options = Object.assign({}, o2, a2.options, s4), a2.scrollParents = { reference: $t(t3) ? Ae(t3) : t3.contextElement ? Ae(t3.contextElement) : [], popper: Ae(e3) };
+              var r3, c3, u2 = function(t4) {
+                var e4 = He(t4);
+                return Bt.reduce(function(t5, i5) {
+                  return t5.concat(e4.filter(function(t6) {
+                    return t6.phase === i5;
+                  }));
+                }, []);
+              }((r3 = [].concat(n2, a2.options.modifiers), c3 = r3.reduce(function(t4, e4) {
+                var i5 = t4[e4.name];
+                return t4[e4.name] = i5 ? Object.assign({}, i5, e4, { options: Object.assign({}, i5.options, e4.options), data: Object.assign({}, i5.data, e4.data) }) : e4, t4;
+              }, {}), Object.keys(c3).map(function(t4) {
+                return c3[t4];
+              })));
+              return a2.orderedModifiers = u2.filter(function(t4) {
+                return t4.enabled;
+              }), a2.orderedModifiers.forEach(function(t4) {
+                var e4 = t4.name, i5 = t4.options, n3 = i5 === void 0 ? {} : i5, s5 = t4.effect;
+                if (typeof s5 == "function") {
+                  var o3 = s5({ state: a2, name: e4, instance: h2, options: n3 });
+                  l2.push(o3 || function() {
+                  });
+                }
+              }), h2.update();
+            }, forceUpdate: function() {
+              if (!c2) {
+                var t4 = a2.elements, e4 = t4.reference, i4 = t4.popper;
+                if (Re(e4, i4)) {
+                  a2.rects = { reference: Me(e4, te(i4), a2.options.strategy === "fixed"), popper: Kt(i4) }, a2.reset = false, a2.placement = a2.options.placement, a2.orderedModifiers.forEach(function(t5) {
+                    return a2.modifiersData[t5.name] = Object.assign({}, t5.data);
+                  });
+                  for (var n3 = 0; n3 < a2.orderedModifiers.length; n3++)
+                    if (a2.reset !== true) {
+                      var s4 = a2.orderedModifiers[n3], o3 = s4.fn, r3 = s4.options, l3 = r3 === void 0 ? {} : r3, d3 = s4.name;
+                      typeof o3 == "function" && (a2 = o3({ state: a2, options: l3, name: d3, instance: h2 }) || a2);
+                    } else
+                      a2.reset = false, n3 = -1;
+                }
+              }
+            }, update: (s3 = function() {
+              return new Promise(function(t4) {
+                h2.forceUpdate(), t4(a2);
+              });
+            }, function() {
+              return r2 || (r2 = new Promise(function(t4) {
+                Promise.resolve().then(function() {
+                  r2 = void 0, t4(s3());
+                });
+              })), r2;
+            }), destroy: function() {
+              d2(), c2 = true;
+            } };
+            if (!Re(t3, e3))
+              return h2;
+            function d2() {
+              l2.forEach(function(t4) {
+                return t4();
+              }), l2 = [];
+            }
+            return h2.setOptions(i3).then(function(t4) {
+              !c2 && i3.onFirstUpdate && i3.onFirstUpdate(t4);
+            }), h2;
+          };
+        }
+        var $e = We(), ze = We({ defaultModifiers: [pe, Pe, ue, Ft] }), qe = We({ defaultModifiers: [pe, Pe, ue, Ft, Ie, xe, je, le, Ne] });
+        const Fe = Object.freeze({ __proto__: null, popperGenerator: We, detectOverflow: ke, createPopperBase: $e, createPopper: qe, createPopperLite: ze, top: mt, bottom: gt, right: _t, left: bt, auto: vt, basePlacements: yt, start: wt, end: Et, clippingParents: At, viewport: Tt, popper: Ot, reference: Ct, variationPlacements: kt, placements: Lt, beforeRead: xt, read: Dt, afterRead: St, beforeMain: Nt, main: It, afterMain: Pt, beforeWrite: jt, write: Mt, afterWrite: Ht, modifierPhases: Bt, applyStyles: Ft, arrow: le, computeStyles: ue, eventListeners: pe, flip: xe, hide: Ne, offset: Ie, popperOffsets: Pe, preventOverflow: je }), Ue = "dropdown", Ve = "Escape", Ke = "Space", Xe = "ArrowUp", Ye = "ArrowDown", Qe = new RegExp("ArrowUp|ArrowDown|Escape"), Ge = "click.bs.dropdown.data-api", Ze = "keydown.bs.dropdown.data-api", Je = "show", ti = '[data-bs-toggle="dropdown"]', ei = ".dropdown-menu", ii = m() ? "top-end" : "top-start", ni = m() ? "top-start" : "top-end", si = m() ? "bottom-end" : "bottom-start", oi = m() ? "bottom-start" : "bottom-end", ri = m() ? "left-start" : "right-start", ai = m() ? "right-start" : "left-start", li = { offset: [0, 2], boundary: "clippingParents", reference: "toggle", display: "dynamic", popperConfig: null, autoClose: true }, ci = { offset: "(array|string|function)", boundary: "(string|element)", reference: "(string|element|object)", display: "string", popperConfig: "(null|object|function)", autoClose: "(boolean|string)" };
+        class hi extends B {
+          constructor(t2, e2) {
+            super(t2), this._popper = null, this._config = this._getConfig(e2), this._menu = this._getMenuElement(), this._inNavbar = this._detectNavbar();
+          }
+          static get Default() {
+            return li;
+          }
+          static get DefaultType() {
+            return ci;
+          }
+          static get NAME() {
+            return Ue;
+          }
+          toggle() {
+            return this._isShown() ? this.hide() : this.show();
+          }
+          show() {
+            if (c(this._element) || this._isShown(this._menu))
+              return;
+            const t2 = { relatedTarget: this._element };
+            if (j.trigger(this._element, "show.bs.dropdown", t2).defaultPrevented)
+              return;
+            const e2 = hi.getParentFromElement(this._element);
+            this._inNavbar ? U.setDataAttribute(this._menu, "popper", "none") : this._createPopper(e2), "ontouchstart" in document.documentElement && !e2.closest(".navbar-nav") && [].concat(...document.body.children).forEach((t3) => j.on(t3, "mouseover", d)), this._element.focus(), this._element.setAttribute("aria-expanded", true), this._menu.classList.add(Je), this._element.classList.add(Je), j.trigger(this._element, "shown.bs.dropdown", t2);
+          }
+          hide() {
+            if (c(this._element) || !this._isShown(this._menu))
+              return;
+            const t2 = { relatedTarget: this._element };
+            this._completeHide(t2);
+          }
+          dispose() {
+            this._popper && this._popper.destroy(), super.dispose();
+          }
+          update() {
+            this._inNavbar = this._detectNavbar(), this._popper && this._popper.update();
+          }
+          _completeHide(t2) {
+            j.trigger(this._element, "hide.bs.dropdown", t2).defaultPrevented || ("ontouchstart" in document.documentElement && [].concat(...document.body.children).forEach((t3) => j.off(t3, "mouseover", d)), this._popper && this._popper.destroy(), this._menu.classList.remove(Je), this._element.classList.remove(Je), this._element.setAttribute("aria-expanded", "false"), U.removeDataAttribute(this._menu, "popper"), j.trigger(this._element, "hidden.bs.dropdown", t2));
+          }
+          _getConfig(t2) {
+            if (t2 = { ...this.constructor.Default, ...U.getDataAttributes(this._element), ...t2 }, a(Ue, t2, this.constructor.DefaultType), typeof t2.reference == "object" && !o(t2.reference) && typeof t2.reference.getBoundingClientRect != "function")
+              throw new TypeError(`${Ue.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
+            return t2;
+          }
+          _createPopper(t2) {
+            if (Fe === void 0)
+              throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org)");
+            let e2 = this._element;
+            this._config.reference === "parent" ? e2 = t2 : o(this._config.reference) ? e2 = r(this._config.reference) : typeof this._config.reference == "object" && (e2 = this._config.reference);
+            const i2 = this._getPopperConfig(), n2 = i2.modifiers.find((t3) => t3.name === "applyStyles" && t3.enabled === false);
+            this._popper = qe(e2, this._menu, i2), n2 && U.setDataAttribute(this._menu, "popper", "static");
+          }
+          _isShown(t2 = this._element) {
+            return t2.classList.contains(Je);
+          }
+          _getMenuElement() {
+            return V.next(this._element, ei)[0];
+          }
+          _getPlacement() {
+            const t2 = this._element.parentNode;
+            if (t2.classList.contains("dropend"))
+              return ri;
+            if (t2.classList.contains("dropstart"))
+              return ai;
+            const e2 = getComputedStyle(this._menu).getPropertyValue("--bs-position").trim() === "end";
+            return t2.classList.contains("dropup") ? e2 ? ni : ii : e2 ? oi : si;
+          }
+          _detectNavbar() {
+            return this._element.closest(".navbar") !== null;
+          }
+          _getOffset() {
+            const { offset: t2 } = this._config;
+            return typeof t2 == "string" ? t2.split(",").map((t3) => Number.parseInt(t3, 10)) : typeof t2 == "function" ? (e2) => t2(e2, this._element) : t2;
+          }
+          _getPopperConfig() {
+            const t2 = { placement: this._getPlacement(), modifiers: [{ name: "preventOverflow", options: { boundary: this._config.boundary } }, { name: "offset", options: { offset: this._getOffset() } }] };
+            return this._config.display === "static" && (t2.modifiers = [{ name: "applyStyles", enabled: false }]), { ...t2, ...typeof this._config.popperConfig == "function" ? this._config.popperConfig(t2) : this._config.popperConfig };
+          }
+          _selectMenuItem({ key: t2, target: e2 }) {
+            const i2 = V.find(".dropdown-menu .dropdown-item:not(.disabled):not(:disabled)", this._menu).filter(l);
+            i2.length && v(i2, e2, t2 === Ye, !i2.includes(e2)).focus();
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = hi.getOrCreateInstance(this, t2);
+              if (typeof t2 == "string") {
+                if (e2[t2] === void 0)
+                  throw new TypeError(`No method named "${t2}"`);
+                e2[t2]();
+              }
+            });
+          }
+          static clearMenus(t2) {
+            if (t2 && (t2.button === 2 || t2.type === "keyup" && t2.key !== "Tab"))
+              return;
+            const e2 = V.find(ti);
+            for (let i2 = 0, n2 = e2.length; i2 < n2; i2++) {
+              const n3 = hi.getInstance(e2[i2]);
+              if (!n3 || n3._config.autoClose === false)
+                continue;
+              if (!n3._isShown())
+                continue;
+              const s2 = { relatedTarget: n3._element };
+              if (t2) {
+                const e3 = t2.composedPath(), i3 = e3.includes(n3._menu);
+                if (e3.includes(n3._element) || n3._config.autoClose === "inside" && !i3 || n3._config.autoClose === "outside" && i3)
+                  continue;
+                if (n3._menu.contains(t2.target) && (t2.type === "keyup" && t2.key === "Tab" || /input|select|option|textarea|form/i.test(t2.target.tagName)))
+                  continue;
+                t2.type === "click" && (s2.clickEvent = t2);
+              }
+              n3._completeHide(s2);
+            }
+          }
+          static getParentFromElement(t2) {
+            return n(t2) || t2.parentNode;
+          }
+          static dataApiKeydownHandler(t2) {
+            if (/input|textarea/i.test(t2.target.tagName) ? t2.key === Ke || t2.key !== Ve && (t2.key !== Ye && t2.key !== Xe || t2.target.closest(ei)) : !Qe.test(t2.key))
+              return;
+            const e2 = this.classList.contains(Je);
+            if (!e2 && t2.key === Ve)
+              return;
+            if (t2.preventDefault(), t2.stopPropagation(), c(this))
+              return;
+            const i2 = this.matches(ti) ? this : V.prev(this, ti)[0], n2 = hi.getOrCreateInstance(i2);
+            if (t2.key !== Ve)
+              return t2.key === Xe || t2.key === Ye ? (e2 || n2.show(), void n2._selectMenuItem(t2)) : void (e2 && t2.key !== Ke || hi.clearMenus());
+            n2.hide();
+          }
+        }
+        j.on(document, Ze, ti, hi.dataApiKeydownHandler), j.on(document, Ze, ei, hi.dataApiKeydownHandler), j.on(document, Ge, hi.clearMenus), j.on(document, "keyup.bs.dropdown.data-api", hi.clearMenus), j.on(document, Ge, ti, function(t2) {
+          t2.preventDefault(), hi.getOrCreateInstance(this).toggle();
+        }), g(hi);
+        const di = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top", ui = ".sticky-top";
+        class fi {
+          constructor() {
+            this._element = document.body;
+          }
+          getWidth() {
+            const t2 = document.documentElement.clientWidth;
+            return Math.abs(window.innerWidth - t2);
+          }
+          hide() {
+            const t2 = this.getWidth();
+            this._disableOverFlow(), this._setElementAttributes(this._element, "paddingRight", (e2) => e2 + t2), this._setElementAttributes(di, "paddingRight", (e2) => e2 + t2), this._setElementAttributes(ui, "marginRight", (e2) => e2 - t2);
+          }
+          _disableOverFlow() {
+            this._saveInitialAttribute(this._element, "overflow"), this._element.style.overflow = "hidden";
+          }
+          _setElementAttributes(t2, e2, i2) {
+            const n2 = this.getWidth();
+            this._applyManipulationCallback(t2, (t3) => {
+              if (t3 !== this._element && window.innerWidth > t3.clientWidth + n2)
+                return;
+              this._saveInitialAttribute(t3, e2);
+              const s2 = window.getComputedStyle(t3)[e2];
+              t3.style[e2] = `${i2(Number.parseFloat(s2))}px`;
+            });
+          }
+          reset() {
+            this._resetElementAttributes(this._element, "overflow"), this._resetElementAttributes(this._element, "paddingRight"), this._resetElementAttributes(di, "paddingRight"), this._resetElementAttributes(ui, "marginRight");
+          }
+          _saveInitialAttribute(t2, e2) {
+            const i2 = t2.style[e2];
+            i2 && U.setDataAttribute(t2, e2, i2);
+          }
+          _resetElementAttributes(t2, e2) {
+            this._applyManipulationCallback(t2, (t3) => {
+              const i2 = U.getDataAttribute(t3, e2);
+              i2 === void 0 ? t3.style.removeProperty(e2) : (U.removeDataAttribute(t3, e2), t3.style[e2] = i2);
+            });
+          }
+          _applyManipulationCallback(t2, e2) {
+            o(t2) ? e2(t2) : V.find(t2, this._element).forEach(e2);
+          }
+          isOverflowing() {
+            return this.getWidth() > 0;
+          }
+        }
+        const pi = { className: "modal-backdrop", isVisible: true, isAnimated: false, rootElement: "body", clickCallback: null }, mi = { className: "string", isVisible: "boolean", isAnimated: "boolean", rootElement: "(element|string)", clickCallback: "(function|null)" }, gi = "show", _i = "mousedown.bs.backdrop";
+        class bi {
+          constructor(t2) {
+            this._config = this._getConfig(t2), this._isAppended = false, this._element = null;
+          }
+          show(t2) {
+            this._config.isVisible ? (this._append(), this._config.isAnimated && u(this._getElement()), this._getElement().classList.add(gi), this._emulateAnimation(() => {
+              _(t2);
+            })) : _(t2);
+          }
+          hide(t2) {
+            this._config.isVisible ? (this._getElement().classList.remove(gi), this._emulateAnimation(() => {
+              this.dispose(), _(t2);
+            })) : _(t2);
+          }
+          _getElement() {
+            if (!this._element) {
+              const t2 = document.createElement("div");
+              t2.className = this._config.className, this._config.isAnimated && t2.classList.add("fade"), this._element = t2;
+            }
+            return this._element;
+          }
+          _getConfig(t2) {
+            return (t2 = { ...pi, ...typeof t2 == "object" ? t2 : {} }).rootElement = r(t2.rootElement), a("backdrop", t2, mi), t2;
+          }
+          _append() {
+            this._isAppended || (this._config.rootElement.append(this._getElement()), j.on(this._getElement(), _i, () => {
+              _(this._config.clickCallback);
+            }), this._isAppended = true);
+          }
+          dispose() {
+            this._isAppended && (j.off(this._element, _i), this._element.remove(), this._isAppended = false);
+          }
+          _emulateAnimation(t2) {
+            b(t2, this._getElement(), this._config.isAnimated);
+          }
+        }
+        const vi = { trapElement: null, autofocus: true }, yi = { trapElement: "element", autofocus: "boolean" }, wi = ".bs.focustrap", Ei = "backward";
+        class Ai {
+          constructor(t2) {
+            this._config = this._getConfig(t2), this._isActive = false, this._lastTabNavDirection = null;
+          }
+          activate() {
+            const { trapElement: t2, autofocus: e2 } = this._config;
+            this._isActive || (e2 && t2.focus(), j.off(document, wi), j.on(document, "focusin.bs.focustrap", (t3) => this._handleFocusin(t3)), j.on(document, "keydown.tab.bs.focustrap", (t3) => this._handleKeydown(t3)), this._isActive = true);
+          }
+          deactivate() {
+            this._isActive && (this._isActive = false, j.off(document, wi));
+          }
+          _handleFocusin(t2) {
+            const { target: e2 } = t2, { trapElement: i2 } = this._config;
+            if (e2 === document || e2 === i2 || i2.contains(e2))
+              return;
+            const n2 = V.focusableChildren(i2);
+            n2.length === 0 ? i2.focus() : this._lastTabNavDirection === Ei ? n2[n2.length - 1].focus() : n2[0].focus();
+          }
+          _handleKeydown(t2) {
+            t2.key === "Tab" && (this._lastTabNavDirection = t2.shiftKey ? Ei : "forward");
+          }
+          _getConfig(t2) {
+            return t2 = { ...vi, ...typeof t2 == "object" ? t2 : {} }, a("focustrap", t2, yi), t2;
+          }
+        }
+        const Ti = "modal", Oi = "Escape", Ci = { backdrop: true, keyboard: true, focus: true }, ki = { backdrop: "(boolean|string)", keyboard: "boolean", focus: "boolean" }, Li = "hidden.bs.modal", xi = "show.bs.modal", Di = "resize.bs.modal", Si = "click.dismiss.bs.modal", Ni = "keydown.dismiss.bs.modal", Ii = "mousedown.dismiss.bs.modal", Pi = "modal-open", ji = "show", Mi = "modal-static";
+        class Hi extends B {
+          constructor(t2, e2) {
+            super(t2), this._config = this._getConfig(e2), this._dialog = V.findOne(".modal-dialog", this._element), this._backdrop = this._initializeBackDrop(), this._focustrap = this._initializeFocusTrap(), this._isShown = false, this._ignoreBackdropClick = false, this._isTransitioning = false, this._scrollBar = new fi();
+          }
+          static get Default() {
+            return Ci;
+          }
+          static get NAME() {
+            return Ti;
+          }
+          toggle(t2) {
+            return this._isShown ? this.hide() : this.show(t2);
+          }
+          show(t2) {
+            this._isShown || this._isTransitioning || j.trigger(this._element, xi, { relatedTarget: t2 }).defaultPrevented || (this._isShown = true, this._isAnimated() && (this._isTransitioning = true), this._scrollBar.hide(), document.body.classList.add(Pi), this._adjustDialog(), this._setEscapeEvent(), this._setResizeEvent(), j.on(this._dialog, Ii, () => {
+              j.one(this._element, "mouseup.dismiss.bs.modal", (t3) => {
+                t3.target === this._element && (this._ignoreBackdropClick = true);
+              });
+            }), this._showBackdrop(() => this._showElement(t2)));
+          }
+          hide() {
+            if (!this._isShown || this._isTransitioning)
+              return;
+            if (j.trigger(this._element, "hide.bs.modal").defaultPrevented)
+              return;
+            this._isShown = false;
+            const t2 = this._isAnimated();
+            t2 && (this._isTransitioning = true), this._setEscapeEvent(), this._setResizeEvent(), this._focustrap.deactivate(), this._element.classList.remove(ji), j.off(this._element, Si), j.off(this._dialog, Ii), this._queueCallback(() => this._hideModal(), this._element, t2);
+          }
+          dispose() {
+            [window, this._dialog].forEach((t2) => j.off(t2, ".bs.modal")), this._backdrop.dispose(), this._focustrap.deactivate(), super.dispose();
+          }
+          handleUpdate() {
+            this._adjustDialog();
+          }
+          _initializeBackDrop() {
+            return new bi({ isVisible: Boolean(this._config.backdrop), isAnimated: this._isAnimated() });
+          }
+          _initializeFocusTrap() {
+            return new Ai({ trapElement: this._element });
+          }
+          _getConfig(t2) {
+            return t2 = { ...Ci, ...U.getDataAttributes(this._element), ...typeof t2 == "object" ? t2 : {} }, a(Ti, t2, ki), t2;
+          }
+          _showElement(t2) {
+            const e2 = this._isAnimated(), i2 = V.findOne(".modal-body", this._dialog);
+            this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE || document.body.append(this._element), this._element.style.display = "block", this._element.removeAttribute("aria-hidden"), this._element.setAttribute("aria-modal", true), this._element.setAttribute("role", "dialog"), this._element.scrollTop = 0, i2 && (i2.scrollTop = 0), e2 && u(this._element), this._element.classList.add(ji), this._queueCallback(() => {
+              this._config.focus && this._focustrap.activate(), this._isTransitioning = false, j.trigger(this._element, "shown.bs.modal", { relatedTarget: t2 });
+            }, this._dialog, e2);
+          }
+          _setEscapeEvent() {
+            this._isShown ? j.on(this._element, Ni, (t2) => {
+              this._config.keyboard && t2.key === Oi ? (t2.preventDefault(), this.hide()) : this._config.keyboard || t2.key !== Oi || this._triggerBackdropTransition();
+            }) : j.off(this._element, Ni);
+          }
+          _setResizeEvent() {
+            this._isShown ? j.on(window, Di, () => this._adjustDialog()) : j.off(window, Di);
+          }
+          _hideModal() {
+            this._element.style.display = "none", this._element.setAttribute("aria-hidden", true), this._element.removeAttribute("aria-modal"), this._element.removeAttribute("role"), this._isTransitioning = false, this._backdrop.hide(() => {
+              document.body.classList.remove(Pi), this._resetAdjustments(), this._scrollBar.reset(), j.trigger(this._element, Li);
+            });
+          }
+          _showBackdrop(t2) {
+            j.on(this._element, Si, (t3) => {
+              this._ignoreBackdropClick ? this._ignoreBackdropClick = false : t3.target === t3.currentTarget && (this._config.backdrop === true ? this.hide() : this._config.backdrop === "static" && this._triggerBackdropTransition());
+            }), this._backdrop.show(t2);
+          }
+          _isAnimated() {
+            return this._element.classList.contains("fade");
+          }
+          _triggerBackdropTransition() {
+            if (j.trigger(this._element, "hidePrevented.bs.modal").defaultPrevented)
+              return;
+            const { classList: t2, scrollHeight: e2, style: i2 } = this._element, n2 = e2 > document.documentElement.clientHeight;
+            !n2 && i2.overflowY === "hidden" || t2.contains(Mi) || (n2 || (i2.overflowY = "hidden"), t2.add(Mi), this._queueCallback(() => {
+              t2.remove(Mi), n2 || this._queueCallback(() => {
+                i2.overflowY = "";
+              }, this._dialog);
+            }, this._dialog), this._element.focus());
+          }
+          _adjustDialog() {
+            const t2 = this._element.scrollHeight > document.documentElement.clientHeight, e2 = this._scrollBar.getWidth(), i2 = e2 > 0;
+            (!i2 && t2 && !m() || i2 && !t2 && m()) && (this._element.style.paddingLeft = `${e2}px`), (i2 && !t2 && !m() || !i2 && t2 && m()) && (this._element.style.paddingRight = `${e2}px`);
+          }
+          _resetAdjustments() {
+            this._element.style.paddingLeft = "", this._element.style.paddingRight = "";
+          }
+          static jQueryInterface(t2, e2) {
+            return this.each(function() {
+              const i2 = Hi.getOrCreateInstance(this, t2);
+              if (typeof t2 == "string") {
+                if (i2[t2] === void 0)
+                  throw new TypeError(`No method named "${t2}"`);
+                i2[t2](e2);
+              }
+            });
+          }
+        }
+        j.on(document, "click.bs.modal.data-api", '[data-bs-toggle="modal"]', function(t2) {
+          const e2 = n(this);
+          ["A", "AREA"].includes(this.tagName) && t2.preventDefault(), j.one(e2, xi, (t3) => {
+            t3.defaultPrevented || j.one(e2, Li, () => {
+              l(this) && this.focus();
+            });
+          });
+          const i2 = V.findOne(".modal.show");
+          i2 && Hi.getInstance(i2).hide(), Hi.getOrCreateInstance(e2).toggle(this);
+        }), R(Hi), g(Hi);
+        const Bi = "offcanvas", Ri = { backdrop: true, keyboard: true, scroll: false }, Wi = { backdrop: "boolean", keyboard: "boolean", scroll: "boolean" }, $i = "show", zi = ".offcanvas.show", qi = "hidden.bs.offcanvas";
+        class Fi extends B {
+          constructor(t2, e2) {
+            super(t2), this._config = this._getConfig(e2), this._isShown = false, this._backdrop = this._initializeBackDrop(), this._focustrap = this._initializeFocusTrap(), this._addEventListeners();
+          }
+          static get NAME() {
+            return Bi;
+          }
+          static get Default() {
+            return Ri;
+          }
+          toggle(t2) {
+            return this._isShown ? this.hide() : this.show(t2);
+          }
+          show(t2) {
+            this._isShown || j.trigger(this._element, "show.bs.offcanvas", { relatedTarget: t2 }).defaultPrevented || (this._isShown = true, this._element.style.visibility = "visible", this._backdrop.show(), this._config.scroll || new fi().hide(), this._element.removeAttribute("aria-hidden"), this._element.setAttribute("aria-modal", true), this._element.setAttribute("role", "dialog"), this._element.classList.add($i), this._queueCallback(() => {
+              this._config.scroll || this._focustrap.activate(), j.trigger(this._element, "shown.bs.offcanvas", { relatedTarget: t2 });
+            }, this._element, true));
+          }
+          hide() {
+            this._isShown && (j.trigger(this._element, "hide.bs.offcanvas").defaultPrevented || (this._focustrap.deactivate(), this._element.blur(), this._isShown = false, this._element.classList.remove($i), this._backdrop.hide(), this._queueCallback(() => {
+              this._element.setAttribute("aria-hidden", true), this._element.removeAttribute("aria-modal"), this._element.removeAttribute("role"), this._element.style.visibility = "hidden", this._config.scroll || new fi().reset(), j.trigger(this._element, qi);
+            }, this._element, true)));
+          }
+          dispose() {
+            this._backdrop.dispose(), this._focustrap.deactivate(), super.dispose();
+          }
+          _getConfig(t2) {
+            return t2 = { ...Ri, ...U.getDataAttributes(this._element), ...typeof t2 == "object" ? t2 : {} }, a(Bi, t2, Wi), t2;
+          }
+          _initializeBackDrop() {
+            return new bi({ className: "offcanvas-backdrop", isVisible: this._config.backdrop, isAnimated: true, rootElement: this._element.parentNode, clickCallback: () => this.hide() });
+          }
+          _initializeFocusTrap() {
+            return new Ai({ trapElement: this._element });
+          }
+          _addEventListeners() {
+            j.on(this._element, "keydown.dismiss.bs.offcanvas", (t2) => {
+              this._config.keyboard && t2.key === "Escape" && this.hide();
+            });
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = Fi.getOrCreateInstance(this, t2);
+              if (typeof t2 == "string") {
+                if (e2[t2] === void 0 || t2.startsWith("_") || t2 === "constructor")
+                  throw new TypeError(`No method named "${t2}"`);
+                e2[t2](this);
+              }
+            });
+          }
+        }
+        j.on(document, "click.bs.offcanvas.data-api", '[data-bs-toggle="offcanvas"]', function(t2) {
+          const e2 = n(this);
+          if (["A", "AREA"].includes(this.tagName) && t2.preventDefault(), c(this))
+            return;
+          j.one(e2, qi, () => {
+            l(this) && this.focus();
+          });
+          const i2 = V.findOne(zi);
+          i2 && i2 !== e2 && Fi.getInstance(i2).hide(), Fi.getOrCreateInstance(e2).toggle(this);
+        }), j.on(window, "load.bs.offcanvas.data-api", () => V.find(zi).forEach((t2) => Fi.getOrCreateInstance(t2).show())), R(Fi), g(Fi);
+        const Ui = new Set(["background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href"]), Vi = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i, Ki = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i, Xi = (t2, e2) => {
+          const i2 = t2.nodeName.toLowerCase();
+          if (e2.includes(i2))
+            return !Ui.has(i2) || Boolean(Vi.test(t2.nodeValue) || Ki.test(t2.nodeValue));
+          const n2 = e2.filter((t3) => t3 instanceof RegExp);
+          for (let t3 = 0, e3 = n2.length; t3 < e3; t3++)
+            if (n2[t3].test(i2))
+              return true;
+          return false;
+        };
+        function Yi(t2, e2, i2) {
+          if (!t2.length)
+            return t2;
+          if (i2 && typeof i2 == "function")
+            return i2(t2);
+          const n2 = new window.DOMParser().parseFromString(t2, "text/html"), s2 = [].concat(...n2.body.querySelectorAll("*"));
+          for (let t3 = 0, i3 = s2.length; t3 < i3; t3++) {
+            const i4 = s2[t3], n3 = i4.nodeName.toLowerCase();
+            if (!Object.keys(e2).includes(n3)) {
+              i4.remove();
+              continue;
+            }
+            const o2 = [].concat(...i4.attributes), r2 = [].concat(e2["*"] || [], e2[n3] || []);
+            o2.forEach((t4) => {
+              Xi(t4, r2) || i4.removeAttribute(t4.nodeName);
+            });
+          }
+          return n2.body.innerHTML;
+        }
+        const Qi = "tooltip", Gi = new Set(["sanitize", "allowList", "sanitizeFn"]), Zi = { animation: "boolean", template: "string", title: "(string|element|function)", trigger: "string", delay: "(number|object)", html: "boolean", selector: "(string|boolean)", placement: "(string|function)", offset: "(array|string|function)", container: "(string|element|boolean)", fallbackPlacements: "array", boundary: "(string|element)", customClass: "(string|function)", sanitize: "boolean", sanitizeFn: "(null|function)", allowList: "object", popperConfig: "(null|object|function)" }, Ji = { AUTO: "auto", TOP: "top", RIGHT: m() ? "left" : "right", BOTTOM: "bottom", LEFT: m() ? "right" : "left" }, tn = { animation: true, template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>', trigger: "hover focus", title: "", delay: 0, html: false, selector: false, placement: "top", offset: [0, 0], container: false, fallbackPlacements: ["top", "right", "bottom", "left"], boundary: "clippingParents", customClass: "", sanitize: true, sanitizeFn: null, allowList: { "*": ["class", "dir", "id", "lang", "role", /^aria-[\w-]*$/i], a: ["target", "href", "title", "rel"], area: [], b: [], br: [], col: [], code: [], div: [], em: [], hr: [], h1: [], h2: [], h3: [], h4: [], h5: [], h6: [], i: [], img: ["src", "srcset", "alt", "title", "width", "height"], li: [], ol: [], p: [], pre: [], s: [], small: [], span: [], sub: [], sup: [], strong: [], u: [], ul: [] }, popperConfig: null }, en = { HIDE: "hide.bs.tooltip", HIDDEN: "hidden.bs.tooltip", SHOW: "show.bs.tooltip", SHOWN: "shown.bs.tooltip", INSERTED: "inserted.bs.tooltip", CLICK: "click.bs.tooltip", FOCUSIN: "focusin.bs.tooltip", FOCUSOUT: "focusout.bs.tooltip", MOUSEENTER: "mouseenter.bs.tooltip", MOUSELEAVE: "mouseleave.bs.tooltip" }, nn = "fade", sn = "show", on = "show", rn = "out", an = ".tooltip-inner", ln = ".modal", cn = "hide.bs.modal", hn = "hover", dn = "focus";
+        class un extends B {
+          constructor(t2, e2) {
+            if (Fe === void 0)
+              throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org)");
+            super(t2), this._isEnabled = true, this._timeout = 0, this._hoverState = "", this._activeTrigger = {}, this._popper = null, this._config = this._getConfig(e2), this.tip = null, this._setListeners();
+          }
+          static get Default() {
+            return tn;
+          }
+          static get NAME() {
+            return Qi;
+          }
+          static get Event() {
+            return en;
+          }
+          static get DefaultType() {
+            return Zi;
+          }
+          enable() {
+            this._isEnabled = true;
+          }
+          disable() {
+            this._isEnabled = false;
+          }
+          toggleEnabled() {
+            this._isEnabled = !this._isEnabled;
+          }
+          toggle(t2) {
+            if (this._isEnabled)
+              if (t2) {
+                const e2 = this._initializeOnDelegatedTarget(t2);
+                e2._activeTrigger.click = !e2._activeTrigger.click, e2._isWithActiveTrigger() ? e2._enter(null, e2) : e2._leave(null, e2);
+              } else {
+                if (this.getTipElement().classList.contains(sn))
+                  return void this._leave(null, this);
+                this._enter(null, this);
+              }
+          }
+          dispose() {
+            clearTimeout(this._timeout), j.off(this._element.closest(ln), cn, this._hideModalHandler), this.tip && this.tip.remove(), this._disposePopper(), super.dispose();
+          }
+          show() {
+            if (this._element.style.display === "none")
+              throw new Error("Please use show on visible elements");
+            if (!this.isWithContent() || !this._isEnabled)
+              return;
+            const t2 = j.trigger(this._element, this.constructor.Event.SHOW), e2 = h(this._element), i2 = e2 === null ? this._element.ownerDocument.documentElement.contains(this._element) : e2.contains(this._element);
+            if (t2.defaultPrevented || !i2)
+              return;
+            this.constructor.NAME === "tooltip" && this.tip && this.getTitle() !== this.tip.querySelector(an).innerHTML && (this._disposePopper(), this.tip.remove(), this.tip = null);
+            const n2 = this.getTipElement(), s2 = ((t3) => {
+              do {
+                t3 += Math.floor(1e6 * Math.random());
+              } while (document.getElementById(t3));
+              return t3;
+            })(this.constructor.NAME);
+            n2.setAttribute("id", s2), this._element.setAttribute("aria-describedby", s2), this._config.animation && n2.classList.add(nn);
+            const o2 = typeof this._config.placement == "function" ? this._config.placement.call(this, n2, this._element) : this._config.placement, r2 = this._getAttachment(o2);
+            this._addAttachmentClass(r2);
+            const { container: a2 } = this._config;
+            H.set(n2, this.constructor.DATA_KEY, this), this._element.ownerDocument.documentElement.contains(this.tip) || (a2.append(n2), j.trigger(this._element, this.constructor.Event.INSERTED)), this._popper ? this._popper.update() : this._popper = qe(this._element, n2, this._getPopperConfig(r2)), n2.classList.add(sn);
+            const l2 = this._resolvePossibleFunction(this._config.customClass);
+            l2 && n2.classList.add(...l2.split(" ")), "ontouchstart" in document.documentElement && [].concat(...document.body.children).forEach((t3) => {
+              j.on(t3, "mouseover", d);
+            });
+            const c2 = this.tip.classList.contains(nn);
+            this._queueCallback(() => {
+              const t3 = this._hoverState;
+              this._hoverState = null, j.trigger(this._element, this.constructor.Event.SHOWN), t3 === rn && this._leave(null, this);
+            }, this.tip, c2);
+          }
+          hide() {
+            if (!this._popper)
+              return;
+            const t2 = this.getTipElement();
+            if (j.trigger(this._element, this.constructor.Event.HIDE).defaultPrevented)
+              return;
+            t2.classList.remove(sn), "ontouchstart" in document.documentElement && [].concat(...document.body.children).forEach((t3) => j.off(t3, "mouseover", d)), this._activeTrigger.click = false, this._activeTrigger.focus = false, this._activeTrigger.hover = false;
+            const e2 = this.tip.classList.contains(nn);
+            this._queueCallback(() => {
+              this._isWithActiveTrigger() || (this._hoverState !== on && t2.remove(), this._cleanTipClass(), this._element.removeAttribute("aria-describedby"), j.trigger(this._element, this.constructor.Event.HIDDEN), this._disposePopper());
+            }, this.tip, e2), this._hoverState = "";
+          }
+          update() {
+            this._popper !== null && this._popper.update();
+          }
+          isWithContent() {
+            return Boolean(this.getTitle());
+          }
+          getTipElement() {
+            if (this.tip)
+              return this.tip;
+            const t2 = document.createElement("div");
+            t2.innerHTML = this._config.template;
+            const e2 = t2.children[0];
+            return this.setContent(e2), e2.classList.remove(nn, sn), this.tip = e2, this.tip;
+          }
+          setContent(t2) {
+            this._sanitizeAndSetContent(t2, this.getTitle(), an);
+          }
+          _sanitizeAndSetContent(t2, e2, i2) {
+            const n2 = V.findOne(i2, t2);
+            e2 || !n2 ? this.setElementContent(n2, e2) : n2.remove();
+          }
+          setElementContent(t2, e2) {
+            if (t2 !== null)
+              return o(e2) ? (e2 = r(e2), void (this._config.html ? e2.parentNode !== t2 && (t2.innerHTML = "", t2.append(e2)) : t2.textContent = e2.textContent)) : void (this._config.html ? (this._config.sanitize && (e2 = Yi(e2, this._config.allowList, this._config.sanitizeFn)), t2.innerHTML = e2) : t2.textContent = e2);
+          }
+          getTitle() {
+            const t2 = this._element.getAttribute("data-bs-original-title") || this._config.title;
+            return this._resolvePossibleFunction(t2);
+          }
+          updateAttachment(t2) {
+            return t2 === "right" ? "end" : t2 === "left" ? "start" : t2;
+          }
+          _initializeOnDelegatedTarget(t2, e2) {
+            return e2 || this.constructor.getOrCreateInstance(t2.delegateTarget, this._getDelegateConfig());
+          }
+          _getOffset() {
+            const { offset: t2 } = this._config;
+            return typeof t2 == "string" ? t2.split(",").map((t3) => Number.parseInt(t3, 10)) : typeof t2 == "function" ? (e2) => t2(e2, this._element) : t2;
+          }
+          _resolvePossibleFunction(t2) {
+            return typeof t2 == "function" ? t2.call(this._element) : t2;
+          }
+          _getPopperConfig(t2) {
+            const e2 = { placement: t2, modifiers: [{ name: "flip", options: { fallbackPlacements: this._config.fallbackPlacements } }, { name: "offset", options: { offset: this._getOffset() } }, { name: "preventOverflow", options: { boundary: this._config.boundary } }, { name: "arrow", options: { element: `.${this.constructor.NAME}-arrow` } }, { name: "onChange", enabled: true, phase: "afterWrite", fn: (t3) => this._handlePopperPlacementChange(t3) }], onFirstUpdate: (t3) => {
+              t3.options.placement !== t3.placement && this._handlePopperPlacementChange(t3);
+            } };
+            return { ...e2, ...typeof this._config.popperConfig == "function" ? this._config.popperConfig(e2) : this._config.popperConfig };
+          }
+          _addAttachmentClass(t2) {
+            this.getTipElement().classList.add(`${this._getBasicClassPrefix()}-${this.updateAttachment(t2)}`);
+          }
+          _getAttachment(t2) {
+            return Ji[t2.toUpperCase()];
+          }
+          _setListeners() {
+            this._config.trigger.split(" ").forEach((t2) => {
+              if (t2 === "click")
+                j.on(this._element, this.constructor.Event.CLICK, this._config.selector, (t3) => this.toggle(t3));
+              else if (t2 !== "manual") {
+                const e2 = t2 === hn ? this.constructor.Event.MOUSEENTER : this.constructor.Event.FOCUSIN, i2 = t2 === hn ? this.constructor.Event.MOUSELEAVE : this.constructor.Event.FOCUSOUT;
+                j.on(this._element, e2, this._config.selector, (t3) => this._enter(t3)), j.on(this._element, i2, this._config.selector, (t3) => this._leave(t3));
+              }
+            }), this._hideModalHandler = () => {
+              this._element && this.hide();
+            }, j.on(this._element.closest(ln), cn, this._hideModalHandler), this._config.selector ? this._config = { ...this._config, trigger: "manual", selector: "" } : this._fixTitle();
+          }
+          _fixTitle() {
+            const t2 = this._element.getAttribute("title"), e2 = typeof this._element.getAttribute("data-bs-original-title");
+            (t2 || e2 !== "string") && (this._element.setAttribute("data-bs-original-title", t2 || ""), !t2 || this._element.getAttribute("aria-label") || this._element.textContent || this._element.setAttribute("aria-label", t2), this._element.setAttribute("title", ""));
+          }
+          _enter(t2, e2) {
+            e2 = this._initializeOnDelegatedTarget(t2, e2), t2 && (e2._activeTrigger[t2.type === "focusin" ? dn : hn] = true), e2.getTipElement().classList.contains(sn) || e2._hoverState === on ? e2._hoverState = on : (clearTimeout(e2._timeout), e2._hoverState = on, e2._config.delay && e2._config.delay.show ? e2._timeout = setTimeout(() => {
+              e2._hoverState === on && e2.show();
+            }, e2._config.delay.show) : e2.show());
+          }
+          _leave(t2, e2) {
+            e2 = this._initializeOnDelegatedTarget(t2, e2), t2 && (e2._activeTrigger[t2.type === "focusout" ? dn : hn] = e2._element.contains(t2.relatedTarget)), e2._isWithActiveTrigger() || (clearTimeout(e2._timeout), e2._hoverState = rn, e2._config.delay && e2._config.delay.hide ? e2._timeout = setTimeout(() => {
+              e2._hoverState === rn && e2.hide();
+            }, e2._config.delay.hide) : e2.hide());
+          }
+          _isWithActiveTrigger() {
+            for (const t2 in this._activeTrigger)
+              if (this._activeTrigger[t2])
+                return true;
+            return false;
+          }
+          _getConfig(t2) {
+            const e2 = U.getDataAttributes(this._element);
+            return Object.keys(e2).forEach((t3) => {
+              Gi.has(t3) && delete e2[t3];
+            }), (t2 = { ...this.constructor.Default, ...e2, ...typeof t2 == "object" && t2 ? t2 : {} }).container = t2.container === false ? document.body : r(t2.container), typeof t2.delay == "number" && (t2.delay = { show: t2.delay, hide: t2.delay }), typeof t2.title == "number" && (t2.title = t2.title.toString()), typeof t2.content == "number" && (t2.content = t2.content.toString()), a(Qi, t2, this.constructor.DefaultType), t2.sanitize && (t2.template = Yi(t2.template, t2.allowList, t2.sanitizeFn)), t2;
+          }
+          _getDelegateConfig() {
+            const t2 = {};
+            for (const e2 in this._config)
+              this.constructor.Default[e2] !== this._config[e2] && (t2[e2] = this._config[e2]);
+            return t2;
+          }
+          _cleanTipClass() {
+            const t2 = this.getTipElement(), e2 = new RegExp(`(^|\\s)${this._getBasicClassPrefix()}\\S+`, "g"), i2 = t2.getAttribute("class").match(e2);
+            i2 !== null && i2.length > 0 && i2.map((t3) => t3.trim()).forEach((e3) => t2.classList.remove(e3));
+          }
+          _getBasicClassPrefix() {
+            return "bs-tooltip";
+          }
+          _handlePopperPlacementChange(t2) {
+            const { state: e2 } = t2;
+            e2 && (this.tip = e2.elements.popper, this._cleanTipClass(), this._addAttachmentClass(this._getAttachment(e2.placement)));
+          }
+          _disposePopper() {
+            this._popper && (this._popper.destroy(), this._popper = null);
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = un.getOrCreateInstance(this, t2);
+              if (typeof t2 == "string") {
+                if (e2[t2] === void 0)
+                  throw new TypeError(`No method named "${t2}"`);
+                e2[t2]();
+              }
+            });
+          }
+        }
+        g(un);
+        const fn = { ...un.Default, placement: "right", offset: [0, 8], trigger: "click", content: "", template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>' }, pn = { ...un.DefaultType, content: "(string|element|function)" }, mn = { HIDE: "hide.bs.popover", HIDDEN: "hidden.bs.popover", SHOW: "show.bs.popover", SHOWN: "shown.bs.popover", INSERTED: "inserted.bs.popover", CLICK: "click.bs.popover", FOCUSIN: "focusin.bs.popover", FOCUSOUT: "focusout.bs.popover", MOUSEENTER: "mouseenter.bs.popover", MOUSELEAVE: "mouseleave.bs.popover" };
+        class gn extends un {
+          static get Default() {
+            return fn;
+          }
+          static get NAME() {
+            return "popover";
+          }
+          static get Event() {
+            return mn;
+          }
+          static get DefaultType() {
+            return pn;
+          }
+          isWithContent() {
+            return this.getTitle() || this._getContent();
+          }
+          setContent(t2) {
+            this._sanitizeAndSetContent(t2, this.getTitle(), ".popover-header"), this._sanitizeAndSetContent(t2, this._getContent(), ".popover-body");
+          }
+          _getContent() {
+            return this._resolvePossibleFunction(this._config.content);
+          }
+          _getBasicClassPrefix() {
+            return "bs-popover";
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = gn.getOrCreateInstance(this, t2);
+              if (typeof t2 == "string") {
+                if (e2[t2] === void 0)
+                  throw new TypeError(`No method named "${t2}"`);
+                e2[t2]();
+              }
+            });
+          }
+        }
+        g(gn);
+        const _n = "scrollspy", bn = { offset: 10, method: "auto", target: "" }, vn = { offset: "number", method: "string", target: "(string|element)" }, yn = "active", wn = ".nav-link, .list-group-item, .dropdown-item", En = "position";
+        class An extends B {
+          constructor(t2, e2) {
+            super(t2), this._scrollElement = this._element.tagName === "BODY" ? window : this._element, this._config = this._getConfig(e2), this._offsets = [], this._targets = [], this._activeTarget = null, this._scrollHeight = 0, j.on(this._scrollElement, "scroll.bs.scrollspy", () => this._process()), this.refresh(), this._process();
+          }
+          static get Default() {
+            return bn;
+          }
+          static get NAME() {
+            return _n;
+          }
+          refresh() {
+            const t2 = this._scrollElement === this._scrollElement.window ? "offset" : En, e2 = this._config.method === "auto" ? t2 : this._config.method, n2 = e2 === En ? this._getScrollTop() : 0;
+            this._offsets = [], this._targets = [], this._scrollHeight = this._getScrollHeight(), V.find(wn, this._config.target).map((t3) => {
+              const s2 = i(t3), o2 = s2 ? V.findOne(s2) : null;
+              if (o2) {
+                const t4 = o2.getBoundingClientRect();
+                if (t4.width || t4.height)
+                  return [U[e2](o2).top + n2, s2];
+              }
+              return null;
+            }).filter((t3) => t3).sort((t3, e3) => t3[0] - e3[0]).forEach((t3) => {
+              this._offsets.push(t3[0]), this._targets.push(t3[1]);
+            });
+          }
+          dispose() {
+            j.off(this._scrollElement, ".bs.scrollspy"), super.dispose();
+          }
+          _getConfig(t2) {
+            return (t2 = { ...bn, ...U.getDataAttributes(this._element), ...typeof t2 == "object" && t2 ? t2 : {} }).target = r(t2.target) || document.documentElement, a(_n, t2, vn), t2;
+          }
+          _getScrollTop() {
+            return this._scrollElement === window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
+          }
+          _getScrollHeight() {
+            return this._scrollElement.scrollHeight || Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+          }
+          _getOffsetHeight() {
+            return this._scrollElement === window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
+          }
+          _process() {
+            const t2 = this._getScrollTop() + this._config.offset, e2 = this._getScrollHeight(), i2 = this._config.offset + e2 - this._getOffsetHeight();
+            if (this._scrollHeight !== e2 && this.refresh(), t2 >= i2) {
+              const t3 = this._targets[this._targets.length - 1];
+              this._activeTarget !== t3 && this._activate(t3);
+            } else {
+              if (this._activeTarget && t2 < this._offsets[0] && this._offsets[0] > 0)
+                return this._activeTarget = null, void this._clear();
+              for (let e3 = this._offsets.length; e3--; )
+                this._activeTarget !== this._targets[e3] && t2 >= this._offsets[e3] && (this._offsets[e3 + 1] === void 0 || t2 < this._offsets[e3 + 1]) && this._activate(this._targets[e3]);
+            }
+          }
+          _activate(t2) {
+            this._activeTarget = t2, this._clear();
+            const e2 = wn.split(",").map((e3) => `${e3}[data-bs-target="${t2}"],${e3}[href="${t2}"]`), i2 = V.findOne(e2.join(","), this._config.target);
+            i2.classList.add(yn), i2.classList.contains("dropdown-item") ? V.findOne(".dropdown-toggle", i2.closest(".dropdown")).classList.add(yn) : V.parents(i2, ".nav, .list-group").forEach((t3) => {
+              V.prev(t3, ".nav-link, .list-group-item").forEach((t4) => t4.classList.add(yn)), V.prev(t3, ".nav-item").forEach((t4) => {
+                V.children(t4, ".nav-link").forEach((t5) => t5.classList.add(yn));
+              });
+            }), j.trigger(this._scrollElement, "activate.bs.scrollspy", { relatedTarget: t2 });
+          }
+          _clear() {
+            V.find(wn, this._config.target).filter((t2) => t2.classList.contains(yn)).forEach((t2) => t2.classList.remove(yn));
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = An.getOrCreateInstance(this, t2);
+              if (typeof t2 == "string") {
+                if (e2[t2] === void 0)
+                  throw new TypeError(`No method named "${t2}"`);
+                e2[t2]();
+              }
+            });
+          }
+        }
+        j.on(window, "load.bs.scrollspy.data-api", () => {
+          V.find('[data-bs-spy="scroll"]').forEach((t2) => new An(t2));
+        }), g(An);
+        const Tn = "active", On = "fade", Cn = "show", kn = ".active", Ln = ":scope > li > .active";
+        class xn extends B {
+          static get NAME() {
+            return "tab";
+          }
+          show() {
+            if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && this._element.classList.contains(Tn))
+              return;
+            let t2;
+            const e2 = n(this._element), i2 = this._element.closest(".nav, .list-group");
+            if (i2) {
+              const e3 = i2.nodeName === "UL" || i2.nodeName === "OL" ? Ln : kn;
+              t2 = V.find(e3, i2), t2 = t2[t2.length - 1];
+            }
+            const s2 = t2 ? j.trigger(t2, "hide.bs.tab", { relatedTarget: this._element }) : null;
+            if (j.trigger(this._element, "show.bs.tab", { relatedTarget: t2 }).defaultPrevented || s2 !== null && s2.defaultPrevented)
+              return;
+            this._activate(this._element, i2);
+            const o2 = () => {
+              j.trigger(t2, "hidden.bs.tab", { relatedTarget: this._element }), j.trigger(this._element, "shown.bs.tab", { relatedTarget: t2 });
+            };
+            e2 ? this._activate(e2, e2.parentNode, o2) : o2();
+          }
+          _activate(t2, e2, i2) {
+            const n2 = (!e2 || e2.nodeName !== "UL" && e2.nodeName !== "OL" ? V.children(e2, kn) : V.find(Ln, e2))[0], s2 = i2 && n2 && n2.classList.contains(On), o2 = () => this._transitionComplete(t2, n2, i2);
+            n2 && s2 ? (n2.classList.remove(Cn), this._queueCallback(o2, t2, true)) : o2();
+          }
+          _transitionComplete(t2, e2, i2) {
+            if (e2) {
+              e2.classList.remove(Tn);
+              const t3 = V.findOne(":scope > .dropdown-menu .active", e2.parentNode);
+              t3 && t3.classList.remove(Tn), e2.getAttribute("role") === "tab" && e2.setAttribute("aria-selected", false);
+            }
+            t2.classList.add(Tn), t2.getAttribute("role") === "tab" && t2.setAttribute("aria-selected", true), u(t2), t2.classList.contains(On) && t2.classList.add(Cn);
+            let n2 = t2.parentNode;
+            if (n2 && n2.nodeName === "LI" && (n2 = n2.parentNode), n2 && n2.classList.contains("dropdown-menu")) {
+              const e3 = t2.closest(".dropdown");
+              e3 && V.find(".dropdown-toggle", e3).forEach((t3) => t3.classList.add(Tn)), t2.setAttribute("aria-expanded", true);
+            }
+            i2 && i2();
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = xn.getOrCreateInstance(this);
+              if (typeof t2 == "string") {
+                if (e2[t2] === void 0)
+                  throw new TypeError(`No method named "${t2}"`);
+                e2[t2]();
+              }
+            });
+          }
+        }
+        j.on(document, "click.bs.tab.data-api", '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]', function(t2) {
+          ["A", "AREA"].includes(this.tagName) && t2.preventDefault(), c(this) || xn.getOrCreateInstance(this).show();
+        }), g(xn);
+        const Dn = "toast", Sn = "hide", Nn = "show", In = "showing", Pn = { animation: "boolean", autohide: "boolean", delay: "number" }, jn = { animation: true, autohide: true, delay: 5e3 };
+        class Mn extends B {
+          constructor(t2, e2) {
+            super(t2), this._config = this._getConfig(e2), this._timeout = null, this._hasMouseInteraction = false, this._hasKeyboardInteraction = false, this._setListeners();
+          }
+          static get DefaultType() {
+            return Pn;
+          }
+          static get Default() {
+            return jn;
+          }
+          static get NAME() {
+            return Dn;
+          }
+          show() {
+            j.trigger(this._element, "show.bs.toast").defaultPrevented || (this._clearTimeout(), this._config.animation && this._element.classList.add("fade"), this._element.classList.remove(Sn), u(this._element), this._element.classList.add(Nn), this._element.classList.add(In), this._queueCallback(() => {
+              this._element.classList.remove(In), j.trigger(this._element, "shown.bs.toast"), this._maybeScheduleHide();
+            }, this._element, this._config.animation));
+          }
+          hide() {
+            this._element.classList.contains(Nn) && (j.trigger(this._element, "hide.bs.toast").defaultPrevented || (this._element.classList.add(In), this._queueCallback(() => {
+              this._element.classList.add(Sn), this._element.classList.remove(In), this._element.classList.remove(Nn), j.trigger(this._element, "hidden.bs.toast");
+            }, this._element, this._config.animation)));
+          }
+          dispose() {
+            this._clearTimeout(), this._element.classList.contains(Nn) && this._element.classList.remove(Nn), super.dispose();
+          }
+          _getConfig(t2) {
+            return t2 = { ...jn, ...U.getDataAttributes(this._element), ...typeof t2 == "object" && t2 ? t2 : {} }, a(Dn, t2, this.constructor.DefaultType), t2;
+          }
+          _maybeScheduleHide() {
+            this._config.autohide && (this._hasMouseInteraction || this._hasKeyboardInteraction || (this._timeout = setTimeout(() => {
+              this.hide();
+            }, this._config.delay)));
+          }
+          _onInteraction(t2, e2) {
+            switch (t2.type) {
+              case "mouseover":
+              case "mouseout":
+                this._hasMouseInteraction = e2;
+                break;
+              case "focusin":
+              case "focusout":
+                this._hasKeyboardInteraction = e2;
+            }
+            if (e2)
+              return void this._clearTimeout();
+            const i2 = t2.relatedTarget;
+            this._element === i2 || this._element.contains(i2) || this._maybeScheduleHide();
+          }
+          _setListeners() {
+            j.on(this._element, "mouseover.bs.toast", (t2) => this._onInteraction(t2, true)), j.on(this._element, "mouseout.bs.toast", (t2) => this._onInteraction(t2, false)), j.on(this._element, "focusin.bs.toast", (t2) => this._onInteraction(t2, true)), j.on(this._element, "focusout.bs.toast", (t2) => this._onInteraction(t2, false));
+          }
+          _clearTimeout() {
+            clearTimeout(this._timeout), this._timeout = null;
+          }
+          static jQueryInterface(t2) {
+            return this.each(function() {
+              const e2 = Mn.getOrCreateInstance(this, t2);
+              if (typeof t2 == "string") {
+                if (e2[t2] === void 0)
+                  throw new TypeError(`No method named "${t2}"`);
+                e2[t2](this);
+              }
+            });
+          }
+        }
+        return R(Mn), g(Mn), { Alert: W, Button: z, Carousel: st, Collapse: pt, Dropdown: hi, Modal: Hi, Offcanvas: Fi, Popover: gn, ScrollSpy: An, Tab: xn, Toast: Mn, Tooltip: un };
+      });
+    }
+  });
+
+  // node_modules/svelte/internal/index.mjs
+  function noop() {
+  }
+  function run(fn) {
+    return fn();
+  }
+  function blank_object() {
+    return Object.create(null);
+  }
+  function run_all(fns) {
+    fns.forEach(run);
+  }
+  function is_function(thing) {
+    return typeof thing === "function";
+  }
+  function safe_not_equal(a, b) {
+    return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
+  }
+  var src_url_equal_anchor;
+  function src_url_equal(element_src, url) {
+    if (!src_url_equal_anchor) {
+      src_url_equal_anchor = document.createElement("a");
+    }
+    src_url_equal_anchor.href = url;
+    return element_src === src_url_equal_anchor.href;
+  }
+  function is_empty(obj) {
+    return Object.keys(obj).length === 0;
+  }
+  var tasks = new Set();
+  var is_hydrating = false;
+  function start_hydrating() {
+    is_hydrating = true;
+  }
+  function end_hydrating() {
+    is_hydrating = false;
+  }
+  function append(target, node) {
+    target.appendChild(node);
+  }
+  function append_styles(target, style_sheet_id, styles) {
+    const append_styles_to = get_root_for_style(target);
+    if (!append_styles_to.getElementById(style_sheet_id)) {
+      const style = element("style");
+      style.id = style_sheet_id;
+      style.textContent = styles;
+      append_stylesheet(append_styles_to, style);
+    }
+  }
+  function get_root_for_style(node) {
+    if (!node)
+      return document;
+    const root = node.getRootNode ? node.getRootNode() : node.ownerDocument;
+    if (root && root.host) {
+      return root;
+    }
+    return node.ownerDocument;
+  }
+  function append_stylesheet(node, style) {
+    append(node.head || node, style);
+  }
+  function insert(target, node, anchor) {
+    target.insertBefore(node, anchor || null);
+  }
+  function detach(node) {
+    node.parentNode.removeChild(node);
+  }
+  function element(name) {
+    return document.createElement(name);
+  }
+  function text(data) {
+    return document.createTextNode(data);
+  }
+  function space() {
+    return text(" ");
+  }
+  function listen(node, event, handler, options) {
+    node.addEventListener(event, handler, options);
+    return () => node.removeEventListener(event, handler, options);
+  }
+  function attr(node, attribute, value) {
+    if (value == null)
+      node.removeAttribute(attribute);
+    else if (node.getAttribute(attribute) !== value)
+      node.setAttribute(attribute, value);
+  }
+  function children(element2) {
+    return Array.from(element2.childNodes);
+  }
+  function set_data(text2, data) {
+    data = "" + data;
+    if (text2.wholeText !== data)
+      text2.data = data;
+  }
+  var active_docs = new Set();
+  var current_component;
+  function set_current_component(component) {
+    current_component = component;
+  }
+  var dirty_components = [];
+  var binding_callbacks = [];
+  var render_callbacks = [];
+  var flush_callbacks = [];
+  var resolved_promise = Promise.resolve();
+  var update_scheduled = false;
+  function schedule_update() {
+    if (!update_scheduled) {
+      update_scheduled = true;
+      resolved_promise.then(flush);
+    }
+  }
+  function add_render_callback(fn) {
+    render_callbacks.push(fn);
+  }
+  var flushing = false;
+  var seen_callbacks = new Set();
+  function flush() {
+    if (flushing)
+      return;
+    flushing = true;
+    do {
+      for (let i = 0; i < dirty_components.length; i += 1) {
+        const component = dirty_components[i];
+        set_current_component(component);
+        update(component.$$);
+      }
+      set_current_component(null);
+      dirty_components.length = 0;
+      while (binding_callbacks.length)
+        binding_callbacks.pop()();
+      for (let i = 0; i < render_callbacks.length; i += 1) {
+        const callback = render_callbacks[i];
+        if (!seen_callbacks.has(callback)) {
+          seen_callbacks.add(callback);
+          callback();
+        }
+      }
+      render_callbacks.length = 0;
+    } while (dirty_components.length);
+    while (flush_callbacks.length) {
+      flush_callbacks.pop()();
+    }
+    update_scheduled = false;
+    flushing = false;
+    seen_callbacks.clear();
+  }
+  function update($$) {
+    if ($$.fragment !== null) {
+      $$.update();
+      run_all($$.before_update);
+      const dirty = $$.dirty;
+      $$.dirty = [-1];
+      $$.fragment && $$.fragment.p($$.ctx, dirty);
+      $$.after_update.forEach(add_render_callback);
+    }
+  }
+  var outroing = new Set();
+  var outros;
+  function transition_in(block, local) {
+    if (block && block.i) {
+      outroing.delete(block);
+      block.i(local);
+    }
+  }
+  function transition_out(block, local, detach2, callback) {
+    if (block && block.o) {
+      if (outroing.has(block))
+        return;
+      outroing.add(block);
+      outros.c.push(() => {
+        outroing.delete(block);
+        if (callback) {
+          if (detach2)
+            block.d(1);
+          callback();
+        }
+      });
+      block.o(local);
+    }
+  }
+  var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : global;
+  var boolean_attributes = new Set([
+    "allowfullscreen",
+    "allowpaymentrequest",
+    "async",
+    "autofocus",
+    "autoplay",
+    "checked",
+    "controls",
+    "default",
+    "defer",
+    "disabled",
+    "formnovalidate",
+    "hidden",
+    "ismap",
+    "loop",
+    "multiple",
+    "muted",
+    "nomodule",
+    "novalidate",
+    "open",
+    "playsinline",
+    "readonly",
+    "required",
+    "reversed",
+    "selected"
+  ]);
+  function create_component(block) {
+    block && block.c();
+  }
+  function mount_component(component, target, anchor, customElement) {
+    const { fragment, on_mount, on_destroy, after_update } = component.$$;
+    fragment && fragment.m(target, anchor);
+    if (!customElement) {
+      add_render_callback(() => {
+        const new_on_destroy = on_mount.map(run).filter(is_function);
+        if (on_destroy) {
+          on_destroy.push(...new_on_destroy);
+        } else {
+          run_all(new_on_destroy);
+        }
+        component.$$.on_mount = [];
+      });
+    }
+    after_update.forEach(add_render_callback);
+  }
+  function destroy_component(component, detaching) {
+    const $$ = component.$$;
+    if ($$.fragment !== null) {
+      run_all($$.on_destroy);
+      $$.fragment && $$.fragment.d(detaching);
+      $$.on_destroy = $$.fragment = null;
+      $$.ctx = [];
+    }
+  }
+  function make_dirty(component, i) {
+    if (component.$$.dirty[0] === -1) {
+      dirty_components.push(component);
+      schedule_update();
+      component.$$.dirty.fill(0);
+    }
+    component.$$.dirty[i / 31 | 0] |= 1 << i % 31;
+  }
+  function init(component, options, instance3, create_fragment3, not_equal, props, append_styles2, dirty = [-1]) {
+    const parent_component = current_component;
+    set_current_component(component);
+    const $$ = component.$$ = {
+      fragment: null,
+      ctx: null,
+      props,
+      update: noop,
+      not_equal,
+      bound: blank_object(),
+      on_mount: [],
+      on_destroy: [],
+      on_disconnect: [],
+      before_update: [],
+      after_update: [],
+      context: new Map(options.context || (parent_component ? parent_component.$$.context : [])),
+      callbacks: blank_object(),
+      dirty,
+      skip_bound: false,
+      root: options.target || parent_component.$$.root
+    };
+    append_styles2 && append_styles2($$.root);
+    let ready = false;
+    $$.ctx = instance3 ? instance3(component, options.props || {}, (i, ret, ...rest) => {
+      const value = rest.length ? rest[0] : ret;
+      if ($$.ctx && not_equal($$.ctx[i], $$.ctx[i] = value)) {
+        if (!$$.skip_bound && $$.bound[i])
+          $$.bound[i](value);
+        if (ready)
+          make_dirty(component, i);
+      }
+      return ret;
+    }) : [];
+    $$.update();
+    ready = true;
+    run_all($$.before_update);
+    $$.fragment = create_fragment3 ? create_fragment3($$.ctx) : false;
+    if (options.target) {
+      if (options.hydrate) {
+        start_hydrating();
+        const nodes = children(options.target);
+        $$.fragment && $$.fragment.l(nodes);
+        nodes.forEach(detach);
+      } else {
+        $$.fragment && $$.fragment.c();
+      }
+      if (options.intro)
+        transition_in(component.$$.fragment);
+      mount_component(component, options.target, options.anchor, options.customElement);
+      end_hydrating();
+      flush();
+    }
+    set_current_component(parent_component);
+  }
+  var SvelteElement;
+  if (typeof HTMLElement === "function") {
+    SvelteElement = class extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+      }
+      connectedCallback() {
+        const { on_mount } = this.$$;
+        this.$$.on_disconnect = on_mount.map(run).filter(is_function);
+        for (const key in this.$$.slotted) {
+          this.appendChild(this.$$.slotted[key]);
+        }
+      }
+      attributeChangedCallback(attr2, _oldValue, newValue) {
+        this[attr2] = newValue;
+      }
+      disconnectedCallback() {
+        run_all(this.$$.on_disconnect);
+      }
+      $destroy() {
+        destroy_component(this, 1);
+        this.$destroy = noop;
+      }
+      $on(type, callback) {
+        const callbacks = this.$$.callbacks[type] || (this.$$.callbacks[type] = []);
+        callbacks.push(callback);
+        return () => {
+          const index = callbacks.indexOf(callback);
+          if (index !== -1)
+            callbacks.splice(index, 1);
+        };
+      }
+      $set($$props) {
+        if (this.$$set && !is_empty($$props)) {
+          this.$$.skip_bound = true;
+          this.$$set($$props);
+          this.$$.skip_bound = false;
+        }
+      }
+    };
+  }
+  var SvelteComponent = class {
+    $destroy() {
+      destroy_component(this, 1);
+      this.$destroy = noop;
+    }
+    $on(type, callback) {
+      const callbacks = this.$$.callbacks[type] || (this.$$.callbacks[type] = []);
+      callbacks.push(callback);
+      return () => {
+        const index = callbacks.indexOf(callback);
+        if (index !== -1)
+          callbacks.splice(index, 1);
+      };
+    }
+    $set($$props) {
+      if (this.$$set && !is_empty($$props)) {
+        this.$$.skip_bound = true;
+        this.$$set($$props);
+        this.$$.skip_bound = false;
+      }
+    }
+  };
+
+  // src/components/HelloWorld.svelte
+  function create_fragment(ctx) {
+    let h1;
+    let t0;
+    let t1;
+    let button;
+    let t2;
+    let t3;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        h1 = element("h1");
+        t0 = text(ctx[0]);
+        t1 = space();
+        button = element("button");
+        t2 = text("Count: ");
+        t3 = text(ctx[1]);
+        attr(button, "class", "btn btn-primary");
+      },
+      m(target, anchor) {
+        insert(target, h1, anchor);
+        append(h1, t0);
+        insert(target, t1, anchor);
+        insert(target, button, anchor);
+        append(button, t2);
+        append(button, t3);
+        if (!mounted) {
+          dispose = listen(button, "click", ctx[2]);
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & 1)
+          set_data(t0, ctx2[0]);
+        if (dirty & 2)
+          set_data(t3, ctx2[1]);
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching)
+          detach(h1);
+        if (detaching)
+          detach(t1);
+        if (detaching)
+          detach(button);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance($$self, $$props, $$invalidate) {
+    let { msg } = $$props;
+    let count = 0;
+    const increase = () => {
+      $$invalidate(1, count++, count);
+    };
+    $$self.$$set = ($$props2) => {
+      if ("msg" in $$props2)
+        $$invalidate(0, msg = $$props2.msg);
+    };
+    return [msg, count, increase];
+  }
+  var HelloWorld = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance, create_fragment, safe_not_equal, { msg: 0 });
+    }
+  };
+  var HelloWorld_default = HelloWorld;
+
+  // src/App.svelte
+  function add_css(target) {
+    append_styles(target, "svelte-4qp2vx", ".logo.svelte-4qp2vx{max-width:100px}");
+  }
+  function create_fragment2(ctx) {
+    let div2;
+    let div1;
+    let div0;
+    let img;
+    let img_src_value;
+    let t0;
+    let helloworld;
+    let t1;
+    let p0;
+    let t2;
+    let t3;
+    let t4;
+    let p1;
+    let t5;
+    let t6;
+    let t7;
+    let button;
+    let current;
+    let mounted;
+    let dispose;
+    helloworld = new HelloWorld_default({
+      props: {
+        msg: "Svelte + Esbuild + Bootstrap 5 + Livereload"
+      }
+    });
+    return {
+      c() {
+        div2 = element("div");
+        div1 = element("div");
+        div0 = element("div");
+        img = element("img");
+        t0 = space();
+        create_component(helloworld.$$.fragment);
+        t1 = space();
+        p0 = element("p");
+        t2 = text("Answer is: ");
+        t3 = text(ctx[0]);
+        t4 = space();
+        p1 = element("p");
+        t5 = text("Message: ");
+        t6 = text(ctx[1]);
+        t7 = space();
+        button = element("button");
+        button.textContent = "Change Message";
+        if (!src_url_equal(img.src, img_src_value = "assets/img/svelte-logo.png"))
+          attr(img, "src", img_src_value);
+        attr(img, "alt", "");
+        attr(img, "class", "logo svelte-4qp2vx");
+        attr(p0, "class", "mt-2");
+        attr(p1, "class", "mt-2");
+        attr(button, "class", "btn btn-danger");
+        attr(div0, "class", "col text-center");
+        attr(div1, "class", "row");
+        attr(div2, "class", "container mt-5");
+      },
+      m(target, anchor) {
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, div0);
+        append(div0, img);
+        append(div0, t0);
+        mount_component(helloworld, div0, null);
+        append(div0, t1);
+        append(div0, p0);
+        append(p0, t2);
+        append(p0, t3);
+        append(div0, t4);
+        append(div0, p1);
+        append(p1, t5);
+        append(p1, t6);
+        append(div0, t7);
+        append(div0, button);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", ctx[2]);
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & 1)
+          set_data(t3, ctx2[0]);
+        if (!current || dirty & 2)
+          set_data(t6, ctx2[1]);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(helloworld.$$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(helloworld.$$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching)
+          detach(div2);
+        destroy_component(helloworld);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance2($$self, $$props, $$invalidate) {
+    let { answer } = $$props;
+    let message = "test message";
+    const changeMessage = () => {
+      $$invalidate(1, message = "message changed");
+    };
+    $$self.$$set = ($$props2) => {
+      if ("answer" in $$props2)
+        $$invalidate(0, answer = $$props2.answer);
+    };
+    return [answer, message, changeMessage];
+  }
+  var App = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance2, create_fragment2, safe_not_equal, { answer: 0 }, add_css);
+    }
+  };
+  var App_default = App;
+
+  // src/main.ts
+  var import_bootstrap_bundle_min = __toModule(require_bootstrap_bundle_min());
+  new App_default({
+    target: document.getElementById("app"),
+    props: {
+      answer: 42
+    }
+  });
+})();
 /*!
-  * Bootstrap v5.1.1 (https://getbootstrap.com/)
+  * Bootstrap v5.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */

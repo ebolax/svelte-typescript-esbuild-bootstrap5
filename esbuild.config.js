@@ -13,8 +13,10 @@ esbuild.build({
     watch,
     minify,
     outfile: "dist/index.js",
-    plugins: [esbuildSvelte( {
-        compileOptions: { css: true },
-        preprocess: sveltePreprocess()
-    })]
+    plugins: [
+        esbuildSvelte({
+            compileOptions: { css: true },
+            preprocess: sveltePreprocess()
+        })
+    ]
 });

@@ -3,11 +3,10 @@
 
     let count = 0;
 
-    const increase = () =>
-    {
+    const increase = () => {
         count++;
     };
 </script>
 
-<h1>{ msg }</h1>
+<h1>{msg}</h1>
 <button class="btn btn-primary" on:click={increase}>Count: {count}</button>
